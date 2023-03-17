@@ -1,0 +1,9 @@
+*.sln eol=crlf
+*.csproj eol=crlf
+*.prefab eol=lf
+*.asset eol=lf
+*.spriteatlas eol=lf
+*.meta eol=lf
+*.mat eol=lf
+*.json eol=lf
+*.cs eol=crlf

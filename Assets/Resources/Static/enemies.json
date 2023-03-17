@@ -1,0 +1,26 @@
+{
+  "1": {
+    "id": 1,
+    "#id": "asteroid_big",
+    "speed": 3,
+    "score": 100,
+    "respawn": 5,
+    "start": 3
+  },
+  "2": {
+    "id": 2,
+    "#id": "asteroid_small",
+    "speed": 2,
+    "score": 200,
+    "respawn": 0,
+    "start": 0
+  },
+  "3": {
+    "id": 3,
+    "#id": "ufo",
+    "speed": 2,
+    "score": 300,
+    "respawn": 5,
+    "start": 1
+  }
+}

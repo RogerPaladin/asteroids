@@ -1,0 +1,6 @@
+{
+  "speed": 10,
+  "rotation": 5,
+  "accel": 5,
+  "deaccel": 1,
+}

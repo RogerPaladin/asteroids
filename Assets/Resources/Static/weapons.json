@@ -1,0 +1,24 @@
+{
+  "1": {
+    "id": 1,
+    "#id": "bullet",
+    "projectile_speed": 5,
+    "projectile_life_time": 2,
+    "projectile_destroy_on_collision": true,
+    "ammo_start_count": -1,
+    "ammo_max_count": -1,
+    "ammo_refresh": 0
+  },
+  "2": {
+    "id": 2,
+    "#id": "laser",
+    "projectile_speed": 15,
+    "projectile_life_time": 4,
+    "projectile_destroy_on_collision": false,
+    "projectile_grow_time": 0.5,
+    "projectile_grow_speed": 15,
+    "ammo_start_count": 3,
+    "ammo_max_count": 3,
+    "ammo_refresh": 5
+  }
+}
