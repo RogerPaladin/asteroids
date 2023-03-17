@@ -39,6 +39,8 @@ namespace Assets.Scripts.GamePlay.Level
 
 		public void Start()
 		{
+			SetScore(0);
+
 			AddListeners();
 			
 			_playerShipController.OnLevelStart();
@@ -63,9 +65,16 @@ namespace Assets.Scripts.GamePlay.Level
 		
 		private void OnEnemyDestroy(AbstractEnemyController enemy)
 		{
-			Score += enemy.Model.Score;
-			_scoreController.OnChangeScore(Score);
+			SetScore(Score + enemy.Model.Score);
+			
 			_effectsSpawner.OnEnemyDestroy(enemy.Model);
+		}
+
+		private void SetScore(int score)
+		{
+			Score = score;
+			
+			_scoreController.OnChangeScore(Score);
 		}
 		
 		private void OnPlayerShipDestroy()
