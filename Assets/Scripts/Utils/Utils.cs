@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
 	public static class Utils
 	{
@@ -34,13 +34,13 @@ namespace Assets.Scripts.Utils
 			return default;
 		}
 		
-		public static List<T> GetAllPublicStaticFieldsValues<T>(this Type type)
+		public static HashSet<T> GetAllPublicStaticFieldsValues<T>(this Type type)
 		{
 			return type
 				  .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
 				  .Where(fi => fi.IsLiteral && !fi.IsInitOnly && fi.FieldType == typeof(T))
 				  .Select(x => (T)x.GetRawConstantValue())
-				  .ToList();
+				  .ToHashSet();
 		}
 
 		public static Vector2 GetRandomPosition(Camera camera, Vector2 exceptPosition, float minDistance = 5)

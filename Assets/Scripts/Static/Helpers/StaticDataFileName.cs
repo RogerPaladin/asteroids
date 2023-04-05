@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
+using Utils;
 
-namespace Assets.Scripts.Static.Helpers
+namespace Static.Helpers
 {
 	public static class StaticDataFileName
 	{
@@ -10,7 +10,7 @@ namespace Assets.Scripts.Static.Helpers
 		public const string WEAPONS = "weapons";
 		public const string EFFECTS = "effects";
 		
-		public static List<string> ALL
+		public static HashSet<string> ALL
 		{
 			get
 			{

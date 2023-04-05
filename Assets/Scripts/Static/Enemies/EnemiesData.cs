@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Static.Helpers;
 using Newtonsoft.Json.Linq;
+using Static.Helpers;
 
-namespace Assets.Scripts.Static.Enemies
+namespace Static.Enemies
 {
 	public class EnemiesData: StaticCollection<EnemyConfig>
 	{

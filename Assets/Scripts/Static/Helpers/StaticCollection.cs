@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Static.Helpers
+namespace Static.Helpers
 {
     public class StaticCollection<T>
     {

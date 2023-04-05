@@ -1,7 +1,7 @@
-using Assets.Scripts.Static.Helpers;
 using Newtonsoft.Json;
+using Static.Helpers;
 
-namespace Assets.Scripts.Static.Enemies
+namespace Static.Enemies
 {
 	public class EnemyConfig: StaticCollectionItemCode
 	{

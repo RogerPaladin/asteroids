@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a753f14688e48ef9059996b9f03ddc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 3128603140016338124}
-  ProjectileSpawnPoint: {fileID: 8270237305826214687}
+  _collider: {fileID: 3128603140016338124}
+  _projectileSpawnPoint: {fileID: 8270237305826214687}
 --- !u!60 &3128603140016338124
 PolygonCollider2D:
   m_ObjectHideFlags: 0

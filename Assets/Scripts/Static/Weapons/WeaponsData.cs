@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Static.Helpers;
 using Newtonsoft.Json.Linq;
+using Static.Helpers;
 
-namespace Assets.Scripts.Static.Weapons
+namespace Static.Weapons
 {
 	public class WeaponsData: StaticCollection<WeaponConfig>
 	{

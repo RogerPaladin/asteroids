@@ -1,0 +1,19 @@
+{
+    "name": "Views",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e50ea0f452cf4cf48b9fd30639f1e7a5",
+      "Unity.TextMeshPro",
+      "GUID:85853d376d432d742bff05e2d0a229d6",
+      "GUID:5d9cc45629e8ef44088a5958cd431d68"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

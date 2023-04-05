@@ -1,13 +1,14 @@
 using System;
-using Assets.Scripts.Static.Effects;
-using Assets.Scripts.Static.Enemies;
-using Assets.Scripts.Static.Helpers;
-using Assets.Scripts.Static.Player;
-using Assets.Scripts.Static.Weapons;
+using Static.Effects;
+using Static.Enemies;
+using Static.Helpers;
+using Static.Player;
+using Static.Weapons;
+using Utils.DiContainers;
 
-namespace Assets.Scripts.Static
+namespace Static
 {
-	public class StaticData
+	public class StaticData : IDiContainerChild
 	{
 		public PlayerConfig PlayerConfig { get; private set; }
 		public EnemiesData EnemiesData { get; private set; }

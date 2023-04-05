@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Static.Effects;
-using Assets.Scripts.Static.Enemies;
-using Assets.Scripts.Static.Helpers;
-using Assets.Scripts.Static.Player;
-using Assets.Scripts.Static.Weapons;
+using Static.Effects;
+using Static.Enemies;
+using Static.Helpers;
+using Static.Player;
+using Static.Weapons;
+using UnityEngine.Diagnostics;
 
-namespace Assets.Scripts.Static
+namespace Static
 {
 	public class StaticDataParser
 	{
-		private readonly List<string> _files;
+		private readonly HashSet<string> _files;
 
-		public StaticDataParser(List<string> files)
+		public StaticDataParser(HashSet<string> files)
 		{
 			_files = files;
 		}
@@ -23,12 +24,12 @@ namespace Assets.Scripts.Static
 
 			var totalFilesCount = _files.Count;
 
-			for (int i = 0; i < _files.Count; i++)
+			var index = 0;
+			foreach (var file in _files)
 			{
-				var index = i;
-				var nextFile = _files[index];
-				LoadNextFile(nextFile);
+				LoadNextFile(file);
 				CheckTime(index, totalFilesCount);
+				index++;
 			}
 
 			return data;

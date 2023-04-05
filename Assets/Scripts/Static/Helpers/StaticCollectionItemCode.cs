@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Assets.Scripts.Static.Helpers
+namespace Static.Helpers
 {
     public class StaticCollectionItemCode : StaticCollectionItem
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Utils.MovementObserver
+namespace Utils.MovementObserver
 {
 	public abstract class ViewMovementObserver: MonoBehaviour, IMovementObserver
 	{

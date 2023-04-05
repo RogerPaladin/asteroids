@@ -1,61 +1,27 @@
-using System.Collections.Generic;
 using UnityEngine;
+using Utils.Reactivity;
 
-namespace Assets.Scripts.Utils.MovementObserver
+namespace Utils.MovementObserver
 {
-	public abstract class ModelMovementObservable: IModelMovementObservable
+	public abstract class ModelMovementObservable
 	{
-		public Vector2 Position { get; private set; }
-		public Quaternion Rotation { get; private set; } = Quaternion.identity;
-		public Vector2 Velocity { get; private set; }
-
-		private List<IMovementObserver> _observers = new List<IMovementObserver>();
-
-		public void RegisterObserver(IMovementObserver o)
-		{
-			_observers.Add(o);
-			
-			o.OnPositionChange(Position);
-			o.OnRotationChange(Rotation);
-			o.OnVelocityChange(Velocity);
-		}
-		
-		public void RemoveObserver(IMovementObserver o) { _observers.Remove(o); }
+		public Observable<Vector2> Position { get; private set; } = new Observable<Vector2>(Vector2.zero);
+		public Observable<Quaternion> Rotation { get; private set; } = new Observable<Quaternion>(Quaternion.identity);
+		public Observable<Vector2> Velocity { get; private set; } = new Observable<Vector2>(Vector2.zero);
 
 		public void SetPosition(Vector2 pos)
 		{
-			Position = pos;
-			NotifyUpdatePosition();
+			Position.Value = pos;
 		}
 		
 		public void SetRotation(Quaternion rotation)
 		{
-			Rotation = rotation;
-			NotifyUpdateRotation();
+			Rotation.Value = rotation;
 		}
 
 		public void SetVelocity(Vector2 velocity)
 		{
-			Velocity = velocity;
-			NotifyUpdateVelocity();
-		}
-		
-		public void NotifyUpdatePosition() 
-		{         
-			foreach(IMovementObserver o in _observers)
-				o.OnPositionChange(Position);
-		}
-
-		public void NotifyUpdateRotation()
-		{
-			foreach(IMovementObserver o in _observers)
-				o.OnRotationChange(Rotation);
-		}
-
-		public void NotifyUpdateVelocity()
-		{
-			foreach(IMovementObserver o in _observers)
-				o.OnVelocityChange(Velocity);
+			Velocity.Value = velocity;
 		}
 	}
 }

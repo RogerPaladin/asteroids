@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Assets.Scripts.Static.Effects;
-using Assets.Scripts.Static.Enemies;
-using Assets.Scripts.Static.Player;
-using Assets.Scripts.Static.Weapons;
 using Newtonsoft.Json;
+using Static.Effects;
+using Static.Enemies;
+using Static.Player;
+using Static.Weapons;
 
-namespace Assets.Scripts.Static.Helpers
+namespace Static.Helpers
 {
 	public class StaticDataFiles
 	{

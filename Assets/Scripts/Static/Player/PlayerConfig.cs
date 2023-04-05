@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Assets.Scripts.Static.Player
+namespace Static.Player
 {
 	public class PlayerConfig
 	{

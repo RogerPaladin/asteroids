@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Pool;
 using UnityEngine;
 
-namespace Assets.Scripts.Utils.Spawner
+namespace Utils.Spawner
 {
 	public abstract class AbstractSpawner<T, C>: IDisposable where T : IActivateDeactivate
 	{

@@ -1,8 +1,7 @@
-using Assets.Scripts.Static.Helpers;
 using Newtonsoft.Json;
-using UnityEngine;
+using Static.Helpers;
 
-namespace Assets.Scripts.Static.Weapons
+namespace Static.Weapons
 {
 	public class WeaponConfig: StaticCollectionItemCode
 	{

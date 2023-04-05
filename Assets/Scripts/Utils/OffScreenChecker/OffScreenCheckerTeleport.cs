@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Utils.OffScreenChecker
+namespace Utils.OffScreenChecker
 {
 	public class OffScreenCheckerTeleport
 	{
