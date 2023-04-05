@@ -62,8 +62,6 @@ namespace Model.Player
 
 		public void Activate()
 		{
-			Parent.Notify();
-			
 			SetPosition(Vector2.zero);
 			SetRotation(Quaternion.identity);
 			SetVelocity(Vector2.zero);

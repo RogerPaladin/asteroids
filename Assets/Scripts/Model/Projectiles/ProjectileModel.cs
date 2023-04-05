@@ -47,13 +47,7 @@ namespace Model.Projectiles
 		public virtual void Activate()
 		{
 			LifeTime = Config.ProjectileLifeTime;
-			
-			Parent.Notify();
-			
-			Position.Notify();
-			Rotation.Notify();
-			Velocity.Notify();
-			
+
 			IsActive.Value = true;
 		}
 		

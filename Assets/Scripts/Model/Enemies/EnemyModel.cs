@@ -44,12 +44,6 @@ namespace Model.Enemies
 
 		public void Activate()
 		{
-			Parent.Notify();
-			
-			Position.Notify();
-			Rotation.Notify();
-			Velocity.Notify();
-
 			IsActive.Value = true;
 		}
 		

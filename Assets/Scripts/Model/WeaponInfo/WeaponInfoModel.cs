@@ -28,10 +28,6 @@ namespace Model.WeaponInfo
 		public void Activate()
 		{
 			_model.CurrentRefreshTimeLeft.Changed += OnCurrentRefreshTimeLeftChanged;
-			
-			AmmoCount.Notify();
-			CurrentRefreshTimeLeft.Notify();
-			NeedShowHideTimerPanel.Notify();
 		}
 
 		public void Deactivate()

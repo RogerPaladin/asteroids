@@ -14,6 +14,16 @@ namespace Views.GamePlay.Player
 		
 		private PlayerShipModel Model => base.Model as PlayerShipModel;
 
+		protected override void SyncModel()
+		{
+			OnPositionChange(Model.Position.Value);
+			OnRotationChange(Model.Rotation.Value);
+			OnVelocityChange(Model.Velocity.Value);
+			
+			OnChangeParent(Model.Parent.Value);
+			OnActiveChange(Model.IsActive.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.Position.Changed += OnPositionChange;
@@ -33,7 +43,7 @@ namespace Views.GamePlay.Player
 			Model.Parent.Changed -= OnChangeParent;
 			Model.IsActive.Changed -= OnActiveChange;
 		}
-		
+
 		public void OnChangeParent(Transform parent)
 		{
 			transform.SetParent(parent);
@@ -41,7 +51,12 @@ namespace Views.GamePlay.Player
 
 		public void Activate()
 		{
+			if (gameObject.activeSelf)
+				return;
+			
 			gameObject.SetActive(true);
+			
+			SyncModel();
 		}
 
 		public void Deactivate()

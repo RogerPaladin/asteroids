@@ -6,7 +6,7 @@ using Utils;
 
 namespace Views.Hud.PlayerInfo
 {
-	public class PlayerInfoView: AbstractView, IPlayerInfoView, IActivateDeactivate
+	public class PlayerInfoView: AbstractView, IPlayerInfoView
 	{
 		[SerializeField] private TextMeshProUGUI _coords;
 		[SerializeField] private TextMeshProUGUI _angle;
@@ -14,6 +14,13 @@ namespace Views.Hud.PlayerInfo
 
 		public PlayerInfoModel Model => base.Model as PlayerInfoModel;
 
+		protected override void SyncModel()
+		{
+			SetCoords(Model.PositionString.Value);
+			SetAngle(Model.RotationString.Value);
+			SetSpeed(Model.VelocityString.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.PositionString.Changed += SetCoords;
@@ -41,16 +48,6 @@ namespace Views.Hud.PlayerInfo
 		public void SetSpeed(string val)
 		{
 			_speed.text = val;
-		}
-
-		public void Activate()
-		{
-			gameObject.SetActive(true);
-		}
-
-		public void Deactivate()
-		{
-			gameObject.SetActive(false);
 		}
 	}
 }

@@ -13,6 +13,16 @@ namespace Views.GamePlay.Enemies
 
 		public event Action OnCollisionEvent;
 
+		protected override void SyncModel()
+		{
+			OnPositionChange(Model.Position.Value);
+			OnRotationChange(Model.Rotation.Value);
+			OnVelocityChange(Model.Velocity.Value);
+			
+			OnChangeParent(Model.Parent.Value);
+			OnActiveChange(Model.IsActive.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.Position.Changed += OnPositionChange;
@@ -45,7 +55,12 @@ namespace Views.GamePlay.Enemies
 		
 		public void Activate()
 		{
+			if (gameObject.activeSelf)
+				return;
+			
 			gameObject.SetActive(true);
+			
+			SyncModel();
 		}
 
 		public void Deactivate()

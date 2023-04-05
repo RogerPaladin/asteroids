@@ -13,6 +13,13 @@ namespace Views.Windows.Preloader
 
 		private PreloaderWindowModel Model => base.Model as PreloaderWindowModel;
 		
+		protected override void SyncModel()
+		{
+			SetProgress(Model.Progress.Value);
+			OnNeedShowProgressBarChange(Model.NeedShowProgressBar.Value);
+			OnNeedShowAnyKeyTextChange(Model.NeedShowAnyKeyText.Value);
+		}
+		
 		public void SetProgress(int val)
 		{
 			if (_progressText)

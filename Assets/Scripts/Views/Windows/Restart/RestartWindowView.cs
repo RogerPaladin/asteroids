@@ -13,6 +13,12 @@ namespace Views.Windows.Restart
 
 		private RestartWindowModel Model => base.Model as RestartWindowModel;
 		
+		protected override void SyncModel()
+		{
+			SetScore(Model.Score.Value);
+			SetRestartBtnCallBack(Model.OnRestartBtnCallback.Value);
+		}
+		
 		public void SetScore(int score)
 		{
 			_scoreText.text = score.ToString();
@@ -20,6 +26,7 @@ namespace Views.Windows.Restart
 
 		public void SetRestartBtnCallBack(Action onRestartBtnClick)
 		{
+			_restartBtn.onClick.RemoveAllListeners();
 			_restartBtn.onClick.AddListener(() => onRestartBtnClick?.Invoke());
 		}
 

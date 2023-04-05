@@ -12,6 +12,16 @@ namespace Views.GamePlay.Projectiles
 
 		public ProjectileModel Model => base.Model as ProjectileModel;
 
+		protected override void SyncModel()
+		{
+			OnPositionChange(Model.Position.Value);
+			OnRotationChange(Model.Rotation.Value);
+			OnVelocityChange(Model.Velocity.Value);
+			
+			OnChangeParent(Model.Parent.Value);
+			OnActiveChange(Model.IsActive.Value);
+		}
+
 		protected override void AddChildListeners()
 		{
 			Model.Position.Changed += OnPositionChange;
@@ -39,7 +49,12 @@ namespace Views.GamePlay.Projectiles
 		
 		public virtual void Activate()
 		{
+			if (gameObject.activeSelf)
+				return;
+			
 			gameObject.SetActive(true);
+			
+			SyncModel();
 		}
 
 		public virtual void Deactivate()

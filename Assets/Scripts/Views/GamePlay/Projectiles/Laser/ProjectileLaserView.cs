@@ -17,7 +17,14 @@ namespace Views.GamePlay.Projectiles.Laser
 		{
 			_defaultSize = _sprite.size;
 		}
+		
+		protected override void SyncModel()
+		{
+			base.SyncModel();
 
+			OnGrowChange(Model.GrowSize.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			base.AddChildListeners();

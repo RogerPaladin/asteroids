@@ -11,6 +11,12 @@ namespace Views.GamePlay.Effects.Score
 		
 		private EffectScoreModel Model => base.Model as EffectScoreModel;
 
+		protected override void SyncModel()
+		{
+			base.SyncModel();
+			OnScoreChange(Model.Score.Value);
+		}
+
 		protected override void AddChildListeners()
 		{
 			base.AddChildListeners();

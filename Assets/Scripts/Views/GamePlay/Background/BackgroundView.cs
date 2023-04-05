@@ -9,6 +9,12 @@ namespace Views.GamePlay.Background
 		
 		private BackgroundModel Model => base.Model as BackgroundModel;
 
+		protected override void SyncModel()
+		{
+			OnSizeChange(Model.BackgroundSize.Value);
+			OnChangeParent(Model.Parent.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.BackgroundSize.Changed += OnSizeChange;

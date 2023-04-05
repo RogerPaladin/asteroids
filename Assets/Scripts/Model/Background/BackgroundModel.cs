@@ -41,8 +41,7 @@ namespace Model.Background
 
 		public void Activate()
 		{
-			Parent.Notify();
-			BackgroundSize.Notify();
+
 		}
 
 		public void Deactivate()

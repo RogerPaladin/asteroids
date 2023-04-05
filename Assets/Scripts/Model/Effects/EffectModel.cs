@@ -34,8 +34,6 @@ namespace Model.Effects
 		
 		public virtual void Activate()
 		{
-			Parent.Notify();
-			
 			LifeTime = Time;
 
 			IsActive.Value = true;

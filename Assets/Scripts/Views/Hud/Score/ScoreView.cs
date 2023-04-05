@@ -10,6 +10,11 @@ namespace Views.Hud.Score
 
 		private ScoreModel Model => base.Model as ScoreModel;
 
+		protected override void SyncModel()
+		{
+			SetScoreCount(Model.Score.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.Score.Changed += SetScoreCount;

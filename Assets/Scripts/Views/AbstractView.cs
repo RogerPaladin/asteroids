@@ -14,6 +14,8 @@ namespace Views
 			Model = model;
 		
 			AddListeners();
+
+			OnBindComplete();
 		}
 
 		protected virtual void AddListeners()
@@ -39,7 +41,14 @@ namespace Views
 			Model = null;
 		}
 		
+		protected virtual void OnBindComplete()
+		{
+			SyncModel();
+		}
+		
 		protected abstract void AddChildListeners();
 		protected abstract void RemoveChildListeners();
+		
+		protected abstract void SyncModel();
 	}
 }

@@ -12,6 +12,13 @@ namespace Views.Hud.WeaponInfo
 
 		protected WeaponInfoModel Model => base.Model as WeaponInfoModel;
 
+		protected override void SyncModel()
+		{
+			SetAmmoCount(Model.AmmoCount.Value);
+			SetRefreshTimer(Model.CurrentRefreshTimeLeft.Value);
+			OnNeedShowHideTimerPanelChange(Model.NeedShowHideTimerPanel.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.AmmoCount.Changed += SetAmmoCount;

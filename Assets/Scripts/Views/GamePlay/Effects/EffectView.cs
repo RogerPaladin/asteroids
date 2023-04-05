@@ -8,6 +8,16 @@ namespace Views.GamePlay.Effects
 	{
 		public EffectModel Model => base.Model as EffectModel;
 
+		protected override void SyncModel()
+		{
+			OnPositionChange(Model.Position.Value);
+			OnRotationChange(Model.Rotation.Value);
+			OnVelocityChange(Model.Velocity.Value);
+			
+			OnChangeParent(Model.Parent.Value);
+			OnActiveChange(Model.IsActive.Value);
+		}
+		
 		protected override void AddChildListeners()
 		{
 			Model.Position.Changed += OnPositionChange;
@@ -35,7 +45,12 @@ namespace Views.GamePlay.Effects
 		
 		public void Activate()
 		{
+			if (gameObject.activeSelf)
+				return;
+				
 			gameObject.SetActive(true);
+			
+			SyncModel();
 		}
 
 		public void Deactivate()
