@@ -1,10 +1,7 @@
 using Static.Weapons;
-using UnityEngine;
 using Utils;
 using Utils.Collisions;
-using Utils.Events;
 using Utils.MovementObserver;
-using Utils.OffScreenChecker;
 using Utils.Reactivity;
 
 namespace Model.Projectiles
