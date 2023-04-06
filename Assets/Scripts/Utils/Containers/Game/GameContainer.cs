@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Utils.Containers.Game
 {
-	public class GameContainer: MonoBehaviour, IDiContainerChild
+	public class GameContainer: MonoBehaviour
 	{
 		
 	}

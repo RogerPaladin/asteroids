@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Utils.DiContainers.Effects
 {
-	public class EffectsContainer: MonoBehaviour, IDiContainerChild
+	public class EffectsContainer: MonoBehaviour
 	{
 		
 	}

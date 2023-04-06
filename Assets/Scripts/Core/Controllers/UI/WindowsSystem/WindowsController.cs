@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Controllers.UI.WindowsSystem
 {
-	public class WindowsController : IDiContainerChild
+	public class WindowsController
 	{
 		private readonly WindowsContainer _windowsContainer;
 		

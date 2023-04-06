@@ -11,18 +11,15 @@ using UnityEngine;
 
 namespace Factories.Projectiles
 {
-	public class ProjectilesFactory : IDiContainerChild
+	public class ProjectilesFactory
 	{
-		private readonly DiContainer _diContainer;
 		private readonly UpdateSystem _updateSystem;
 		private readonly Camera _camera;
 
-		public ProjectilesFactory(DiContainer diContainer)
+		public ProjectilesFactory(UpdateSystem updateSystem, Camera camera)
 		{
-			_diContainer = diContainer;
-
-			_updateSystem = _diContainer.Resolve<UpdateSystem>();
-			_camera = _diContainer.Resolve<DiCameraProxy>().Camera;
+			_updateSystem = updateSystem;
+			_camera = camera;
 		}
 
 		public AbstractProjectileController Create(WeaponConfig config)

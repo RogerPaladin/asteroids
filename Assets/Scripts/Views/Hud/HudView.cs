@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Views.Hud
 {
-	public class HudView: MonoBehaviour, IDiContainerChild
+	public class HudView: MonoBehaviour
 	{
 		public ScoreView ScoreView;
 		public PlayerInfoView PlayerInfoView;

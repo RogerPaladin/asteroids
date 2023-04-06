@@ -16,7 +16,7 @@ using Views.Hud;
 
 namespace Views
 {
-	public class ViewBinder : IDiContainerChild
+	public class ViewBinder
 	{
 		private readonly BasePrefabs _basePrefabs;
 		private readonly HudView _hudView;

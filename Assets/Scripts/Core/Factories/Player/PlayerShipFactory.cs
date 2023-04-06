@@ -11,24 +11,21 @@ using Utils.Input;
 
 namespace Factories.Player
 {
-	public class PlayerShipFactory : IDiContainerChild
+	public class PlayerShipFactory
 	{
-		private readonly DiContainer _diContainer;
 		private readonly StaticData _staticData;
 		private readonly InputController _inputController;
 		private readonly WeaponsFactory _weaponsFactory;
 		private readonly UpdateSystem _updateSystem;
 		private readonly Camera _camera;
 
-		public PlayerShipFactory(DiContainer diContainer)
+		public PlayerShipFactory(StaticData staticData, InputController inputController, WeaponsFactory weaponsFactory, UpdateSystem updateSystem, Camera camera)
 		{
-			_diContainer = diContainer;
-			
-			_staticData = _diContainer.Resolve<StaticData>();
-			_inputController = _diContainer.Resolve<InputController>();
-			_weaponsFactory = _diContainer.Resolve<WeaponsFactory>();
-			_updateSystem = _diContainer.Resolve<UpdateSystem>();
-			_camera = _diContainer.Resolve<DiCameraProxy>().Camera;
+			_staticData = staticData;
+			_inputController = inputController;
+			_weaponsFactory = weaponsFactory;
+			_updateSystem = updateSystem;
+			_camera = camera;
 		}
 
 		public PlayerShipController Create()

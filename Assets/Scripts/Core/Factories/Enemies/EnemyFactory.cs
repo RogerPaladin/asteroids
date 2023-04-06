@@ -12,19 +12,15 @@ using UnityEngine;
 
 namespace Factories.Enemies
 {
-	public class EnemyFactory : IDiContainerChild
+	public class EnemyFactory
 	{
-		private readonly DiContainer _diContainer;
-		
 		private readonly UpdateSystem _updateSystem;
 		private readonly Camera _camera;
 
-		public EnemyFactory(DiContainer diContainer)
+		public EnemyFactory(UpdateSystem updateSystem, Camera camera)
 		{
-			_diContainer = diContainer;
-
-			_updateSystem = _diContainer.Resolve<UpdateSystem>();
-			_camera = _diContainer.Resolve<DiCameraProxy>().Camera;
+			_updateSystem = updateSystem;
+			_camera = camera;
 		}
 
 		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel)

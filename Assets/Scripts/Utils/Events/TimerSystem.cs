@@ -3,7 +3,7 @@ using Utils.DiContainers;
 
 namespace Utils.Events
 {
-	public class TimerSystem: IDiContainerChild
+	public class TimerSystem
 	{
 		private HashSet<ITimerListener> _listeners = new HashSet<ITimerListener>();
 		

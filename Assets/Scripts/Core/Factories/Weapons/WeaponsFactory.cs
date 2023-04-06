@@ -9,9 +9,8 @@ using Utils.Events;
 
 namespace Factories.Weapons
 {
-	public class WeaponsFactory : IDiContainerChild
+	public class WeaponsFactory
 	{
-		private readonly DiContainer _diContainer;
 		private readonly ProjectilesSpawner _projectilesSpawner;
 		private readonly TimerSystem _timerSystem;
 		

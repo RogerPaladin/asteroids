@@ -4,7 +4,7 @@ using Utils.DiContainers;
 
 namespace Controllers.UI.Hud.PlayerInfo
 {
-	public class PlayerInfoController : IDiContainerChild, IActivateDeactivate
+	public class PlayerInfoController: IActivateDeactivate
 	{
 		public PlayerInfoModel Model { get; private set; }
 

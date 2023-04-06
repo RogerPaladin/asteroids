@@ -1,22 +1,20 @@
 using Controllers.Projectiles;
 using Static.Weapons;
-using Utils.DiContainers;
-using Utils.Spawner;
 using UnityEngine;
 using Utils.Collisions;
-using Utils.Containers.Game;
+using Utils.Spawner;
 using Views;
 using Views.GamePlay.Projectiles;
 
 namespace Factories.Projectiles
 {
-	public class ProjectilesSpawner : AbstractSpawner<AbstractProjectileController, WeaponConfig>, IDiContainerChild
+	public class ProjectilesSpawner : AbstractSpawner<AbstractProjectileController, WeaponConfig>
 	{
 		private readonly ProjectilesFactory _projectilesFactory;
-		private readonly GameContainer _gameContainer;
+		private readonly Transform _gameContainer;
 		private readonly ViewBinder _viewBinder;
 
-		public ProjectilesSpawner(ProjectilesFactory projectilesFactory, GameContainer gameContainer, ViewBinder viewBinder)
+		public ProjectilesSpawner(ProjectilesFactory projectilesFactory, Transform gameContainer, ViewBinder viewBinder)
 		{
 			_projectilesFactory = projectilesFactory;
 			_gameContainer = gameContainer;
@@ -39,7 +37,7 @@ namespace Factories.Projectiles
 			{
 				projectile = _projectilesFactory.Create(weaponConfig);
 				var view = (IProjectileView)_viewBinder.TryBindViewByModel(projectile.Model);
-				projectile.SetParent(_gameContainer.transform);
+				projectile.SetParent(_gameContainer);
 				projectile.SetCollisionChecker(new CollisionChecker(view.Collider));
 				projectile.OnDestroyEvent += OnObjDestroy;
 			}

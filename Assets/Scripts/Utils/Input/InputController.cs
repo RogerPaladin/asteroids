@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Utils.Input
 {
-	public class InputController : IDiContainerChild
+	public class InputController
 	{
 		public float Rotation
 		{

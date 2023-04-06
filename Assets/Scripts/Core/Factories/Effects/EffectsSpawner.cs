@@ -11,7 +11,7 @@ using Views;
 
 namespace Factories.Effects.Score
 {
-	public class EffectsSpawner : AbstractSpawner<AbstractEffectController, EffectConfig>, IDiContainerChild
+	public class EffectsSpawner : AbstractSpawner<AbstractEffectController, EffectConfig>
 	{
 		private readonly StaticData _staticData;
 		private readonly EffectsFactory _effectsFactory;

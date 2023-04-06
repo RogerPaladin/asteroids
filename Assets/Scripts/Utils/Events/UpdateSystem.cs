@@ -3,7 +3,7 @@ using Utils.DiContainers;
 
 namespace Utils.Events
 {
-	public class UpdateSystem : IDiContainerChild
+	public class UpdateSystem
 	{
 		private HashSet<IUpdateListener> _listeners = new HashSet<IUpdateListener>();
 		private HashSet<IUpdateListener> _toAddListeners = new HashSet<IUpdateListener>();

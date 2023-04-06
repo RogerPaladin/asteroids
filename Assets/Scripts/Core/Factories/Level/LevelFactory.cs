@@ -10,7 +10,7 @@ using Views;
 
 namespace Factories.Level
 {
-	public class LevelFactory : IDiContainerChild
+	public class LevelFactory
 	{
 		public LevelController Create(PlayerShipController playerShipController,
 									  EnemiesSpawner enemiesSpawner,

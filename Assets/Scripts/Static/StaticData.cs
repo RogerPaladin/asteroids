@@ -8,7 +8,7 @@ using Utils.DiContainers;
 
 namespace Static
 {
-	public class StaticData : IDiContainerChild
+	public class StaticData
 	{
 		public PlayerConfig PlayerConfig { get; private set; }
 		public EnemiesData EnemiesData { get; private set; }

@@ -14,20 +14,20 @@ using Views.GamePlay.Enemies;
 
 namespace Factories.Enemies
 {
-	public class EnemiesSpawner : AbstractSpawner<AbstractEnemyController, EnemyConfig>, ITimerListener, IDiContainerChild
+	public class EnemiesSpawner : AbstractSpawner<AbstractEnemyController, EnemyConfig>, ITimerListener
 	{
 		private readonly StaticData _staticData;
 		private readonly EnemyFactory _enemyFactory;
 		private readonly Camera _camera;
 		private readonly TimerSystem _timerSystem;
-		private readonly GameContainer _gameContainer;
+		private readonly Transform _gameContainer;
 		private readonly ViewBinder _viewBinder;
 
 		private PlayerShipModel _playerShipModel;
 
 		private readonly EnemySpawnTimerList _enemySpawnTimerList;
 
-		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, Camera camera, TimerSystem timerSystem, GameContainer gameContainer, ViewBinder viewBinder)
+		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, Camera camera, TimerSystem timerSystem, Transform gameContainer, ViewBinder viewBinder)
 		{
 			_staticData = staticData;
 			_enemyFactory = enemyFactory;
@@ -106,7 +106,7 @@ namespace Factories.Enemies
 			if (enemy == null)
 			{
 				enemy = _enemyFactory.Create(config, _playerShipModel);
-				enemy.SetParent(_gameContainer.transform);
+				enemy.SetParent(_gameContainer);
 				var view = (IEnemyView)_viewBinder.TryBindViewByModel(enemy.Model);
 				view.OnCollisionEvent += enemy.OnCollision;
 				enemy.OnDestroyEvent += OnObjDestroy;

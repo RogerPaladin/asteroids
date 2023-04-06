@@ -3,7 +3,7 @@ using Utils.DiContainers;
 
 namespace Controllers.UI.Hud.Score
 {
-	public class ScoreController : IDiContainerChild
+	public class ScoreController
 	{
 		public ScoreModel Model { get; private set; }
 

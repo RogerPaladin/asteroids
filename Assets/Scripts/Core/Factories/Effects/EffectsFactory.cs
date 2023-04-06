@@ -7,16 +7,13 @@ using Utils.Events;
 
 namespace Factories.Effects
 {
-	public class EffectsFactory : IDiContainerChild
+	public class EffectsFactory
 	{
-		private readonly DiContainer _diContainer;
 		private readonly UpdateSystem _updateSystem;
 
-		public EffectsFactory(DiContainer diContainer)
+		public EffectsFactory(UpdateSystem updateSystem)
 		{
-			_diContainer = diContainer;
-			
-			_updateSystem = _diContainer.Resolve<UpdateSystem>();
+			_updateSystem = updateSystem;
 		}
 
 		public AbstractEffectController Create(EffectConfig config)

@@ -9,7 +9,7 @@ using Views.GamePlay.Projectiles.Bullet;
 
 namespace Views
 {
-	public class BasePrefabs : MonoBehaviour, IDiContainerChild
+	public class BasePrefabs : MonoBehaviour
 	{
 		public PlayerShipView PlayerShipView;
 		public EnemyView BigAsteroidView;

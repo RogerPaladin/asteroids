@@ -4,13 +4,9 @@ using Utils.DiContainers;
 
 namespace Controllers.UI.Hud.Score
 {
-	public class WeaponInfoController : IDiContainerChild, IActivateDeactivate
+	public class WeaponInfoController: IActivateDeactivate
 	{
 		private WeaponInfoModel _model;
-
-		public WeaponInfoController()
-		{
-		}
 
 		public void SetModel(WeaponInfoModel model)
 		{
