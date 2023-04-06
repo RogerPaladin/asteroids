@@ -1,12 +1,13 @@
 using Core.Controllers.ViewPort;
 using Model.Enemies;
 using UnityEngine;
+using Utils.Events;
 
 namespace Controllers.Enemies.Asteroids
 {
 	public class BigAsteroidController : AbstractEnemyController
 	{
-		public BigAsteroidController(EnemyModel model, ViewPortController viewPortController) : base(model, viewPortController)
+		public BigAsteroidController(EnemyModel model, UpdateSystem updateSystem, ViewPortController viewPortController) : base(model, updateSystem, viewPortController)
 		{
 		}
 

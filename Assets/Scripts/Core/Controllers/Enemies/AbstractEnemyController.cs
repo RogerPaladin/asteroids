@@ -9,13 +9,15 @@ namespace Controllers.Enemies
 {
 	public abstract class AbstractEnemyController : IUpdateListener, IActivateDeactivate
 	{
+		private readonly UpdateSystem _updateSystem;
 		public EnemyModel Model { get; private set; }
 		protected ViewPortController ViewPortController { get; }
 
 		public event Action<AbstractEnemyController> OnDestroyEvent;
 		
-		public AbstractEnemyController(EnemyModel model, ViewPortController viewPortController)
+		public AbstractEnemyController(EnemyModel model, UpdateSystem updateSystem, ViewPortController viewPortController)
 		{
+			_updateSystem = updateSystem;
 			Model = model;
 			ViewPortController = viewPortController;
 		}
@@ -23,13 +25,13 @@ namespace Controllers.Enemies
 		public virtual void Activate()
 		{
 			Model.Activate();
-			Model.UpdateSystem.AddListener(this);
+			_updateSystem.AddListener(this);
 		}
 
 		public virtual void Deactivate()
 		{
 			Model.Deactivate();
-			Model.UpdateSystem.RemoveListener(this);
+			_updateSystem.RemoveListener(this);
 		}
 
 		public abstract void Update(float deltaTime);

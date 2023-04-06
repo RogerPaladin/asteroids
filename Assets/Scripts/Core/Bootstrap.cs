@@ -19,8 +19,8 @@ using Utils.Clock;
 using Utils.Events;
 using Utils.Input;
 using Views;
-using Views.GamePlay.Background;
 using Views.Hud;
+using Views.ViewPort;
 
 namespace Core
 {

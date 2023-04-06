@@ -23,16 +23,16 @@ namespace Factories.Enemies
 
 		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel, ViewPortController viewPortController)
 		{
-			var model = new EnemyModel(config, _updateSystem, playerShipModel);
+			var model = new EnemyModel(config, playerShipModel);
 
 			switch (config.ModelId)
 			{
 				case EnemyType.BIG_ASTEROID:
-					return new BigAsteroidController(model, viewPortController);
+					return new BigAsteroidController(model, _updateSystem, viewPortController);
 				case EnemyType.SMALL_ASTEROID:
-					return new SmallAsteroidController(model, viewPortController);
+					return new SmallAsteroidController(model, _updateSystem, viewPortController);
 				case EnemyType.UFO:
-					return new UfoController(model, viewPortController);
+					return new UfoController(model, _updateSystem, viewPortController);
 			}
 
 			return null;

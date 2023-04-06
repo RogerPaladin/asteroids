@@ -1,7 +1,7 @@
 using Core.Controllers.ViewPort;
 using UnityEngine;
 
-namespace Views.GamePlay.Background
+namespace Views.ViewPort
 {
 	public class ViewPortView : MonoBehaviour
 	{
