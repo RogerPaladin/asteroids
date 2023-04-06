@@ -1,14 +1,12 @@
 using Controllers.Enemies;
 using Controllers.Enemies.Asteroids;
 using Controllers.Enemies.Ufos;
-using Core;
+using Core.Controllers.ViewPort;
 using Model.Enemies;
 using Model.Player;
 using Static.Enemies;
-using Utils.DiContainers;
-using Utils.Events;
-using Utils.OffScreenChecker;
 using UnityEngine;
+using Utils.Events;
 
 namespace Factories.Enemies
 {
@@ -23,20 +21,18 @@ namespace Factories.Enemies
 			_camera = camera;
 		}
 
-		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel)
+		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel, ViewPortController viewPortController)
 		{
-			var offScreenChecker = new OffScreenCheckerTeleport(_camera);
-			
-			var model = new EnemyModel(config, _updateSystem, offScreenChecker, playerShipModel);
+			var model = new EnemyModel(config, _updateSystem, playerShipModel);
 
 			switch (config.ModelId)
 			{
 				case EnemyType.BIG_ASTEROID:
-					return new BigAsteroidController(model);
+					return new BigAsteroidController(model, viewPortController);
 				case EnemyType.SMALL_ASTEROID:
-					return new SmallAsteroidController(model);
+					return new SmallAsteroidController(model, viewPortController);
 				case EnemyType.UFO:
-					return new UfoController(model);
+					return new UfoController(model, viewPortController);
 			}
 
 			return null;

@@ -1,4 +1,5 @@
 using Model.Effects.Score;
+using Utils.Events;
 
 namespace Controllers.Effects.Score
 {
@@ -6,7 +7,7 @@ namespace Controllers.Effects.Score
 	{
 		private EffectScoreModel Model => base.Model as EffectScoreModel;
 
-		public EffectScoreController(EffectScoreModel model) : base(model)
+		public EffectScoreController(EffectScoreModel model, UpdateSystem updateSystem) : base(model, updateSystem)
 		{
 		}
 

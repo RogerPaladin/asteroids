@@ -368,7 +368,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1319089073}
-  - component: {fileID: 1319089074}
   m_Layer: 5
   m_Name: WindowsContainer
   m_TagString: Untagged
@@ -396,18 +395,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1319089074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319089072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f24a388d5649d79571b4d79496fa8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1409667787
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +406,7 @@ GameObject:
   - component: {fileID: 1409667788}
   - component: {fileID: 1409667789}
   - component: {fileID: 1409667790}
+  - component: {fileID: 1409667791}
   m_Layer: 0
   m_Name: Bootstrap
   m_TagString: Untagged
@@ -455,8 +443,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
   _hudView: {fileID: 1585712945}
-  _windowsContainer: {fileID: 1319089074}
-  _effectsContainer: {fileID: 1708895160}
+  _viewPortView: {fileID: 1409667791}
+  _windowsContainer: {fileID: 1319089073}
+  _effectsContainer: {fileID: 1708895159}
   _basePrefabs: {fileID: 1409667790}
 --- !u!114 &1409667790
 MonoBehaviour:
@@ -478,6 +467,18 @@ MonoBehaviour:
   LaserView: {fileID: 4914354360170369009, guid: f0091929bf79c1b46a1910c9663cda93, type: 3}
   BackgroundView: {fileID: 1532413727329034903, guid: 7e8354cd5dbed074f8a92f715200971d, type: 3}
   EffectScoreView: {fileID: 592495654154551526, guid: 9734a3ca6044da3448e6a421f8860106, type: 3}
+--- !u!114 &1409667791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409667787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c1e6f3e9754c6da9f2ad8d7168091b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1585712944 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1864391164930833491, guid: 7376e20206555da4b8652b1e48a73195, type: 3}
@@ -503,7 +504,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1708895159}
-  - component: {fileID: 1708895160}
   m_Layer: 5
   m_Name: EffectsContainer
   m_TagString: Untagged
@@ -531,18 +531,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1708895160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708895158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70e8a064e3de4b82bda991d64268209c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1864391163697443683
 PrefabInstance:
   m_ObjectHideFlags: 0

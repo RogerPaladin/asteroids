@@ -2,7 +2,7 @@ using Controllers.Effects;
 using Controllers.Effects.Score;
 using Model.Effects.Score;
 using Static.Effects;
-using Utils.DiContainers;
+
 using Utils.Events;
 
 namespace Factories.Effects
@@ -21,8 +21,8 @@ namespace Factories.Effects
 			switch (config.ModelId)
 			{
 				case EffectType.SCORE:
-					var model = new EffectScoreModel(config, _updateSystem);
-					return new EffectScoreController(model);
+					var model = new EffectScoreModel(config);
+					return new EffectScoreController(model, _updateSystem);
 			}
 
 			return null;

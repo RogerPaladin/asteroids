@@ -1,7 +1,6 @@
 using Static.Effects;
 using UnityEngine;
 using Utils;
-using Utils.Events;
 using Utils.MovementObserver;
 using Utils.Reactivity;
 
@@ -11,25 +10,16 @@ namespace Model.Effects
 	{
 		protected readonly EffectConfig Config;
 		
-		public UpdateSystem UpdateSystem { get; private set; }
-
 		public float LifeTime { get; private set; }
 		
-		public Observable<Transform> Parent { get; private set; } = new Observable<Transform>(null);
 		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
 		
 		public string ModelId => Config.ModelId;
 		public float Time => Config.Time;
 
-		public EffectModel(EffectConfig effectConfig, UpdateSystem updateSystem)
+		public EffectModel(EffectConfig effectConfig)
 		{
 			Config = effectConfig;
-			UpdateSystem = updateSystem;
-		}
-		
-		public void SetParent(Transform t)
-		{
-			Parent.Value = t;
 		}
 		
 		public virtual void Activate()

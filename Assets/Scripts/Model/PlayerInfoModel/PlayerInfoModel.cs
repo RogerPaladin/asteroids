@@ -6,6 +6,7 @@ using Utils.Reactivity;
 
 namespace Model.WeaponInfo
 {
+	//todo!!!! Модель с бизнес-логшикой
 	public class PlayerInfoModel : IModel, IActivateDeactivate
 	{
 		private PlayerShipModel _model;

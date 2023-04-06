@@ -1,14 +1,13 @@
 using Controllers.Enemies;
 using Controllers.Enemies.Asteroids;
+using Core.Controllers.ViewPort;
 using Core.GamePlay.Enemies;
 using Model.Player;
 using Static;
 using Static.Enemies;
-using Utils.DiContainers;
+using UnityEngine;
 using Utils.Events;
 using Utils.Spawner;
-using UnityEngine;
-using Utils.Containers.Game;
 using Views;
 using Views.GamePlay.Enemies;
 
@@ -21,20 +20,21 @@ namespace Factories.Enemies
 		private readonly Camera _camera;
 		private readonly TimerSystem _timerSystem;
 		private readonly Transform _gameContainer;
-		private readonly ViewBinder _viewBinder;
+		private readonly ViewInstantiator _viewInstantiator;
 
 		private PlayerShipModel _playerShipModel;
 
 		private readonly EnemySpawnTimerList _enemySpawnTimerList;
+		private ViewPortController _viewPortController;
 
-		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, Camera camera, TimerSystem timerSystem, Transform gameContainer, ViewBinder viewBinder)
+		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, ViewPortController viewPortController, TimerSystem timerSystem, Transform gameContainer, ViewInstantiator viewInstantiator)
 		{
 			_staticData = staticData;
 			_enemyFactory = enemyFactory;
-			_camera = camera;
+			_viewPortController = viewPortController;
 			_timerSystem = timerSystem;
 			_gameContainer = gameContainer;
-			_viewBinder = viewBinder;
+			_viewInstantiator = viewInstantiator;
 
 			_enemySpawnTimerList = new EnemySpawnTimerList(_active);
 		}
@@ -77,7 +77,7 @@ namespace Factories.Enemies
 			{
 				for (int i = 0; i < enemyConfig.StartCount; i++)
 				{
-					var randomPos = Utils.Utils.GetRandomPosition(_camera, _playerShipModel.Position.Value);
+					var randomPos = _viewPortController.GetRandomPosition(_playerShipModel.Position.Value);
 					Spawn(enemyConfig, randomPos, Quaternion.identity);
 				}
 			}
@@ -91,7 +91,7 @@ namespace Factories.Enemies
 
 			foreach (var enemyConfig in enemyConfigs)
 			{
-				var randomPos = Utils.Utils.GetRandomPosition(_camera, _playerShipModel.Position.Value);
+				var randomPos = _viewPortController.GetRandomPosition(_playerShipModel.Position.Value);
 				Spawn(enemyConfig, randomPos, Quaternion.identity);
 			}
 		}
@@ -105,9 +105,10 @@ namespace Factories.Enemies
 
 			if (enemy == null)
 			{
-				enemy = _enemyFactory.Create(config, _playerShipModel);
-				enemy.SetParent(_gameContainer);
-				var view = (IEnemyView)_viewBinder.TryBindViewByModel(enemy.Model);
+				enemy = _enemyFactory.Create(config, _playerShipModel, _viewPortController);
+				var view = (IEnemyView)_viewInstantiator.Instantiate(enemy.Model);
+				view.BindModel(enemy.Model);
+				view.SetParent(_gameContainer);
 				view.OnCollisionEvent += enemy.OnCollision;
 				enemy.OnDestroyEvent += OnObjDestroy;
 			}

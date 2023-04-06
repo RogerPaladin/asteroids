@@ -3,10 +3,8 @@ using Controllers.Effects.Score;
 using Model.Enemies;
 using Static;
 using Static.Effects;
-using Utils.DiContainers;
 using Utils.Spawner;
 using UnityEngine;
-using Utils.DiContainers.Effects;
 using Views;
 
 namespace Factories.Effects.Score
@@ -15,15 +13,15 @@ namespace Factories.Effects.Score
 	{
 		private readonly StaticData _staticData;
 		private readonly EffectsFactory _effectsFactory;
-		private readonly ViewBinder _viewBinder;
-		private readonly EffectsContainer _effectsContainer;
+		private readonly ViewInstantiator _viewInstantiator;
+		private readonly Transform _effectsContainer;
 
-		public EffectsSpawner(StaticData staticData, EffectsFactory effectsFactory, EffectsContainer effectsContainer, ViewBinder viewBinder)
+		public EffectsSpawner(StaticData staticData, EffectsFactory effectsFactory, Transform effectsContainer, ViewInstantiator viewInstantiator)
 		{
 			_staticData = staticData;
 			_effectsFactory = effectsFactory;
 			_effectsContainer = effectsContainer;
-			_viewBinder = viewBinder;
+			_viewInstantiator = viewInstantiator;
 		}
 		
 		public override AbstractEffectController Spawn(EffectConfig config, Vector2 pos, Quaternion rotation)
@@ -37,9 +35,10 @@ namespace Factories.Effects.Score
 			{
 				effect = _effectsFactory.Create(config);
 				
-				_viewBinder.TryBindViewByModel(effect.Model);
+				var view = _viewInstantiator.Instantiate(effect.Model);
+				view.BindModel(effect.Model);
 				
-				effect.SetParent(_effectsContainer.transform);
+				view.SetParent(_effectsContainer);
 				effect.OnDestroyEvent += OnObjDestroy;
 			}
 			

@@ -15,7 +15,7 @@ namespace Model.Projectiles.Laser
 		public bool NeedGrow => GrowTime > 0;
 		public float GrowSpeed => Config.ProjectileGrowSpeed;
 
-		public ProjectileLaserModel(WeaponConfig config, UpdateSystem updateSystem, OffScreenCheckerTeleport offScreenChecker) : base(config, updateSystem, offScreenChecker)
+		public ProjectileLaserModel(WeaponConfig config) : base(config)
 		{
 		}
 

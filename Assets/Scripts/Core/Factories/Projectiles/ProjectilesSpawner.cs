@@ -12,13 +12,13 @@ namespace Factories.Projectiles
 	{
 		private readonly ProjectilesFactory _projectilesFactory;
 		private readonly Transform _gameContainer;
-		private readonly ViewBinder _viewBinder;
+		private readonly ViewInstantiator _viewInstantiator;
 
-		public ProjectilesSpawner(ProjectilesFactory projectilesFactory, Transform gameContainer, ViewBinder viewBinder)
+		public ProjectilesSpawner(ProjectilesFactory projectilesFactory, Transform gameContainer, ViewInstantiator viewInstantiator)
 		{
 			_projectilesFactory = projectilesFactory;
 			_gameContainer = gameContainer;
-			_viewBinder = viewBinder;
+			_viewInstantiator = viewInstantiator;
 		}
 
 		public void OnLevelEnd()
@@ -36,8 +36,9 @@ namespace Factories.Projectiles
 			if (projectile == null)
 			{
 				projectile = _projectilesFactory.Create(weaponConfig);
-				var view = (IProjectileView)_viewBinder.TryBindViewByModel(projectile.Model);
-				projectile.SetParent(_gameContainer);
+				var view = (IProjectileView)_viewInstantiator.Instantiate(projectile.Model);
+				view.BindModel(projectile.Model);
+				view.SetParent(_gameContainer);
 				projectile.SetCollisionChecker(new CollisionChecker(view.Collider));
 				projectile.OnDestroyEvent += OnObjDestroy;
 			}

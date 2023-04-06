@@ -1,4 +1,5 @@
 using System;
+using Core.Controllers.ViewPort;
 using Model.Enemies;
 using Utils;
 using Utils.Events;
@@ -9,17 +10,14 @@ namespace Controllers.Enemies
 	public abstract class AbstractEnemyController : IUpdateListener, IActivateDeactivate
 	{
 		public EnemyModel Model { get; private set; }
+		protected ViewPortController ViewPortController { get; }
 
 		public event Action<AbstractEnemyController> OnDestroyEvent;
 		
-		public AbstractEnemyController(EnemyModel model)
+		public AbstractEnemyController(EnemyModel model, ViewPortController viewPortController)
 		{
 			Model = model;
-		}
-		
-		public void SetParent(Transform t)
-		{
-			Model.SetParent(t);
+			ViewPortController = viewPortController;
 		}
 		
 		public virtual void Activate()

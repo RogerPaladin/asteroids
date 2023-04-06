@@ -19,22 +19,22 @@ namespace Utils.OffScreenChecker
 			
 			if (viewportPoint.x < 0.0f) 
 			{
-				viewportPoint = new Vector3(1.0f, viewportPoint.y, viewportPoint.z);
+				viewportPoint = new Vector3(1.0f - viewportPoint.x % 1f, viewportPoint.y, viewportPoint.z);
 				isOutOffScreen = true;
 			}
 			else if (viewportPoint.x >= 1.0f) 
 			{
-				viewportPoint = new Vector3(0.0f, viewportPoint.y, viewportPoint.z);
+				viewportPoint = new Vector3(viewportPoint.x % 1f, viewportPoint.y, viewportPoint.z);
 				isOutOffScreen = true;
 			}
 			if (viewportPoint.y < 0.0f) 
 			{
-				viewportPoint = new Vector3(viewportPoint.x, 1.0f, viewportPoint.z);
+				viewportPoint = new Vector3(viewportPoint.x, 1f - viewportPoint.y % 1f, viewportPoint.z);
 				isOutOffScreen = true;
 			}
 			else if (viewportPoint.y >= 1.0f) 
 			{
-				viewportPoint = new Vector3(viewportPoint.x, 0.0f, viewportPoint.z);
+				viewportPoint = new Vector3(viewportPoint.x, viewportPoint.y % 1f, viewportPoint.z);
 				isOutOffScreen = true;
 			}
 

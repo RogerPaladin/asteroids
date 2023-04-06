@@ -15,7 +15,6 @@ namespace Model.Enemies
 		private readonly PlayerShipModel _playerShipModel;
 
 		public UpdateSystem UpdateSystem { get; private set; }
-		public OffScreenCheckerTeleport OffScreenChecker { get; private set; }
 		
 		public float Speed => _config.Speed;
 		public int Score => _config.Score;
@@ -23,25 +22,18 @@ namespace Model.Enemies
 		
 		public Vector2 PlayerPosition => _playerShipModel.Position.Value;
 		
-		public Observable<Transform> Parent { get; private set; } = new Observable<Transform>(null);
+		public Observable<Transform> Paent { get; private set; } = new Observable<Transform>(null);
 		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
 
 		public EnemyModel(EnemyConfig config,
 						  UpdateSystem updateSystem,
-						  OffScreenCheckerTeleport offScreenChecker,
 						  PlayerShipModel playerShipModel)
 		{
 			_config = config;
 			UpdateSystem = updateSystem;
-			OffScreenChecker = offScreenChecker;
 			_playerShipModel = playerShipModel;
 		}
 		
-		public void SetParent(Transform t)
-		{
-			Parent.Value = t;
-		}
-
 		public void Activate()
 		{
 			IsActive.Value = true;

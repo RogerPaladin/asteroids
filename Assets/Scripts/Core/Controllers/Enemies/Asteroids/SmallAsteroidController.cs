@@ -1,3 +1,4 @@
+using Core.Controllers.ViewPort;
 using Model.Enemies;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Controllers.Enemies.Asteroids
 {
 	public class SmallAsteroidController : AbstractEnemyController
 	{
-		public SmallAsteroidController(EnemyModel model) : base(model)
+		public SmallAsteroidController(EnemyModel model, ViewPortController viewPortController) : base(model, viewPortController)
 		{
 
 		}
@@ -15,7 +16,7 @@ namespace Controllers.Enemies.Asteroids
 			Vector2 forward = Model.Rotation.Value * Vector2.up * Model.Speed;
 
 			var pos = Model.Position.Value + forward * deltaTime;
-			Model.OffScreenChecker.CheckPosition(ref pos);
+			ViewPortController.CheckPosition(ref pos);
 			Model.SetPosition(pos);
 		}
 	}

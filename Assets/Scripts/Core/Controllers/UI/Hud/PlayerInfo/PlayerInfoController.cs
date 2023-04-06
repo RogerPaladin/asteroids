@@ -1,6 +1,5 @@
 using Model.WeaponInfo;
 using Utils;
-using Utils.DiContainers;
 
 namespace Controllers.UI.Hud.PlayerInfo
 {

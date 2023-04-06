@@ -20,7 +20,7 @@ namespace Controllers.Level
 		private readonly ScoreController _scoreController;
 		private readonly PlayerInfoController _playerInfoController;
 		private readonly WeaponInfoController _weaponInfoController;
-		private readonly ViewBinder _viewBinder;
+		private readonly ViewInstantiator _viewInstantiator;
 		private readonly Camera _camera;
 
 		public Observable<int> Score { get; private set; } = new Observable<int>(0);
@@ -33,7 +33,7 @@ namespace Controllers.Level
 							   ScoreController scoreController, 
 							   PlayerInfoController playerInfoController,
 							   WeaponInfoController weaponInfoController,
-							   ViewBinder viewBinder,
+							   ViewInstantiator viewInstantiator,
 							   Camera camera)
 		{
 			_playerShipController = playerShipController;
@@ -41,7 +41,7 @@ namespace Controllers.Level
 			_scoreController = scoreController;
 			_playerInfoController = playerInfoController;
 			_weaponInfoController = weaponInfoController;
-			_viewBinder = viewBinder;
+			_viewInstantiator = viewInstantiator;
 			_camera = camera;
 
 			_enemiesSpawner.SetPlayerShipModel(_playerShipController.Model);
@@ -64,14 +64,16 @@ namespace Controllers.Level
 		{
 			var playerInfoModel = new PlayerInfoModel(_playerShipController.Model, _camera);
 			_playerInfoController.SetModel(playerInfoModel);
-			_viewBinder.TryBindViewByModel(playerInfoModel);
+			var view = _viewInstantiator.Instantiate(playerInfoModel);
+			view.BindModel(playerInfoModel);
 		}
 
 		private void CreateWeaponInfo()
 		{
 			var weaponInfoModel = new WeaponInfoModel(_playerShipController.WeaponSecond.Model);
 			_weaponInfoController.SetModel(weaponInfoModel);
-			_viewBinder.TryBindViewByModel(weaponInfoModel);
+			var view = _viewInstantiator.Instantiate(weaponInfoModel);
+			view.BindModel(weaponInfoModel);
 			_weaponInfoController.Activate();
 		}
 

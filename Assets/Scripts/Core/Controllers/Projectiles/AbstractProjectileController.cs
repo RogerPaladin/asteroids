@@ -1,4 +1,5 @@
 using System;
+using Core.Controllers.ViewPort;
 using Model.Projectiles;
 using Utils;
 using Utils.Events;
@@ -9,30 +10,29 @@ namespace Controllers.Projectiles
 {
 	public abstract class AbstractProjectileController: IUpdateListener, IActivateDeactivate
 	{
+		protected readonly ViewPortController _viewPortController;
+		protected readonly UpdateSystem _updateSystem;
 		public ProjectileModel Model { get; private set; }
 
 		public event Action<AbstractProjectileController> OnDestroyEvent;
 		
-		public AbstractProjectileController(ProjectileModel model)
+		public AbstractProjectileController(ProjectileModel model, ViewPortController viewPortController, UpdateSystem updateSystem)
 		{
+			_viewPortController = viewPortController;
+			_updateSystem = updateSystem;
 			Model = model;
 		}
 
-		public void SetParent(Transform transform)
-		{
-			Model.SetParent(transform);
-		}
-		
 		public virtual void Activate()
 		{
 			Model.Activate();
-			Model.UpdateSystem.AddListener(this);
+			_updateSystem.AddListener(this);
 		}
 
 		public virtual void Deactivate()
 		{
 			Model.Deactivate();
-			Model.UpdateSystem.RemoveListener(this);
+			_updateSystem.RemoveListener(this);
 		}
 		
 		public void Update(float deltaTime)

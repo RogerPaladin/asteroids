@@ -1,3 +1,4 @@
+using Core.Controllers.ViewPort;
 using Model.Enemies;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Controllers.Enemies.Asteroids
 {
 	public class BigAsteroidController : AbstractEnemyController
 	{
-		public BigAsteroidController(EnemyModel model) : base(model)
+		public BigAsteroidController(EnemyModel model, ViewPortController viewPortController) : base(model, viewPortController)
 		{
 		}
 
@@ -19,7 +20,7 @@ namespace Controllers.Enemies.Asteroids
 		public override void Update(float deltaTime)
 		{
 			var pos = Model.Position.Value + Model.Velocity.Value * deltaTime;
-			Model.OffScreenChecker.CheckPosition(ref pos);
+			ViewPortController.CheckPosition(ref pos);
 			Model.SetPosition(pos);
 		}
 	}

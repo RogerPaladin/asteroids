@@ -1,24 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Utils.DiContainers;
 using Views.Windows;
 using UnityEngine;
-using Utils.Containers.UI.Windows;
 using Object = UnityEngine.Object;
 
 namespace Controllers.UI.WindowsSystem
 {
 	public class WindowsController
 	{
-		private readonly WindowsContainer _windowsContainer;
+		private readonly Transform _windowsContainer;
 		
 		private AbstractWindow _currentWindow = null;
 
 		private Stack<AbstractWindow> _openWindowsStack { get; set; } = new Stack<AbstractWindow>(10);
 		private Queue<(AbstractWindow, Action<AbstractWindow>)> _windowsQueue { get; } = new Queue<(AbstractWindow, Action<AbstractWindow>)>(10);
 
-		public WindowsController(WindowsContainer windowsContainer)
+		public WindowsController(Transform windowsContainer)
 		{
 			_windowsContainer = windowsContainer;
 		}
@@ -51,7 +49,7 @@ namespace Controllers.UI.WindowsSystem
 							
 			if (windowView)
 			{
-				var viewInstance = Object.Instantiate(windowView, _windowsContainer.transform);
+				var viewInstance = Object.Instantiate(windowView, _windowsContainer);
 				T controller = (T)Activator.CreateInstance(type, this, null);
 				viewInstance.BindModel(controller.Model);
 				return controller;

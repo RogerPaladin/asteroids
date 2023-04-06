@@ -1,5 +1,7 @@
+using Core.Controllers.ViewPort;
 using Model.Projectiles.Laser;
 using UnityEngine;
+using Utils.Events;
 
 namespace Controllers.Projectiles.Laser
 {
@@ -7,7 +9,7 @@ namespace Controllers.Projectiles.Laser
 	{
 		private ProjectileLaserModel Model => base.Model as ProjectileLaserModel;
 
-		public ProjectileLaserController(ProjectileLaserModel model) : base(model)
+		public ProjectileLaserController(ProjectileLaserModel model, ViewPortController viewPortController, UpdateSystem updateSystem) : base(model, viewPortController, updateSystem)
 		{
 		}
 

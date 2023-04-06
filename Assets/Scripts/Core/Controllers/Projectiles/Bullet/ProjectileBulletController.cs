@@ -1,12 +1,14 @@
+using Core.Controllers.ViewPort;
 using Model.Projectiles;
 using UnityEngine;
+using Utils.Events;
 
 namespace Controllers.Projectiles.Bullet
 {
 	public class ProjectileBulletController: AbstractProjectileController
 	{
 		
-		public ProjectileBulletController(ProjectileModel model) : base(model)
+		public ProjectileBulletController(ProjectileModel model, ViewPortController viewPortController, UpdateSystem updateSystem) : base(model, viewPortController, updateSystem)
 		{
 
 		}
@@ -16,7 +18,7 @@ namespace Controllers.Projectiles.Bullet
 			Vector2 forward = Model.Rotation.Value * Vector2.up * Model.Speed;
 			
 			var pos = Model.Position.Value + forward * deltaTime;
-			Model.OffScreenChecker.CheckPosition(ref pos);
+			_viewPortController.CheckPosition(ref pos);
 			Model.SetPosition(pos);
 		}
 	}

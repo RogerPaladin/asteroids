@@ -8,30 +8,27 @@ namespace Controllers.Effects
 {
 	public abstract class AbstractEffectController: IUpdateListener, IActivateDeactivate
 	{
+		private readonly UpdateSystem _updateSystem;
 		public EffectModel Model { get; private set; }
 
 		public event Action<AbstractEffectController> OnDestroyEvent;
 
-		public AbstractEffectController(EffectModel model)
+		public AbstractEffectController(EffectModel model, UpdateSystem updateSystem)
 		{
+			_updateSystem = updateSystem;
 			Model = model;
-		}
-		
-		public void SetParent(Transform t)
-		{
-			Model.SetParent(t);
 		}
 		
 		public virtual void Activate()
 		{
 			Model.Activate();
-			Model.UpdateSystem.AddListener(this);
+			_updateSystem.AddListener(this);
 		}
 
 		public virtual void Deactivate()
 		{
 			Model.Deactivate();
-			Model.UpdateSystem.RemoveListener(this);
+			_updateSystem.RemoveListener(this);
 		}
 
 		public abstract void Update(float deltaTime);

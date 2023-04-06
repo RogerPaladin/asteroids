@@ -14,9 +14,6 @@ namespace Model.Projectiles
 		protected readonly WeaponConfig Config;
 		private CollisionChecker _collisionChecker;
 
-		public UpdateSystem UpdateSystem { get; private set; }
-		public OffScreenCheckerTeleport OffScreenChecker { get; private set; }
-		
 		public float LifeTime { get; private set; }
 		
 		public float Speed => Config.ProjectileSpeed;
@@ -25,17 +22,11 @@ namespace Model.Projectiles
 		
 		public bool IsHaveCollision => _collisionChecker.IsHaveCollision;
 		
-		public Observable<Transform> Parent { get; private set; } = new Observable<Transform>(null);
 		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
 
-		public ProjectileModel(WeaponConfig config,
-							   UpdateSystem updateSystem,
-							   OffScreenCheckerTeleport offScreenChecker,
-							   CollisionChecker collisionChecker = null)
+		public ProjectileModel(WeaponConfig config, CollisionChecker collisionChecker = null)
 		{
 			Config = config;
-			UpdateSystem = updateSystem;
-			OffScreenChecker = offScreenChecker;
 			_collisionChecker = collisionChecker;
 		}
 
@@ -59,11 +50,6 @@ namespace Model.Projectiles
 		public void SetLifeTime(float lifeTime)
 		{
 			LifeTime = lifeTime;
-		}
-		
-		public void SetParent(Transform transform)
-		{
-			Parent.Value = transform;
 		}
 	}
 }

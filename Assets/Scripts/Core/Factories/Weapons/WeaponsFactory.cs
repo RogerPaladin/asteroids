@@ -4,7 +4,6 @@ using Model.Player;
 using Model.Weapons;
 using Static;
 using Static.Weapons;
-using Utils.DiContainers;
 using Utils.Events;
 
 namespace Factories.Weapons

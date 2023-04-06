@@ -43,19 +43,6 @@ namespace Utils
 				  .ToHashSet();
 		}
 
-		public static Vector2 GetRandomPosition(Camera camera, Vector2 exceptPosition, float minDistance = 5)
-		{
-			var center = Vector2.zero;
-			var randomPoint = camera.ViewportToWorldPoint(new Vector2(Random.value, Random.value));
-
-			var dist = (center - (Vector2)randomPoint).magnitude;
-
-			if (dist < minDistance)
-				return GetRandomPosition(camera, exceptPosition, minDistance);
-
-			return randomPoint;
-		}
-		
 		public static string GetNumericTime(this float time, bool needHours = true, bool needSeconds = true)
 		{
 			var hours = (int) Math.Floor(time / 3600f);

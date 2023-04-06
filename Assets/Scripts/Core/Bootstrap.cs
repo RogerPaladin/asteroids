@@ -2,6 +2,7 @@ using Controllers.Game;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
 using Controllers.UI.WindowsSystem;
+using Core.Controllers.ViewPort;
 using Core.Loader;
 using Factories.Effects;
 using Factories.Effects.Score;
@@ -11,14 +12,14 @@ using Factories.Player;
 using Factories.Projectiles;
 using Factories.Weapons;
 using Model.Score;
+using Model.ViewPort;
 using Static;
 using UnityEngine;
 using Utils.Clock;
-using Utils.Containers.UI.Windows;
-using Utils.DiContainers.Effects;
 using Utils.Events;
 using Utils.Input;
 using Views;
+using Views.GamePlay.Background;
 using Views.Hud;
 
 namespace Core
@@ -28,8 +29,9 @@ namespace Core
 		[SerializeField] private Camera _camera;
 		
 		[SerializeField] private HudView _hudView;
-		[SerializeField] private WindowsContainer _windowsContainer;
-		[SerializeField] private EffectsContainer _effectsContainer;
+		[SerializeField] private ViewPortView _viewPortView;
+		[SerializeField] private Transform _windowsContainer;
+		[SerializeField] private Transform _effectsContainer;
 		[SerializeField] private BasePrefabs _basePrefabs;
 		
 		private GameController _gameController;
@@ -59,27 +61,32 @@ namespace Core
 			_inputController = new InputController();
 			
 			_staticData = new StaticData();
-			var viewBinder = new ViewBinder(_basePrefabs, _hudView);
+			var viewInstantiator = new ViewInstantiator(_basePrefabs, _hudView);
 
-			var projectilesFactory = new ProjectilesFactory(_updateSystem, _camera);
+			var viewPortModel = new ViewPortModel();
+			var viewPortController = new ViewPortController(viewPortModel);
+			_viewPortView.SetData(viewPortController, _camera);
+
+			var projectilesFactory = new ProjectilesFactory(_updateSystem, viewPortController);
 			var enemyFactory = new EnemyFactory(_updateSystem, _camera);
-			var projectilesSpawner = new ProjectilesSpawner(projectilesFactory, gameContainer, viewBinder);
+			var projectilesSpawner = new ProjectilesSpawner(projectilesFactory, gameContainer, viewInstantiator);
 			var weaponsFactory = new WeaponsFactory(_staticData, projectilesSpawner, timerSystem);
-			var playerShipFactory = new PlayerShipFactory(_staticData, _inputController, weaponsFactory, _updateSystem, _camera);
-			var enemiesSpawner = new EnemiesSpawner(_staticData, enemyFactory, _camera, timerSystem, gameContainer, viewBinder);
+			var playerShipFactory = new PlayerShipFactory(_staticData, _inputController, weaponsFactory, _updateSystem, viewPortController);
+			var enemiesSpawner = new EnemiesSpawner(_staticData, enemyFactory, viewPortController, timerSystem, gameContainer, viewInstantiator);
 			var levelFactory = new LevelFactory();
 			var effectsFactory = new EffectsFactory(_updateSystem);
-			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, viewBinder);
+			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, viewInstantiator);
 
 			_windowsController = new WindowsController(_windowsContainer);
 
 			var scoreController = new ScoreController(new ScoreModel());
-			viewBinder.TryBindViewByModel(scoreController.Model);
+			var view = viewInstantiator.Instantiate(scoreController.Model);
+			view.BindModel(scoreController.Model);
 
 			var playerInfoController = new PlayerInfoController();
 			var weaponInfoController = new WeaponInfoController();
 
-			_gameController = new GameController(levelFactory, playerShipFactory, _windowsController, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewBinder, _camera);
+			_gameController = new GameController(levelFactory, playerShipFactory, _windowsController, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewInstantiator, _camera, viewPortModel);
 		}
 		
 		private void StartLoad()

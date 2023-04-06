@@ -1,15 +1,20 @@
 using System;
 using Controllers.Weapons;
+using Core.Controllers.ViewPort;
 using Model.Player;
 using Utils;
 using Utils.Events;
 using UnityEngine;
 using Utils.Collisions;
+using Utils.Input;
 
 namespace Controllers.Player
 {
 	public class PlayerShipController : IUpdateListener, IActivateDeactivate
 	{
+		private readonly InputController _inputController;
+		private readonly UpdateSystem _updateSystem;
+		private readonly ViewPortController _viewPortController;
 		public PlayerShipModel Model { get; private set; }
 
 		public AbstractWeaponController WeaponFirst { get; private set; }
@@ -17,14 +22,12 @@ namespace Controllers.Player
 		
 		public event Action OnDestroyEvent;
 		
-		public PlayerShipController(PlayerShipModel model)
+		public PlayerShipController(PlayerShipModel model, InputController inputController, UpdateSystem updateSystem, ViewPortController viewPortController)
 		{
+			_inputController = inputController;
+			_updateSystem = updateSystem;
+			_viewPortController = viewPortController;
 			Model = model;
-		}
-
-		public void SetParent(Transform transform)
-		{
-			Model.SetParent(transform);
 		}
 
 		public PlayerShipController SetWeaponFirst(AbstractWeaponController weapon)
@@ -45,7 +48,7 @@ namespace Controllers.Player
 				return;
 			
 			Model.Activate();
-			Model.UpdateSystem.AddListener(this);
+			_updateSystem.AddListener(this);
 			
 			WeaponFirst?.Activate();
 			WeaponSecond?.Activate();
@@ -57,7 +60,7 @@ namespace Controllers.Player
 				return;
 			
 			Model.Deactivate();
-			Model.UpdateSystem.RemoveListener(this);
+			_updateSystem.RemoveListener(this);
 			
 			WeaponFirst?.Deactivate();
 			WeaponSecond?.Deactivate();
@@ -92,7 +95,7 @@ namespace Controllers.Player
 		{
 			var angle =
 							Quaternion.Euler(0f, 0f,
-											 Model.MaxRotationSpeed * -Model.InputController.Rotation * deltaTime *
+											 Model.MaxRotationSpeed * -_inputController.Rotation * deltaTime *
 											 Mathf.Rad2Deg);
 
 			Model.SetRotation(Model.Rotation.Value * angle);
@@ -101,7 +104,7 @@ namespace Controllers.Player
 			
 			var velocity = Model.Velocity.Value;
 
-			if (Model.InputController.Thrust > 0)
+			if (_inputController.Thrust > 0)
 				velocity += Model.Acceleration * deltaTime * forward;
 			else
 				velocity += Model.DeAcceleration * deltaTime * -Model.Velocity.Value;
@@ -111,7 +114,7 @@ namespace Controllers.Player
 			Model.SetVelocity(velocity);
 
 			var pos = Model.Position.Value + Model.Velocity.Value * deltaTime;
-			Model.OffScreenChecker.CheckPosition(ref pos);
+			_viewPortController.CheckPosition(ref pos);
 			Model.SetPosition(pos);
 		}
 
@@ -128,10 +131,10 @@ namespace Controllers.Player
 
 		private void CheckWeapons()
 		{
-			if (Model.InputController.NeedShootFirstWeapon)
+			if (_inputController.NeedShootFirstWeapon)
 				WeaponFirst?.Shoot();
 			
-			if (Model.InputController.NeedShootSecondWeapon)
+			if (_inputController.NeedShootSecondWeapon)
 				WeaponSecond?.Shoot();
 		}
 		

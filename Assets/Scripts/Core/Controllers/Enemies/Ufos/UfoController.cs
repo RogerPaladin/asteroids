@@ -1,3 +1,4 @@
+using Core.Controllers.ViewPort;
 using Model.Enemies;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Controllers.Enemies.Ufos
 {
 	public class UfoController : AbstractEnemyController
 	{
-		public UfoController(EnemyModel model) : base(model)
+		public UfoController(EnemyModel model, ViewPortController viewPortController) : base(model, viewPortController)
 		{
 		}
 

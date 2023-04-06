@@ -4,7 +4,6 @@ using Static.Enemies;
 using Static.Helpers;
 using Static.Player;
 using Static.Weapons;
-using Utils.DiContainers;
 
 namespace Static
 {
