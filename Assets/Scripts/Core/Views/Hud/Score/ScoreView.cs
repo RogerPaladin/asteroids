@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Views.Hud.Score
 {
-	public class ScoreView: AbstractView, IScoreView
+	public class ScoreView: AbstractView<ScoreModel>, IScoreView
 	{
 		[SerializeField] private TextMeshProUGUI _scoreCount;
-
-		private ScoreModel Model => base.Model as ScoreModel;
 
 		protected override void SyncModel()
 		{

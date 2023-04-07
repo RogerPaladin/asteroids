@@ -5,12 +5,10 @@ using Utils;
 
 namespace Views.Hud.WeaponInfo
 {
-	public class WeaponInfoView: AbstractView, IWeaponInfoView
+	public class WeaponInfoView: AbstractView<WeaponInfoModel>, IWeaponInfoView
 	{
 		[SerializeField] private TextMeshProUGUI _ammoCount;
 		[SerializeField] private TextMeshProUGUI _refreshTimer;
-
-		protected WeaponInfoModel Model => base.Model as WeaponInfoModel;
 
 		protected override void SyncModel()
 		{

@@ -1,18 +1,14 @@
-using System;
 using Model.WeaponInfo;
 using TMPro;
 using UnityEngine;
-using Utils;
 
 namespace Views.Hud.PlayerInfo
 {
-	public class PlayerInfoView: AbstractView, IPlayerInfoView
+	public class PlayerInfoView: AbstractView<PlayerInfoModel>, IPlayerInfoView
 	{
 		[SerializeField] private TextMeshProUGUI _coords;
 		[SerializeField] private TextMeshProUGUI _angle;
 		[SerializeField] private TextMeshProUGUI _speed;
-
-		public PlayerInfoModel Model => base.Model as PlayerInfoModel;
 
 		protected override void SyncModel()
 		{

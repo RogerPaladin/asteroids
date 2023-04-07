@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace Views.GamePlay.Background
 {
-	public class BackgroundView: AbstractView, IBackgroundView
+	public class BackgroundView: AbstractView<BackgroundModel>, IBackgroundView
 	{
 		[SerializeField] private SpriteRenderer _back;
 		
-		private BackgroundModel Model => base.Model as BackgroundModel;
-
 		protected override void SyncModel()
 		{
 			OnSizeChange(Model.BackgroundSize.Value);

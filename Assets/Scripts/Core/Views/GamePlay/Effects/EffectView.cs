@@ -4,10 +4,8 @@ using Utils;
 
 namespace Views.GamePlay.Effects
 {
-	public abstract class EffectView: AbstractViewWithMovementObserver, IEffectView, IActivateDeactivate
+	public abstract class EffectView: AbstractViewWithMovementObserver<EffectModel>, IEffectView, IActivateDeactivate
 	{
-		public EffectModel Model => base.Model as EffectModel;
-
 		protected override void SyncModel()
 		{
 			OnPositionChange(Model.Position.Value);

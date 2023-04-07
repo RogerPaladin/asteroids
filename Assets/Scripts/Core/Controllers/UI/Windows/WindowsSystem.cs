@@ -22,27 +22,6 @@ namespace Controllers.UI.Windows
 			_viewInstantiator = viewInstantiator;
 		}
 
-		protected T OpenWindow<T>(IModel model) where T : AbstractWindow
-		{
-			var window = GetWindow<T>(model);
-			var view = _viewInstantiator.Instantiate(model);
-
-			if (!view)
-			{
-				Debug.LogError($"Window '{typeof(T).Name}' not found");
-				return null;
-			}
-			
-			view.SetParent(_windowsContainer, false);
-			view.BindModel(window.Model);
-
-			_openWindowsStack.Push(window);
-
-			_currentWindow = window;
-
-			return window;
-		}
-
 		private T GetWindow<T>(IModel model) where T : AbstractWindow
 		{
 			Type type = typeof(T);
@@ -51,7 +30,7 @@ namespace Controllers.UI.Windows
 			return controller;
 		}
 		
-		public T ShowWindow<T>(IModel model, bool closeAllOther = false, bool minimizeTopScreen = true) where T : AbstractWindow
+		public T ShowWindow<T>(IModel model, IView view, bool closeAllOther = false, bool minimizeTopScreen = true) where T : AbstractWindow
 		{
 			if (closeAllOther)
 			{
@@ -63,7 +42,15 @@ namespace Controllers.UI.Windows
 			else if (minimizeTopScreen)
 				MinimizeTopScreen();
 			
-			return OpenWindow<T>(model);
+			var window = GetWindow<T>(model);
+
+			view.SetParent(_windowsContainer, false);
+
+			_openWindowsStack.Push(window);
+
+			_currentWindow = window;
+
+			return window;
 		}
 
 		public void CloseCommand()

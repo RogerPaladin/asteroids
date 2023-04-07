@@ -6,7 +6,7 @@ using Utils.Collisions;
 
 namespace Views.GamePlay.Player
 {
-	public class PlayerShipView: AbstractViewWithMovementObserver, IPlayerShipView, IActivateDeactivate
+	public class PlayerShipView: AbstractViewWithMovementObserver<PlayerShipModel>, IPlayerShipView, IActivateDeactivate
 	{
 		[SerializeField] private Collider2D _collider;
 		[SerializeField] private Transform _projectileSpawnPoint;
@@ -16,8 +16,6 @@ namespace Views.GamePlay.Player
 
 		public Collider2D Collider => _collider;
 		public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
-
-		private PlayerShipModel Model => base.Model as PlayerShipModel;
 
 		protected override void AfterAwake()
 		{
