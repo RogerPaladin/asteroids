@@ -21,6 +21,11 @@ namespace Core.Controllers.ViewPort
 		{
 			_model.SetOrthographicSize(value);
 		}
+		
+		public void SetScreenWidthHeight(int width, int height)
+		{
+			_model.SetScreenWidthHeight(width, height);
+		}
 
 		public void CheckPosition(ref Vector2 worldPos)
 		{

@@ -5,9 +5,9 @@ using Views.Windows;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Controllers.UI.WindowsSystem
+namespace Controllers.UI.Windows
 {
-	public class WindowsController
+	public class WindowsSystem
 	{
 		private readonly Transform _windowsContainer;
 		
@@ -16,7 +16,7 @@ namespace Controllers.UI.WindowsSystem
 		private Stack<AbstractWindow> _openWindowsStack { get; set; } = new Stack<AbstractWindow>(10);
 		private Queue<(AbstractWindow, Action<AbstractWindow>)> _windowsQueue { get; } = new Queue<(AbstractWindow, Action<AbstractWindow>)>(10);
 
-		public WindowsController(Transform windowsContainer)
+		public WindowsSystem(Transform windowsContainer)
 		{
 			_windowsContainer = windowsContainer;
 		}

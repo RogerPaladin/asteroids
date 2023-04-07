@@ -4,7 +4,6 @@ using Controllers.Player;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
 using Controllers.UI.Windows;
-using Controllers.UI.WindowsSystem;
 using Factories.Effects.Score;
 using Factories.Enemies;
 using Factories.Level;
@@ -24,7 +23,7 @@ namespace Controllers.Game
 	{
 		private readonly LevelFactory _levelFactory;
 		private readonly PlayerShipFactory _playerShipFactory;
-		private readonly WindowsController _windowsController;
+		private readonly WindowsSystem _windowsSystem;
 		private readonly EnemiesSpawner _enemiesSpawner;
 		private readonly EffectsSpawner _effectsSpawner;
 		private readonly ScoreController _scoreController;
@@ -44,7 +43,7 @@ namespace Controllers.Game
 
 		public GameController(LevelFactory levelFactory,
 							  PlayerShipFactory playerShipFactory,
-							  WindowsController windowsController,
+							  WindowsSystem windowsSystem,
 							  EnemiesSpawner enemiesSpawner,
 							  EffectsSpawner effectsSpawner,
 							  ScoreController scoreController,
@@ -57,7 +56,7 @@ namespace Controllers.Game
 		{
 			_levelFactory = levelFactory;
 			_playerShipFactory = playerShipFactory;
-			_windowsController = windowsController;
+			_windowsSystem = windowsSystem;
 			_enemiesSpawner = enemiesSpawner;
 			_effectsSpawner = effectsSpawner;
 			_scoreController = scoreController;
@@ -131,7 +130,7 @@ namespace Controllers.Game
 			
 			RemoveLevelEventListeners();
 
-			_windowsController.ShowWindow<RestartWindow>(false, w => w.Init(_currentLevel.Score.Value, StartLevel));
+			_windowsSystem.ShowWindow<RestartWindow>(false, w => w.Init(_currentLevel.Score.Value, StartLevel));
 		}
 	}
 }

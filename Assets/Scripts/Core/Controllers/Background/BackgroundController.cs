@@ -22,11 +22,11 @@ namespace Controllers.Background
 
 		public void Update(float deltaTime)
 		{
-			if (!Model.WasScreenChange(new Vector2(Screen.width, Screen.height)))
+			if (!Model.WasScreenChange(new Vector2(_viewPortModel.ScreenWidth, _viewPortModel.ScreenHeight), _viewPortModel.OrthographicSize))
 				return;
 			
 			float cameraHeight = _viewPortModel.OrthographicSize * 2;
-			float cameraWidth = cameraHeight * Screen.width / Screen.height;
+			float cameraWidth = cameraHeight * _viewPortModel.ScreenWidth / _viewPortModel.ScreenHeight;
 
 			Model.SetBackgroundSize(new Vector2(cameraWidth, cameraHeight));
 		}

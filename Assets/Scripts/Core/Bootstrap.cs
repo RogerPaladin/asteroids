@@ -1,7 +1,7 @@
 using Controllers.Game;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
-using Controllers.UI.WindowsSystem;
+using Controllers.UI.Windows;
 using Core.Controllers.Input;
 using Core.Controllers.ViewPort;
 using Core.Loader;
@@ -39,7 +39,7 @@ namespace Core
 		private GameController _gameController;
 		private StaticData _staticData;
 		private UpdateSystem _updateSystem;
-		private WindowsController _windowsController;
+		private WindowsSystem _windowsSystem;
 		private InputController _inputController;
 
 		private void Awake()
@@ -82,7 +82,7 @@ namespace Core
 			var effectsFactory = new EffectsFactory(_updateSystem);
 			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, viewInstantiator);
 
-			_windowsController = new WindowsController(_windowsContainer);
+			_windowsSystem = new WindowsSystem(_windowsContainer);
 
 			var scoreController = new ScoreController(new ScoreModel());
 			var view = viewInstantiator.Instantiate(scoreController.Model);
@@ -91,12 +91,12 @@ namespace Core
 			var playerInfoController = new PlayerInfoController();
 			var weaponInfoController = new WeaponInfoController();
 
-			_gameController = new GameController(levelFactory, playerShipFactory, _windowsController, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewInstantiator, _camera, viewPortModel);
+			_gameController = new GameController(levelFactory, playerShipFactory, _windowsSystem, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewInstantiator, _camera, viewPortModel);
 		}
 		
 		private void StartLoad()
 		{
-			var dataLoader = new DataLoader(_windowsController, _inputController.Model, _updateSystem, _staticData);
+			var dataLoader = new DataLoader(_windowsSystem, _inputController.Model, _updateSystem, _staticData);
 			dataLoader.StartLoad(OnCompleteLoad);
 		}
 

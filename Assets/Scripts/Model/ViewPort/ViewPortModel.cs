@@ -6,6 +6,8 @@ namespace Model.ViewPort
 	{
 		public Rect Rect { get; private set; }
 		public float OrthographicSize { get; private set; }
+		public int ScreenWidth { get; private set; }
+		public int ScreenHeight { get; private set; }
 
 		public void SetRect(Rect rect)
 		{
@@ -15,6 +17,12 @@ namespace Model.ViewPort
 		public void SetOrthographicSize(float value)
 		{
 			OrthographicSize = value;
+		}
+		
+		public void SetScreenWidthHeight(int width, int height)
+		{
+			ScreenWidth = width;
+			ScreenHeight = height;
 		}
 
 		public Vector3 WorldToViewportPoint(Vector2 pos)

@@ -1,4 +1,3 @@
-using Controllers.UI.WindowsSystem;
 using Model.Input;
 using Model.Windows;
 using Utils.Events;
@@ -12,7 +11,7 @@ namespace Controllers.UI.Windows
 		private InputModel _inputModel;
 		private UpdateSystem _updateSystem;
 
-		public PreloaderWindow(WindowsController windowsController, PreloaderWindowModel model) : base(windowsController, model)
+		public PreloaderWindow(WindowsSystem windowsSystem, PreloaderWindowModel model) : base(windowsSystem, model)
 		{
 		}
 		

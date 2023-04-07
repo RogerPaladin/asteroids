@@ -1,12 +1,12 @@
 using System;
 using Model.Windows;
 
-namespace Controllers.UI.WindowsSystem
+namespace Controllers.UI.Windows
 {
     public abstract class AbstractWindow
 	{
 		public readonly AbstractWindowModel Model;
-		protected readonly WindowsController Controller;
+		protected readonly WindowsSystem System;
 
 		public virtual string ClassName
         {
@@ -16,9 +16,9 @@ namespace Controllers.UI.WindowsSystem
             }
 		}
 
-		public AbstractWindow(WindowsController windowsController, AbstractWindowModel model)
+		public AbstractWindow(WindowsSystem windowsSystem, AbstractWindowModel model)
 		{
-			Controller = windowsController;
+			System = windowsSystem;
 
 			if (model == null)
 			{
@@ -42,8 +42,8 @@ namespace Controllers.UI.WindowsSystem
 
 			Model.Close();
 
-			if (Controller != null)
-				Controller.RemoveFromController(this);
+			if (System != null)
+				System.RemoveFromController(this);
 
 			OnBeforeClose();
 			StartHide();

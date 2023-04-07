@@ -1,4 +1,4 @@
-namespace Controllers.UI.WindowsSystem
+namespace Controllers.UI.Windows
 {
 	public enum WindowState
 	{

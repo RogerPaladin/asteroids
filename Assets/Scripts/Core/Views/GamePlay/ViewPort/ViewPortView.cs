@@ -21,6 +21,8 @@ namespace Views.ViewPort
 			
 			_controller.SetRect(new Rect(downLeft, upRight - downLeft));
 			_controller.SetOrthographicSize(_camera.orthographicSize);
+			
+			_controller.SetScreenWidthHeight(Screen.width, Screen.height);
 		}
 	}
 }
