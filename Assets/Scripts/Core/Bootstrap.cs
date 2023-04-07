@@ -31,7 +31,6 @@ namespace Core
 		[SerializeField] private Camera _camera;
 		
 		[SerializeField] private HudView _hudView;
-		[SerializeField] private ViewPortView _viewPortView;
 		[SerializeField] private Transform _windowsContainer;
 		[SerializeField] private Transform _effectsContainer;
 		[SerializeField] private BasePrefabs _basePrefabs;
@@ -70,7 +69,8 @@ namespace Core
 
 			var viewPortModel = new ViewPortModel();
 			var viewPortController = new ViewPortController(viewPortModel);
-			_viewPortView.SetData(viewPortController, _camera);
+			var viewPortView = gameObject.AddComponent<ViewPortView>();
+			viewPortView.SetData(viewPortController, _camera);
 
 			var projectilesFactory = new ProjectilesFactory(_updateSystem, viewPortController);
 			var enemyFactory = new EnemyFactory(_updateSystem, _camera);
