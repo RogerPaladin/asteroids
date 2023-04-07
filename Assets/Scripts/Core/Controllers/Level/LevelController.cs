@@ -62,10 +62,9 @@ namespace Controllers.Level
 
 		private void CreatePlayerInfo()
 		{
-			var playerInfoModel = new PlayerInfoModel(_playerShipController.Model, _camera);
-			_playerInfoController.SetModel(playerInfoModel);
-			var view = _viewInstantiator.Instantiate(playerInfoModel);
-			view.BindModel(playerInfoModel);
+			_playerInfoController.SetPlayerShipModel(_playerShipController.Model);
+			var view = _viewInstantiator.Instantiate(_playerInfoController.Model);
+			view.BindModel(_playerInfoController.Model);
 		}
 
 		private void CreateWeaponInfo()

@@ -25,7 +25,7 @@ namespace Model.ViewPort
 			ScreenHeight = height;
 		}
 
-		public Vector3 WorldToViewportPoint(Vector2 pos)
+		public Vector2 WorldToViewportPoint(Vector2 pos)
 		{
 			return Rect.PointToNormalized(Rect, pos);
 		}
@@ -33,6 +33,12 @@ namespace Model.ViewPort
 		public Vector2 ViewportToWorldPoint(Vector2 viewportPoint)
 		{
 			return Rect.NormalizedToPoint(Rect, viewportPoint);
+		}
+
+		public Vector2 WorldToScreenPoint(Vector2 worldPos)
+		{
+			var viewPortPoint = WorldToViewportPoint(worldPos);
+			return new Vector2(viewPortPoint.x * ScreenWidth, viewPortPoint.y * ScreenHeight);
 		}
 	}
 }

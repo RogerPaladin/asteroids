@@ -15,6 +15,7 @@ using Factories.Weapons;
 using Model.Input;
 using Model.Score;
 using Model.ViewPort;
+using Model.WeaponInfo;
 using Static;
 using UnityEngine;
 using Utils.Clock;
@@ -88,7 +89,7 @@ namespace Core
 			var view = viewInstantiator.Instantiate(scoreController.Model);
 			view.BindModel(scoreController.Model);
 
-			var playerInfoController = new PlayerInfoController();
+			var playerInfoController = new PlayerInfoController(new PlayerInfoModel(), viewPortController);
 			var weaponInfoController = new WeaponInfoController();
 
 			_gameController = new GameController(levelFactory, playerShipFactory, _windowsSystem, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewInstantiator, _camera, viewPortModel);

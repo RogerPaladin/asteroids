@@ -70,5 +70,10 @@ namespace Core.Controllers.ViewPort
 
 			return randomPoint;
 		}
+
+		public Vector2 GetWorldToScreenPoint(Vector2 worldPos)
+		{
+			return _model.WorldToScreenPoint(worldPos);
+		}
 	}
 }
