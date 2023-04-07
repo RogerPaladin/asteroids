@@ -38,7 +38,7 @@ namespace Factories.Effects.Score
 				var view = _viewInstantiator.Instantiate(effect.Model);
 				view.BindModel(effect.Model);
 				
-				view.SetParent(_effectsContainer);
+				view.SetParent(_effectsContainer, false);
 				effect.OnDestroyEvent += OnObjDestroy;
 			}
 			

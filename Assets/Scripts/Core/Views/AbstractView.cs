@@ -51,9 +51,9 @@ namespace Views
 		
 		protected abstract void SyncModel();
 
-		public void SetParent(Transform parent)
+		public void SetParent(Transform parent, bool worldPositionStays = true)
 		{
-			transform.SetParent(parent);
+			transform.SetParent(parent, worldPositionStays);
 		}
 	}
 }
