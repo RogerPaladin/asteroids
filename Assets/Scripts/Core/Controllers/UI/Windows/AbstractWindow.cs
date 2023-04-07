@@ -5,121 +5,56 @@ namespace Controllers.UI.Windows
 {
     public abstract class AbstractWindow
 	{
-		public readonly AbstractWindowModel Model;
-		protected readonly WindowsSystem System;
-
-		public virtual string ClassName
-        {
-            get
-            {
-                return GetType().Name;
-            }
-		}
+		protected readonly AbstractWindowModel Model;
+		private readonly WindowsSystem _system;
 
 		public AbstractWindow(WindowsSystem windowsSystem, AbstractWindowModel model)
 		{
-			System = windowsSystem;
+			_system = windowsSystem;
 			Model = model;
 		}
 
-		public virtual void Close()
+		public void Close()
         {
-            if (!Model.CanClose.Value) return;
-
-			if (Model.IsClosing.Value)
-				return;
-
 			Model.Close();
 
-			if (System != null)
-				System.RemoveFromController(this);
+			_system.RemoveFromController(this);
 
-			OnBeforeClose();
 			StartHide();
 			OnClose();
 		}
 		
-		public virtual void Minimize()
+		public void Minimize()
 		{
-			if (Model.IsClosing.Value)
-				return;
-
 			Model.Minimize();
 		}
 
-		public virtual void Maximize()
+		public void Maximize()
 		{
 			Model.Maximize();
 		}
 
-		protected virtual void OnShow()
-        {
-        }
-		
-		protected virtual void Start()
-        {
-            OnStart();
-			
-			Model.Start();
-			
-			OnAnimationEnd();
-		}
-
-		protected virtual void OnAnimationEnd()
-        {
-			OnShow();
-
-			Model.AnimationEnd();
-		}
-
-        protected virtual void OnStart()
-        {
-			OnShowPlaySound();
-        }
-		
-		protected virtual void OnHideStart() { }
-		protected virtual void OnHideEnd()
+		private void OnHideEnd()
 		{
 			Model.HideEnd();
 		}
 
-		protected virtual void OnShowPlaySound()
-		{
-
-		}
-
-        protected virtual void OnHidePlaySound()
-        {
-
-        }
-
-        protected virtual void SetInteractiveState(bool interactive)
+		private void SetInteractiveState(bool interactive)
 		{
 			Model.SetInteractiveState(interactive);
 		}
 
-		protected virtual void OnClose() { }
-		
-		protected virtual void OnBeforeClose() { }
-		
-        protected void StartHide()
-        {
-			OnHideStart();
+		protected abstract void OnClose();
 
+		private void StartHide()
+        {
             SetInteractiveState(false);
 
 			Model.StartHide();
 
-			OnHidePlaySound();
-			
-			Destroy();
-        }
-
-		protected void Destroy()
-        {
 			OnHideEnd();
         }
-		
+
 		public void SetOnClose(Action onClose)
 		{
 			Model.SetOnCloseCallback(onClose);

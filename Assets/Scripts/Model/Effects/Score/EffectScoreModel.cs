@@ -5,7 +5,7 @@ namespace Model.Effects.Score
 {
 	public class EffectScoreModel : EffectModel
 	{
-		public Observable<int> Score { get; private set; } = new Observable<int>(0);
+		public Observable<int> Score { get; } = new Observable<int>(0);
 		
 		public EffectScoreModel(EffectConfig effectConfig) : base(effectConfig)
 		{

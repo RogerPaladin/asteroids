@@ -20,13 +20,6 @@ namespace Utils.Events
 			_toRemoveListeners.Add(listener);
 		}
 
-		public void Clear()
-		{
-			_listeners.Clear();
-			_toAddListeners.Clear();
-			_toRemoveListeners.Clear();
-		}
-		
 		public void Update(float deltaTime)
 		{
 			ApplyDifference();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Views.GamePlay.Projectiles.Laser
 {
-	public class ProjectileLaserView: ProjectileView, IProjectileLaserView
+	public class ProjectileLaserView: ProjectileView
 	{
 		[SerializeField] private SpriteRenderer _sprite;
 

@@ -7,11 +7,11 @@ namespace Model.Weapons
 {
 	public class WeaponModel : IActivateDeactivate
 	{
-		public WeaponConfig Config { get; private set; }
-		public TimerSystem TimerSystem { get; private set; }
+		public WeaponConfig Config { get; }
+		public TimerSystem TimerSystem { get; }
 
-		public Observable<int> AmmoCount { get; private set; } = new Observable<int>(0);
-		public Observable<float> CurrentRefreshTimeLeft { get; private set; } = new Observable<float>(0);
+		public Observable<int> AmmoCount { get; } = new Observable<int>(0);
+		public Observable<float> CurrentRefreshTimeLeft { get; } = new Observable<float>(0);
 		
 		public bool CanShoot => HaveUnlimitedAmmo || AmmoCount.Value > 0;
 

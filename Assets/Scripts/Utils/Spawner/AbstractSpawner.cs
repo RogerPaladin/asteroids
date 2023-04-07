@@ -21,8 +21,8 @@ namespace Utils.Spawner
 			
 			OnObjDestroyEvent?.Invoke(obj);
 		}
-		
-		protected void ReturnToPool(T obj)
+
+		private void ReturnToPool(T obj)
 		{
 			var key = GetKey(obj);
 			Pool<T> pool = GetPoolByKey(key);
@@ -32,8 +32,8 @@ namespace Utils.Spawner
 			activeList.Remove(obj);
 			obj.Deactivate();
 		}
-		
-		protected void ReturnToPool(HashSet<T> list)
+
+		private void ReturnToPool(HashSet<T> list)
 		{
 			foreach (var obj in list)
 			{
@@ -75,14 +75,14 @@ namespace Utils.Spawner
 
 			return list;
 		}
-		
-		protected void ClearPool()
+
+		private void ClearPool()
 		{
 			foreach (var pool in _pools.Values)
 				pool.Clear();
 		}
-		
-		protected void ClearActive()
+
+		private void ClearActive()
 		{
 			foreach (var list in _active.Values)
 				list.Clear();

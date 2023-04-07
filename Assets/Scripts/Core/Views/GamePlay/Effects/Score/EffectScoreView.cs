@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Views.GamePlay.Effects.Score
 {
-	public class EffectScoreView: EffectView, IEffectScoreView
+	public class EffectScoreView: EffectView
 	{
 		[SerializeField] private TextMeshProUGUI _scoreText;
-		[SerializeField] private Animator _animator;
 		
 		private EffectScoreModel Model => base.Model as EffectScoreModel;
 

@@ -10,7 +10,7 @@ namespace Controllers.Enemies
 	public abstract class AbstractEnemyController : IUpdateListener, IActivateDeactivate
 	{
 		private readonly UpdateSystem _updateSystem;
-		public EnemyModel Model { get; private set; }
+		public EnemyModel Model { get; }
 		protected ViewPortController ViewPortController { get; }
 
 		public event Action<AbstractEnemyController> OnDestroyEvent;

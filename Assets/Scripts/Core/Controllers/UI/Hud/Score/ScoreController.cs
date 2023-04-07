@@ -5,7 +5,7 @@ namespace Controllers.UI.Hud.Score
 {
 	public class ScoreController
 	{
-		public ScoreModel Model { get; private set; }
+		public ScoreModel Model { get; }
 
 		public ScoreController(ScoreModel model)
 		{

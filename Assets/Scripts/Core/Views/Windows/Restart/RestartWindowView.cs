@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Views.Windows.Restart
 {
-	public class RestartWindowView: AbstractWindowView, IRestartWindowView
+	public class RestartWindowView: AbstractWindowView
 	{
 		[SerializeField] private TextMeshProUGUI _scoreText;
 		[SerializeField] private Button _restartBtn;

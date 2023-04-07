@@ -5,23 +5,17 @@ namespace Model.Windows
 {
 	public class AbstractWindowModel: IModel
 	{
-		public Observable<bool> CanClose { get; private set; } = new Observable<bool>(true);
-		public Observable<bool> IsMinimized { get; private set; } = new Observable<bool>(false);
-		public Observable<bool> IsOpening { get; protected set; } = new Observable<bool>(false);
-		public Observable<bool> IsClosing { get; protected set; } = new Observable<bool>(false);
-		
-		public Observable<bool> InteractiveState { get; protected set; } = new Observable<bool>(false);
-		
-		public Observable<Action> OnCloseCallback { get; protected set; } = new Observable<Action>(null);
+		public Observable<bool> IsMinimized { get; } = new Observable<bool>(false);
+		public Observable<bool> InteractiveState { get; } = new Observable<bool>(false);
+
+		private Action OnCloseCallback { get; set; }
 
 		public event Action OnHideStart;
 		public event Action OnHideEnd;
 
 		public void Close()
 		{
-			IsClosing.Value = true;
-			
-			OnCloseCallback?.Value?.Invoke();
+			OnCloseCallback?.Invoke();
 		}
 
 		public void Minimize()
@@ -32,16 +26,6 @@ namespace Model.Windows
 		public void Maximize()
 		{
 			IsMinimized.Value = false;
-		}
-
-		public void Start()
-		{
-			IsOpening.Value = true;
-		}
-
-		public void AnimationEnd()
-		{
-			IsOpening.Value = false;
 		}
 
 		public void StartHide()
@@ -61,7 +45,7 @@ namespace Model.Windows
 
 		public void SetOnCloseCallback(Action onClose)
 		{
-			OnCloseCallback.Value = onClose;
+			OnCloseCallback = onClose;
 		}
 	}
 }

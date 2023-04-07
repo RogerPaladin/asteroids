@@ -11,7 +11,7 @@ namespace Controllers.UI.Hud.PlayerInfo
 	{
 		private readonly ViewPortController _viewPortController;
 		
-		public PlayerInfoModel Model { get; private set; }
+		public PlayerInfoModel Model { get; }
 		private PlayerShipModel _playerShipModel;
 
 		public PlayerInfoController(PlayerInfoModel model, ViewPortController viewPortController)
@@ -39,7 +39,7 @@ namespace Controllers.UI.Hud.PlayerInfo
 			_playerShipModel.Velocity.Changed += OnVelocityChange;
 		}
 
-		public void RemoveListeners()
+		private void RemoveListeners()
 		{
 			if (_playerShipModel == null)
 				return;

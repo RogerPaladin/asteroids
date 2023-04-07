@@ -19,17 +19,6 @@ namespace Core.Loader
 		private PreloaderWindow _preloaderWindow;
 		private int _progress = 0;
 
-
-		private int Progress
-		{
-			get => _progress;
-			set
-			{
-				_progress = value;
-				_preloaderWindow.SetProgress(_progress);
-			}
-		}
-		
 		public DataLoader(WindowsSystem windowsSystem, InputModel inputModel, UpdateSystem updateSystem, ViewInstantiator viewInstantiator, StaticData staticData)
 		{
 			_windowsSystem = windowsSystem;
@@ -56,9 +45,15 @@ namespace Core.Loader
 			view.BindModel(model);
 			_preloaderWindow = _windowsSystem.ShowWindow<PreloaderWindow>(model, view);
 			_preloaderWindow.SetData(_inputModel, _updateSystem);
-			Progress = 0;
+			SetProgress(0);
 		}
 
-		private void SetProgress(float value, int start, int end) => Progress = (int) (start + (end - start) * value);
+		private void SetProgress(float value, int start, int end) => SetProgress((int)(start + (end - start) * value));
+
+		private void SetProgress(int value)
+		{
+			_progress = value;
+			_preloaderWindow.SetProgress(_progress);
+		}
 	}
 }

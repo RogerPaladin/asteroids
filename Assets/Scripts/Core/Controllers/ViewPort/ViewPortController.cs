@@ -60,10 +60,9 @@ namespace Core.Controllers.ViewPort
 		
 		public Vector2 GetRandomPosition(Vector2 exceptPosition, float minDistance = 25)
 		{
-			var center = Vector2.zero;
 			var randomPoint = _model.ViewportToWorldPoint(new Vector2(Random.value, Random.value));
 
-			var dist = (center - (Vector2)randomPoint).sqrMagnitude;
+			var dist = (exceptPosition - (Vector2)randomPoint).sqrMagnitude;
 
 			if (dist < minDistance)
 				return GetRandomPosition(exceptPosition, minDistance);

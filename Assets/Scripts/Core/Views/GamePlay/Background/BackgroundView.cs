@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Views.GamePlay.Background
 {
-	public class BackgroundView: AbstractView<BackgroundModel>, IBackgroundView
+	public class BackgroundView: AbstractView<BackgroundModel>
 	{
 		[SerializeField] private SpriteRenderer _back;
 		

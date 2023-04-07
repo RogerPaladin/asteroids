@@ -10,16 +10,14 @@ namespace Controllers.UI.Windows
 	public class WindowsSystem
 	{
 		private readonly Transform _windowsContainer;
-		private readonly ViewInstantiator _viewInstantiator;
 
 		private AbstractWindow _currentWindow = null;
 
 		private Stack<AbstractWindow> _openWindowsStack { get; set; } = new Stack<AbstractWindow>(10);
 
-		public WindowsSystem(Transform windowsContainer, ViewInstantiator viewInstantiator)
+		public WindowsSystem(Transform windowsContainer)
 		{
 			_windowsContainer = windowsContainer;
-			_viewInstantiator = viewInstantiator;
 		}
 
 		private T GetWindow<T>(IModel model) where T : AbstractWindow
@@ -34,7 +32,7 @@ namespace Controllers.UI.Windows
 		{
 			if (closeAllOther)
 			{
-				if (_currentWindow != null && !_currentWindow.Model.CanClose.Value)
+				if (_currentWindow != null)
 					return null;
 				
 				CloseAllScreens($"by {typeof(T)}");
@@ -53,11 +51,6 @@ namespace Controllers.UI.Windows
 			return window;
 		}
 
-		public void CloseCommand()
-		{
-			CloseTopScreen();
-		}
-		
 		public void CloseAllScreens(string tag)
 		{
 			Debug.Log("CloseAllScreens " + (tag ?? ""));
@@ -85,19 +78,6 @@ namespace Controllers.UI.Windows
 				if (_openWindowsStack.Count <= 0) return;
 				wnd = _openWindowsStack.Peek();
 			}
-		}
-		
-		private void CloseTopScreen()
-		{
-			ClearEmptyScreensIfAny();
-
-			if (_openWindowsStack.Count <= 0) return;
-
-			var win = _openWindowsStack.Pop();
-			if (win.Model.CanClose.Value)
-				win.Close();
-
-			OnTopScreenClose();
 		}
 
 		protected void OnTopScreenClose()

@@ -11,8 +11,8 @@ namespace Controllers.Projectiles
 	public abstract class AbstractProjectileController: IUpdateListener, IActivateDeactivate
 	{
 		protected readonly ViewPortController _viewPortController;
-		protected readonly UpdateSystem _updateSystem;
-		public ProjectileModel Model { get; private set; }
+		private readonly UpdateSystem _updateSystem;
+		public ProjectileModel Model { get; }
 
 		public event Action<AbstractProjectileController> OnDestroyEvent;
 		

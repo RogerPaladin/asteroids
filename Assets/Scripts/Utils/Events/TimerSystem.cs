@@ -16,11 +16,6 @@ namespace Utils.Events
 			_listeners.Remove(listener);
 		}
 
-		public void Clear()
-		{
-			_listeners.Clear();
-		}
-		
 		public void OnTimer() 
 		{
 			foreach (var iUpdatable in _listeners)

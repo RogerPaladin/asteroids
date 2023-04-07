@@ -6,7 +6,7 @@ using Utils.Collisions;
 
 namespace Views.GamePlay.Player
 {
-	public class PlayerShipView: AbstractViewWithMovementObserver<PlayerShipModel>, IPlayerShipView, IActivateDeactivate
+	public class PlayerShipView: AbstractViewWithMovementObserver<PlayerShipModel>, IActivateDeactivate
 	{
 		[SerializeField] private Collider2D _collider;
 		[SerializeField] private Transform _projectileSpawnPoint;
@@ -14,7 +14,6 @@ namespace Views.GamePlay.Player
 		private PlayerShipController _controller;
 		private CollisionChecker _collisionChecker;
 
-		public Collider2D Collider => _collider;
 		public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
 
 		protected override void AfterAwake()
@@ -55,11 +54,6 @@ namespace Views.GamePlay.Player
 		{
 			BindModel(model);
 			_controller = controller;
-		}
-
-		public void SetParent(Transform parent)
-		{
-			transform.SetParent(parent);
 		}
 
 		public void Activate()

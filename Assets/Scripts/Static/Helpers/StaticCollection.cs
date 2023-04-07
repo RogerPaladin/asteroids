@@ -28,10 +28,7 @@ namespace Static.Helpers
             All = all ?? new Dictionary<int, T>();
         }
 
-        public T this[int id]
-        {
-            get { return Get(id); }
-        }
+        public T this[int id] => Get(id);
 
         public T Get(int id)
 		{

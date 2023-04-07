@@ -6,7 +6,7 @@ using Utils.Collisions;
 
 namespace Views.GamePlay.Projectiles
 {
-	public abstract class ProjectileView: AbstractViewWithMovementObserver<ProjectileModel>, IProjectileView, IActivateDeactivate
+	public abstract class ProjectileView: AbstractViewWithMovementObserver<ProjectileModel>, IActivateDeactivate
 	{
 		[SerializeField] private Collider2D _collider;
 		

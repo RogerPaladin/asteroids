@@ -22,13 +22,11 @@ namespace Factories.Projectiles
 
 		public AbstractProjectileController Create(WeaponConfig config)
 		{
-			ProjectileModel model;
-
 			switch (config.ModelId)
 			{
 				case WeaponType.BULLET:
-					model = new ProjectileModel(config);
-					return new ProjectileBulletController(model, _viewPortController, _updateSystem);
+					var bulletModel = new ProjectileModel(config);
+					return new ProjectileBulletController(bulletModel, _viewPortController, _updateSystem);
 				case WeaponType.LASER:
 					var projectileLaserModel = new ProjectileLaserModel(config);
 					return new ProjectileLaserController(projectileLaserModel, _viewPortController, _updateSystem);

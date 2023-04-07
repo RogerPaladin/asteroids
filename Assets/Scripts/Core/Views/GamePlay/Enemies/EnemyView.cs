@@ -5,10 +5,8 @@ using Utils;
 
 namespace Views.GamePlay.Enemies
 {
-	public class EnemyView: AbstractViewWithMovementObserver<EnemyModel>, IEnemyView, IActivateDeactivate
+	public class EnemyView: AbstractViewWithMovementObserver<EnemyModel>, IActivateDeactivate
 	{
-		public Collider2D Collider;
-		
 		public event Action OnCollisionEvent;
 
 		protected override void SyncModel()

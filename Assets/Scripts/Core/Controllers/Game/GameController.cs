@@ -32,7 +32,6 @@ namespace Controllers.Game
 		private readonly BackgroundController _backgroundController;
 		private readonly Transform _gameContainer;
 		private readonly UpdateSystem _updateSystem;
-		private readonly Camera _camera;
 		private readonly ViewPortModel _viewPortModel;
 
 		private LevelController _currentLevel = null;
@@ -51,7 +50,7 @@ namespace Controllers.Game
 							  WeaponInfoController weaponInfoController,
 							  Transform gameContainer,
 							  UpdateSystem updateSystem,
-							  ViewInstantiator viewInstantiator, Camera camera,
+							  ViewInstantiator viewInstantiator,
 							  ViewPortModel viewPortModel)
 		{
 			_levelFactory = levelFactory;
@@ -65,7 +64,6 @@ namespace Controllers.Game
 			_gameContainer = gameContainer;
 			_updateSystem = updateSystem;
 			_viewInstantiator = viewInstantiator;
-			_camera = camera;
 			_viewPortModel = viewPortModel;
 
 			SetBackground();
@@ -79,7 +77,7 @@ namespace Controllers.Game
 		
 		private void StartLevel()
 		{
-			_currentLevel = _levelFactory.Create(_playerShipController, _enemiesSpawner, _scoreController, _playerInfoController, _weaponInfoController, _viewInstantiator, _camera);
+			_currentLevel = _levelFactory.Create(_playerShipController, _enemiesSpawner, _scoreController, _playerInfoController, _weaponInfoController, _viewInstantiator);
 
 			AddLevelEventListeners();
 			
@@ -99,7 +97,7 @@ namespace Controllers.Game
 		private void CreatePlayer()
 		{
 			_playerShipController = _playerShipFactory.Create();
-			var view = (IPlayerShipView)_viewInstantiator.Instantiate(_playerShipController.Model);
+			var view = _viewInstantiator.Instantiate(_playerShipController.Model);
 			view.SetData(_playerShipController.Model, _playerShipController);
 			view.SetParent(_gameContainer);
 			_playerShipController.SetProjectileSpawnPoint(view.ProjectileSpawnPoint.position);

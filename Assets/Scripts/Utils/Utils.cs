@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Newtonsoft.Json;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Utils
 {
@@ -34,15 +30,6 @@ namespace Utils
 			return default;
 		}
 		
-		public static HashSet<T> GetAllPublicStaticFieldsValues<T>(this Type type)
-		{
-			return type
-				  .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-				  .Where(fi => fi.IsLiteral && !fi.IsInitOnly && fi.FieldType == typeof(T))
-				  .Select(x => (T)x.GetRawConstantValue())
-				  .ToHashSet();
-		}
-
 		public static string GetNumericTime(this float time, bool needHours = true, bool needSeconds = true)
 		{
 			var hours = (int) Math.Floor(time / 3600f);

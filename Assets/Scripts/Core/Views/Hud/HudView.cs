@@ -1,8 +1,7 @@
-
+using UnityEngine;
 using Views.Hud.PlayerInfo;
 using Views.Hud.Score;
 using Views.Hud.WeaponInfo;
-using UnityEngine;
 
 namespace Views.Hud
 {

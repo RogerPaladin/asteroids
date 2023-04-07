@@ -9,14 +9,10 @@ namespace Static.Helpers
 		public const string ENEMIES = "enemies";
 		public const string WEAPONS = "weapons";
 		public const string EFFECTS = "effects";
-		
-		public static HashSet<string> ALL
+
+		public static HashSet<string> ALL { get; } = new HashSet<string>()
 		{
-			get
-			{
-				var result = typeof(StaticDataFileName).GetAllPublicStaticFieldsValues<string>();
-				return result;
-			}
-		}
+			PLAYER, ENEMIES, WEAPONS, EFFECTS
+		};
 	}
 }

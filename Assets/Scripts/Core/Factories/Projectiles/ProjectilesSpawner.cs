@@ -36,7 +36,7 @@ namespace Factories.Projectiles
 			if (projectile == null)
 			{
 				projectile = _projectilesFactory.Create(weaponConfig);
-				var view = (IProjectileView)_viewInstantiator.Instantiate(projectile.Model);
+				var view = _viewInstantiator.Instantiate(projectile.Model);
 				view.SetData(projectile.Model, projectile);
 				view.SetParent(_gameContainer);
 				projectile.OnDestroyEvent += OnObjDestroy;
