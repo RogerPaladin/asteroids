@@ -6,7 +6,12 @@ namespace Views
 	public abstract class AbstractView : MonoBehaviour, IView
 	{
 		public IModel Model { get; protected set; }
-		
+
+		private void Awake()
+		{
+			AfterAwake();
+		}
+
 		public void BindModel(IModel model)
 		{
 			RemoveListeners();
@@ -17,7 +22,13 @@ namespace Views
 
 			OnBindComplete();
 		}
+		
+		public void SetParent(Transform parent, bool worldPositionStays = true)
+		{
+			transform.SetParent(parent, worldPositionStays);
+		}
 
+		protected virtual void AfterAwake() {}
 		protected virtual void AddListeners()
 		{
 			if (Model == null)
@@ -50,10 +61,5 @@ namespace Views
 		protected abstract void RemoveChildListeners();
 		
 		protected abstract void SyncModel();
-
-		public void SetParent(Transform parent, bool worldPositionStays = true)
-		{
-			transform.SetParent(parent, worldPositionStays);
-		}
 	}
 }

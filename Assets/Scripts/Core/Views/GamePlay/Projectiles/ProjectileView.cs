@@ -1,6 +1,8 @@
+using Controllers.Projectiles;
 using Model.Projectiles;
 using UnityEngine;
 using Utils;
+using Utils.Collisions;
 
 namespace Views.GamePlay.Projectiles
 {
@@ -8,10 +10,26 @@ namespace Views.GamePlay.Projectiles
 	{
 		[SerializeField] private Collider2D _collider;
 		
+		private CollisionChecker _collisionChecker;
+		private AbstractProjectileController _controller;
+		
 		public Collider2D Collider => _collider;
 
 		public ProjectileModel Model => base.Model as ProjectileModel;
 
+		protected override void AfterAwake()
+		{
+			base.AfterAwake();
+			
+			_collisionChecker = new CollisionChecker(_collider);
+		}
+		
+		public void SetData(ProjectileModel model, AbstractProjectileController controller) //todo!!!! Уже есть BindModel(IModel)
+		{
+			BindModel(model);
+			_controller = controller;
+		}
+		
 		protected override void SyncModel()
 		{
 			OnPositionChange(Model.Position.Value);
@@ -60,6 +78,27 @@ namespace Views.GamePlay.Projectiles
 				Activate();
 			else
 				Deactivate();
+		}
+		
+		private void Update()
+		{
+			CheckCollision();
+		}
+
+		private void CheckCollision()
+		{
+			if (_controller == null)
+				return;
+
+			ICollisionDetector collisionDetector = null;
+			
+			if (_collisionChecker.Check(ref collisionDetector))
+			{
+				_controller.OnCollision(true, collisionDetector);
+				return;
+			}
+			
+			_controller.OnCollision(false);
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Views.Windows
 
 		public AbstractWindowModel Model => base.Model as AbstractWindowModel;
 		
-		protected void Awake()
+		protected override void AfterAwake()
 		{
 			AnimatorController = GetComponent<Animator>();
 			CanvasGroup = GetComponent<CanvasGroup>();

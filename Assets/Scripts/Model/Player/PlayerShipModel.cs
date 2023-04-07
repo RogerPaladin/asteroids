@@ -10,7 +10,6 @@ namespace Model.Player
 	public class PlayerShipModel : ModelMovementObservable, IModel, IActivateDeactivate
 	{
 		private readonly PlayerConfig _config;
-		private CollisionChecker _collisionChecker;//todo!!!! THINK
 		private Vector2 _projectileLocalSpawnPoint;
 
 		public float Acceleration => _config.Acceleration;
@@ -18,7 +17,8 @@ namespace Model.Player
 		public float MaxSpeed => _config.MaxSpeed;
 		public float MaxRotationSpeed => _config.MaxRotationSpeed;
 
-		public bool IsHaveCollision => _collisionChecker?.IsHaveCollision ?? false;
+		public bool IsHaveCollision { get; private set; }
+		public ICollisionDetector CurrentCollision { get; private set; }
 
 		public Vector2 ProjectileSpawnPosition => Position.Value + (Vector2)(Rotation.Value * _projectileLocalSpawnPoint);
 		
@@ -32,11 +32,6 @@ namespace Model.Player
 		public void SetProjectileSpawnPoint(Vector2 projectileLocalSpawnPoint)
 		{
 			_projectileLocalSpawnPoint = projectileLocalSpawnPoint;
-		}
-		
-		public void SetCollisionChecker(CollisionChecker collisionChecker)
-		{
-			_collisionChecker = collisionChecker;
 		}
 
 		public void Activate()
@@ -53,9 +48,16 @@ namespace Model.Player
 			IsActive.Value = false;
 		}
 
-		public void OnLevelEnd()
+		public void SetCollision(bool val, ICollisionDetector collisionDetector)
 		{
+			IsHaveCollision = val;
+			CurrentCollision = collisionDetector;
+		}
 
+		public void RemoveCollision()
+		{
+			IsHaveCollision = false;
+			CurrentCollision = null;
 		}
 	}
 }

@@ -9,7 +9,6 @@ namespace Model.Projectiles
 	public class ProjectileModel: ModelMovementObservable, IModel, IActivateDeactivate
 	{
 		protected readonly WeaponConfig Config;
-		private CollisionChecker _collisionChecker;
 
 		public float LifeTime { get; private set; }
 		
@@ -17,21 +16,16 @@ namespace Model.Projectiles
 		public string ModelId => Config.ModelId;
 		public bool NeedDestroyOnCollision => Config.ProjectileDestroyOnCollision;
 		
-		public bool IsHaveCollision => _collisionChecker.IsHaveCollision;
+		public bool IsHaveCollision { get; private set; }
+		public ICollisionDetector CurrentCollision { get; private set; }
 		
 		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
 
-		public ProjectileModel(WeaponConfig config, CollisionChecker collisionChecker = null)
+		public ProjectileModel(WeaponConfig config)
 		{
 			Config = config;
-			_collisionChecker = collisionChecker;
 		}
 
-		public void SetCollisionChecker(CollisionChecker collisionChecker)
-		{
-			_collisionChecker = collisionChecker;
-		}
-		
 		public virtual void Activate()
 		{
 			LifeTime = Config.ProjectileLifeTime;
@@ -47,6 +41,18 @@ namespace Model.Projectiles
 		public void SetLifeTime(float lifeTime)
 		{
 			LifeTime = lifeTime;
+		}
+		
+		public void SetCollision(bool val, ICollisionDetector collisionDetector)
+		{
+			IsHaveCollision = val;
+			CurrentCollision = collisionDetector;
+		}
+
+		public void RemoveCollision()
+		{
+			IsHaveCollision = false;
+			CurrentCollision = null;
 		}
 	}
 }

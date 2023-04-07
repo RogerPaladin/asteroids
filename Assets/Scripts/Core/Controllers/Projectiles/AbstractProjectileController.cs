@@ -55,19 +55,29 @@ namespace Controllers.Projectiles
 			Model.SetRotation(rotation);
 		}
 		
-		public void SetCollisionChecker(CollisionChecker collisionChecker)
+		public void OnCollision(bool val, ICollisionDetector collisionDetector = null)
 		{
-			Model.SetCollisionChecker(collisionChecker);
+			Model.SetCollision(val, collisionDetector);
 		}
 		
 		protected abstract void ApplyMovement(float deltaTime);
 		
 		private bool CheckCollisions()
 		{
-			if (Model.IsHaveCollision && Model.NeedDestroyOnCollision)
+			if (Model.IsHaveCollision)
 			{
-				OnDestroy();
-				return true;
+				Model.CurrentCollision?.OnCollision();
+				
+				if (Model.NeedDestroyOnCollision)
+				{
+					OnDestroy();
+					
+					Model.RemoveCollision();
+					
+					return true;
+				}
+				
+				Model.RemoveCollision();
 			}
 			
 			return false;

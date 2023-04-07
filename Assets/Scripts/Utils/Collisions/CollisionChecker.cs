@@ -12,23 +12,20 @@ namespace Utils.Collisions
 		{
 			_collider = collider;
 			_filter = new ContactFilter2D().NoFilter();
-			_results = new Collider2D[16];
+			_results = new Collider2D[1];
 		}
 
-		public bool IsHaveCollision
-		{ 
-			get
-			{
-				if (Physics2D.OverlapCollider(_collider, _filter, _results) == 0)
-					return false;
+		public bool Check(ref ICollisionDetector result)
+		{
+			if (Physics2D.OverlapCollider(_collider, _filter, _results) == 0)
+				return false;
 				
-				if (!_results[0].TryGetComponent(out ICollisionDetector collisionDetector))
-					return false;
+			if (!_results[0].TryGetComponent(out ICollisionDetector collisionDetector))
+				return false;
 
-				collisionDetector.OnCollision();
+			result = collisionDetector;
 
-				return true;
-			}
+			return true;
 		}
 	}
 }

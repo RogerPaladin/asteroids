@@ -13,8 +13,10 @@ namespace Views.GamePlay.Projectiles.Laser
 
 		private ProjectileLaserModel Model => base.Model as ProjectileLaserModel;
 		
-		private void Awake()
+		protected override void AfterAwake()
 		{
+			base.AfterAwake();
+			
 			_defaultSize = _sprite.size;
 		}
 		

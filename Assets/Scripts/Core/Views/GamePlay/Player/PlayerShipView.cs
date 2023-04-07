@@ -1,6 +1,8 @@
+using Controllers.Player;
 using Model.Player;
 using UnityEngine;
 using Utils;
+using Utils.Collisions;
 
 namespace Views.GamePlay.Player
 {
@@ -8,15 +10,20 @@ namespace Views.GamePlay.Player
 	{
 		[SerializeField] private Collider2D _collider;
 		[SerializeField] private Transform _projectileSpawnPoint;
+		
+		private PlayerShipController _controller;
+		private CollisionChecker _collisionChecker;
 
 		public Collider2D Collider => _collider;
 		public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
 
 		private PlayerShipModel Model => base.Model as PlayerShipModel;
 
-		public void SetParent(Transform parent)
+		protected override void AfterAwake()
 		{
-			transform.SetParent(parent);
+			base.AfterAwake();
+			
+			_collisionChecker = new CollisionChecker(_collider);
 		}
 
 		protected override void SyncModel()
@@ -46,7 +53,13 @@ namespace Views.GamePlay.Player
 			Model.IsActive.Changed -= OnActiveChange;
 		}
 
-		public void OnChangeParent(Transform parent)
+		public void SetData(PlayerShipModel model, PlayerShipController controller) //todo!!!! Уже есть BindModel(IModel)
+		{
+			BindModel(model);
+			_controller = controller;
+		}
+
+		public void SetParent(Transform parent)
 		{
 			transform.SetParent(parent);
 		}
@@ -72,6 +85,27 @@ namespace Views.GamePlay.Player
 				Activate();
 			else
 				Deactivate();
+		}
+		
+		private void Update()
+		{
+			CheckCollision();
+		}
+
+		private void CheckCollision()
+		{
+			if (_controller == null)
+				return;
+
+			ICollisionDetector collisionDetector = null;
+			
+			if (_collisionChecker.Check(ref collisionDetector))
+			{
+				_controller.OnCollision(true, collisionDetector);
+				return;
+			}
+			
+			_controller.OnCollision(false);
 		}
 	}
 }

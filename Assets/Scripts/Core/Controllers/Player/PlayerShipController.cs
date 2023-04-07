@@ -74,11 +74,14 @@ namespace Controllers.Player
 		public void OnLevelEnd()
 		{
 			Deactivate();
-			
-			Model.OnLevelEnd();
-			
+
 			WeaponFirst?.OnLevelEnd();
 			WeaponSecond?.OnLevelEnd();
+		}
+
+		public void OnCollision(bool val, ICollisionDetector collisionDetector = null)
+		{
+			Model.SetCollision(val, collisionDetector);
 		}
 		
 		public void Update(float deltaTime)
@@ -122,7 +125,12 @@ namespace Controllers.Player
 		{
 			if (Model.IsHaveCollision)
 			{
+				Model.CurrentCollision?.OnCollision();
+				
 				OnDestroy();
+
+				Model.RemoveCollision();
+				
 				return true;
 			}
 			
@@ -151,11 +159,6 @@ namespace Controllers.Player
 		public void SetProjectileSpawnPoint(Vector3 position)
 		{
 			Model.SetProjectileSpawnPoint(position);
-		}
-
-		public void SetCollisionChecker(CollisionChecker collisionChecker)
-		{
-			Model.SetCollisionChecker(collisionChecker);
 		}
 	}
 }

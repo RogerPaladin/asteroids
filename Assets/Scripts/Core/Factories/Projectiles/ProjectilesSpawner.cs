@@ -37,9 +37,8 @@ namespace Factories.Projectiles
 			{
 				projectile = _projectilesFactory.Create(weaponConfig);
 				var view = (IProjectileView)_viewInstantiator.Instantiate(projectile.Model);
-				view.BindModel(projectile.Model);
+				view.SetData(projectile.Model, projectile);
 				view.SetParent(_gameContainer);
-				projectile.SetCollisionChecker(new CollisionChecker(view.Collider));
 				projectile.OnDestroyEvent += OnObjDestroy;
 			}
 			

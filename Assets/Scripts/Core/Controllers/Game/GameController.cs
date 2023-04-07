@@ -12,7 +12,6 @@ using Model.Background;
 using Model.Enemies;
 using Model.ViewPort;
 using UnityEngine;
-using Utils.Collisions;
 using Utils.Events;
 using Views;
 using Views.GamePlay.Player;
@@ -100,10 +99,9 @@ namespace Controllers.Game
 		{
 			_playerShipController = _playerShipFactory.Create();
 			var view = (IPlayerShipView)_viewInstantiator.Instantiate(_playerShipController.Model);
-			view.BindModel(_playerShipController.Model);
+			view.SetData(_playerShipController.Model, _playerShipController);
 			view.SetParent(_gameContainer);
 			_playerShipController.SetProjectileSpawnPoint(view.ProjectileSpawnPoint.position);
-			_playerShipController.SetCollisionChecker(new CollisionChecker(view.Collider));
 			_playerShipController.Activate();
 		}
 
