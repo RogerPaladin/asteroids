@@ -1,18 +1,18 @@
 using System;
 using Controllers.Weapons;
 using Core.Controllers.ViewPort;
+using Model.Input;
 using Model.Player;
 using Utils;
 using Utils.Events;
 using UnityEngine;
 using Utils.Collisions;
-using Utils.Input;
 
 namespace Controllers.Player
 {
 	public class PlayerShipController : IUpdateListener, IActivateDeactivate
 	{
-		private readonly InputController _inputController;
+		private readonly InputModel _inputModel;
 		private readonly UpdateSystem _updateSystem;
 		private readonly ViewPortController _viewPortController;
 		public PlayerShipModel Model { get; private set; }
@@ -22,9 +22,9 @@ namespace Controllers.Player
 		
 		public event Action OnDestroyEvent;
 		
-		public PlayerShipController(PlayerShipModel model, InputController inputController, UpdateSystem updateSystem, ViewPortController viewPortController)
+		public PlayerShipController(PlayerShipModel model, InputModel inputModel, UpdateSystem updateSystem, ViewPortController viewPortController)
 		{
-			_inputController = inputController;
+			_inputModel = inputModel;
 			_updateSystem = updateSystem;
 			_viewPortController = viewPortController;
 			Model = model;
@@ -95,7 +95,7 @@ namespace Controllers.Player
 		{
 			var angle =
 							Quaternion.Euler(0f, 0f,
-											 Model.MaxRotationSpeed * -_inputController.Rotation * deltaTime *
+											 Model.MaxRotationSpeed * -_inputModel.Rotation * deltaTime *
 											 Mathf.Rad2Deg);
 
 			Model.SetRotation(Model.Rotation.Value * angle);
@@ -104,7 +104,7 @@ namespace Controllers.Player
 			
 			var velocity = Model.Velocity.Value;
 
-			if (_inputController.Thrust > 0)
+			if (_inputModel.Thrust > 0)
 				velocity += Model.Acceleration * deltaTime * forward;
 			else
 				velocity += Model.DeAcceleration * deltaTime * -Model.Velocity.Value;
@@ -131,10 +131,10 @@ namespace Controllers.Player
 
 		private void CheckWeapons()
 		{
-			if (_inputController.NeedShootFirstWeapon)
+			if (_inputModel.NeedShootFirstWeapon)
 				WeaponFirst?.Shoot();
 			
-			if (_inputController.NeedShootSecondWeapon)
+			if (_inputModel.NeedShootSecondWeapon)
 				WeaponSecond?.Shoot();
 		}
 		

@@ -2,6 +2,7 @@ using Controllers.Game;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
 using Controllers.UI.WindowsSystem;
+using Core.Controllers.Input;
 using Core.Controllers.ViewPort;
 using Core.Loader;
 using Factories.Effects;
@@ -11,15 +12,16 @@ using Factories.Level;
 using Factories.Player;
 using Factories.Projectiles;
 using Factories.Weapons;
+using Model.Input;
 using Model.Score;
 using Model.ViewPort;
 using Static;
 using UnityEngine;
 using Utils.Clock;
 using Utils.Events;
-using Utils.Input;
 using Views;
 using Views.Hud;
+using Views.Input;
 using Views.ViewPort;
 
 namespace Core
@@ -58,7 +60,10 @@ namespace Core
 			var timerSystem = new TimerSystem();
 			clockBehaviour.OnSecondUpdate += timerSystem.OnTimer;
 
-			_inputController = new InputController();
+			_inputController = new InputController(new InputModel());
+			var inputView = gameObject.AddComponent<InputView>();
+			inputView.SetData(_inputController);
+			
 			
 			_staticData = new StaticData();
 			var viewInstantiator = new ViewInstantiator(_basePrefabs, _hudView);
@@ -71,7 +76,7 @@ namespace Core
 			var enemyFactory = new EnemyFactory(_updateSystem, _camera);
 			var projectilesSpawner = new ProjectilesSpawner(projectilesFactory, gameContainer, viewInstantiator);
 			var weaponsFactory = new WeaponsFactory(_staticData, projectilesSpawner, timerSystem);
-			var playerShipFactory = new PlayerShipFactory(_staticData, _inputController, weaponsFactory, _updateSystem, viewPortController);
+			var playerShipFactory = new PlayerShipFactory(_staticData, _inputController.Model, weaponsFactory, _updateSystem, viewPortController);
 			var enemiesSpawner = new EnemiesSpawner(_staticData, enemyFactory, viewPortController, timerSystem, gameContainer, viewInstantiator);
 			var levelFactory = new LevelFactory();
 			var effectsFactory = new EffectsFactory(_updateSystem);
@@ -91,7 +96,7 @@ namespace Core
 		
 		private void StartLoad()
 		{
-			var dataLoader = new DataLoader(_windowsController, _inputController, _updateSystem, _staticData);
+			var dataLoader = new DataLoader(_windowsController, _inputController.Model, _updateSystem, _staticData);
 			dataLoader.StartLoad(OnCompleteLoad);
 		}
 

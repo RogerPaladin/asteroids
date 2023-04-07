@@ -1,16 +1,16 @@
 using System;
 using Controllers.UI.Windows;
 using Controllers.UI.WindowsSystem;
+using Model.Input;
 using Static;
 using Utils.Events;
-using Utils.Input;
 
 namespace Core.Loader
 {
 	public class DataLoader
 	{
 		private readonly WindowsController _windowsController;
-		private readonly InputController _inputController;
+		private readonly InputModel _inputModel;
 		private readonly UpdateSystem _updateSystem;
 		private readonly StaticData _staticData;
 		
@@ -28,10 +28,10 @@ namespace Core.Loader
 			}
 		}
 		
-		public DataLoader(WindowsController windowsController, InputController inputController, UpdateSystem updateSystem, StaticData staticData)
+		public DataLoader(WindowsController windowsController, InputModel inputModel, UpdateSystem updateSystem, StaticData staticData)
 		{
 			_windowsController = windowsController;
-			_inputController = inputController;
+			_inputModel = inputModel;
 			_updateSystem = updateSystem;
 			_staticData = staticData;
 		}
@@ -48,7 +48,7 @@ namespace Core.Loader
 
 		private void ShowPreloader()
 		{
-			_preloaderWindow = _windowsController.ShowWindow<PreloaderWindow>(false, w => w.Init(_inputController, _updateSystem));
+			_preloaderWindow = _windowsController.ShowWindow<PreloaderWindow>(false, w => w.Init(_inputModel, _updateSystem));
 			Progress = 0;
 		}
 

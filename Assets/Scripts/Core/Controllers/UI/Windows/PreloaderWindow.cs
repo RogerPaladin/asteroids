@@ -1,7 +1,7 @@
 using Controllers.UI.WindowsSystem;
+using Model.Input;
 using Model.Windows;
 using Utils.Events;
-using Utils.Input;
 
 namespace Controllers.UI.Windows
 {
@@ -9,22 +9,22 @@ namespace Controllers.UI.Windows
 	{
 		private PreloaderWindowModel Model => base.Model as PreloaderWindowModel;
 		
-		private InputController _inputController;
+		private InputModel _inputModel;
 		private UpdateSystem _updateSystem;
 
 		public PreloaderWindow(WindowsController windowsController, PreloaderWindowModel model) : base(windowsController, model)
 		{
 		}
 		
-		public void Init(InputController inputController, UpdateSystem updateSystem)
+		public void Init(InputModel inputModel, UpdateSystem updateSystem)
 		{
-			_inputController = inputController;
+			_inputModel = inputModel;
 			_updateSystem = updateSystem;
 		}
 		
 		public void Update(float deltaTime)
 		{
-			if (_inputController.IsAnyKeyPressed)
+			if (_inputModel.IsAnyKeyPressed)
 				Close();
 		}
 
