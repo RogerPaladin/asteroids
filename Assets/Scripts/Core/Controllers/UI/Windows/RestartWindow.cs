@@ -11,14 +11,9 @@ namespace Controllers.UI.Windows
 		{
 		}
 
-		public void Init(int score, Action onRestartBtnClick)
+		public void SetData(Action action)
 		{
-			Model.SetScore(score);
-			Model.SetOnRestartBtnCallback(() =>
-			{
-				Close();
-				onRestartBtnClick?.Invoke();
-			});
+			Model.SetOnRestartBtnCallback(action);
 		}
 	}
 }

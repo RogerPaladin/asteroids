@@ -83,7 +83,7 @@ namespace Core
 			var effectsFactory = new EffectsFactory(_updateSystem);
 			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, viewInstantiator);
 
-			_windowsSystem = new WindowsSystem(_windowsContainer);
+			_windowsSystem = new WindowsSystem(_windowsContainer, viewInstantiator);
 
 			var scoreController = new ScoreController(new ScoreModel());
 			var view = viewInstantiator.Instantiate(scoreController.Model);

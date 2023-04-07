@@ -15,7 +15,7 @@ namespace Controllers.UI.Windows
 		{
 		}
 		
-		public void Init(InputModel inputModel, UpdateSystem updateSystem)
+		public void SetData(InputModel inputModel, UpdateSystem updateSystem)
 		{
 			_inputModel = inputModel;
 			_updateSystem = updateSystem;

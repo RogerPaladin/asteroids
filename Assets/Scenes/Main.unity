@@ -465,6 +465,8 @@ MonoBehaviour:
   LaserView: {fileID: 4914354360170369009, guid: f0091929bf79c1b46a1910c9663cda93, type: 3}
   BackgroundView: {fileID: 1532413727329034903, guid: 7e8354cd5dbed074f8a92f715200971d, type: 3}
   EffectScoreView: {fileID: 592495654154551526, guid: 9734a3ca6044da3448e6a421f8860106, type: 3}
+  PreloaderWindowView: {fileID: 1168714872626393803, guid: 61da5d710ff44a04a81503fa75844617, type: 3}
+  RestartWindowView: {fileID: 2654062226364126999, guid: 48e574608bc94fcaaa15ea7283307c20, type: 3}
 --- !u!224 &1585712944 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1864391164930833491, guid: 7376e20206555da4b8652b1e48a73195, type: 3}

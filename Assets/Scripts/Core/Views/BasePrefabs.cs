@@ -6,6 +6,8 @@ using Views.GamePlay.Player;
 using Views.GamePlay.Projectiles.Laser;
 using UnityEngine;
 using Views.GamePlay.Projectiles.Bullet;
+using Views.Windows.Preloader;
+using Views.Windows.Restart;
 
 namespace Views
 {
@@ -19,5 +21,9 @@ namespace Views
 		public ProjectileLaserView LaserView;
 		public BackgroundView BackgroundView;
 		public EffectScoreView EffectScoreView;
+		
+		public PreloaderWindowView PreloaderWindowView;
+		public RestartWindowView RestartWindowView;
+
 	}
 }

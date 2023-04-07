@@ -1,64 +1,57 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Views.Windows;
+using Model;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Views;
 
 namespace Controllers.UI.Windows
 {
 	public class WindowsSystem
 	{
 		private readonly Transform _windowsContainer;
-		
+		private readonly ViewInstantiator _viewInstantiator;
+
 		private AbstractWindow _currentWindow = null;
 
 		private Stack<AbstractWindow> _openWindowsStack { get; set; } = new Stack<AbstractWindow>(10);
-		private Queue<(AbstractWindow, Action<AbstractWindow>)> _windowsQueue { get; } = new Queue<(AbstractWindow, Action<AbstractWindow>)>(10);
 
-		public WindowsSystem(Transform windowsContainer)
+		public WindowsSystem(Transform windowsContainer, ViewInstantiator viewInstantiator)
 		{
 			_windowsContainer = windowsContainer;
+			_viewInstantiator = viewInstantiator;
 		}
 
-		protected T OpenWindow<T>(Action<T> action) where T : AbstractWindow
+		protected T OpenWindow<T>(IModel model) where T : AbstractWindow
 		{
-			var window = GetWindow<T>();
+			var window = GetWindow<T>(model);
+			var view = _viewInstantiator.Instantiate(model);
 
-			if (window == null)
+			if (!view)
 			{
 				Debug.LogError($"Window '{typeof(T).Name}' not found");
 				return null;
 			}
+			
+			view.SetParent(_windowsContainer, false);
+			view.BindModel(window.Model);
 
 			_openWindowsStack.Push(window);
 
 			_currentWindow = window;
-			action?.Invoke(window);
 
 			return window;
 		}
 
-		private T GetWindow<T>() where T : AbstractWindow
+		private T GetWindow<T>(IModel model) where T : AbstractWindow
 		{
 			Type type = typeof(T);
 
-			var prefabName = type.Name + "View";
-
-			var windowView = Resources.Load<AbstractWindowView>($"Windows/{prefabName}");
-							
-			if (windowView)
-			{
-				var viewInstance = Object.Instantiate(windowView, _windowsContainer);
-				T controller = (T)Activator.CreateInstance(type, this, null);
-				viewInstance.BindModel(controller.Model);
-				return controller;
-			}
-			
-			throw new Exception($"Window not found {prefabName}!");
+			T controller = (T)Activator.CreateInstance(type, this, model);
+			return controller;
 		}
 		
-		public T ShowWindow<T>(bool closeAllOther = false, Action<T> action = null, bool minimizeTopScreen = true) where T : AbstractWindow
+		public T ShowWindow<T>(IModel model, bool closeAllOther = false, bool minimizeTopScreen = true) where T : AbstractWindow
 		{
 			if (closeAllOther)
 			{
@@ -69,8 +62,8 @@ namespace Controllers.UI.Windows
 			}
 			else if (minimizeTopScreen)
 				MinimizeTopScreen();
-
-			return OpenWindow(action);
+			
+			return OpenWindow<T>(model);
 		}
 
 		public void CloseCommand()
@@ -131,7 +124,6 @@ namespace Controllers.UI.Windows
 			else
 			{
 				_currentWindow = null;
-				DisplayWindowInQueueIfAny();
 			}
 		}
 		
@@ -173,22 +165,5 @@ namespace Controllers.UI.Windows
 			if (topScreen)
 				OnTopScreenClose();
 		}
-		
-		protected bool DisplayWindowInQueueIfAny()
-		{
-			if (_windowsQueue.Count <= 0) return false;
-			if (_currentWindow == null) return false;
-
-			var (window, action) = _windowsQueue.Dequeue();
-			while (window == null && _windowsQueue.Count > 0)
-			{
-				(window, action) = _windowsQueue.Dequeue();
-			}
-			if (window == null) return false;
-
-			OpenWindow(action);
-			return true;
-		}
-
 	}
 }

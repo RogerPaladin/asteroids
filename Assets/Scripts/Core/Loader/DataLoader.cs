@@ -1,6 +1,7 @@
 using System;
 using Controllers.UI.Windows;
 using Model.Input;
+using Model.Windows;
 using Static;
 using Utils.Events;
 
@@ -47,7 +48,9 @@ namespace Core.Loader
 
 		private void ShowPreloader()
 		{
-			_preloaderWindow = _windowsSystem.ShowWindow<PreloaderWindow>(false, w => w.Init(_inputModel, _updateSystem));
+			var model = new PreloaderWindowModel();
+			_preloaderWindow = _windowsSystem.ShowWindow<PreloaderWindow>(model);
+			_preloaderWindow.SetData(_inputModel, _updateSystem);
 			Progress = 0;
 		}
 

@@ -7,10 +7,12 @@ using Model.Player;
 using Model.Projectiles;
 using Model.Score;
 using Model.WeaponInfo;
+using Model.Windows;
 using Static.Enemies;
 using Static.Weapons;
 using Views.GamePlay.Projectiles;
 using Views.Hud;
+using Views.Windows.Preloader;
 using Object = UnityEngine.Object;
 
 namespace Views
@@ -66,6 +68,10 @@ namespace Views
 				}
 				case PlayerShipModel:
 					return Object.Instantiate(_basePrefabs.PlayerShipView);
+				case PreloaderWindowModel:
+					return Object.Instantiate(_basePrefabs.PreloaderWindowView);
+				case RestartWindowModel:
+					return Object.Instantiate(_basePrefabs.RestartWindowView);
 				case PlayerInfoModel:
 					return _hudView.PlayerInfoView;				
 				case ScoreModel:

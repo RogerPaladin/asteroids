@@ -19,18 +19,7 @@ namespace Controllers.UI.Windows
 		public AbstractWindow(WindowsSystem windowsSystem, AbstractWindowModel model)
 		{
 			System = windowsSystem;
-
-			if (model == null)
-			{
-				var type = GetType();
-				var constructors = type.GetConstructors();
-				var ctor = constructors[0];
-				var parameters = ctor.GetParameters();
-				Type modelRuntimeType = parameters[1].ParameterType;
-				Model = (AbstractWindowModel)Activator.CreateInstance(modelRuntimeType);
-			}
-			else
-				Model = model;
+			Model = model;
 		}
 
 		public virtual void Close()

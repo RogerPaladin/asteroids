@@ -11,6 +11,7 @@ using Factories.Player;
 using Model.Background;
 using Model.Enemies;
 using Model.ViewPort;
+using Model.Windows;
 using UnityEngine;
 using Utils.Events;
 using Views;
@@ -128,7 +129,13 @@ namespace Controllers.Game
 			
 			RemoveLevelEventListeners();
 
-			_windowsSystem.ShowWindow<RestartWindow>(false, w => w.Init(_currentLevel.Score.Value, StartLevel));
+			var model = new RestartWindowModel(_currentLevel.Score.Value);
+			var window = _windowsSystem.ShowWindow<RestartWindow>(model);
+			window.SetData(() =>
+			{
+				window.Close();
+				StartLevel();
+			});
 		}
 	}
 }
