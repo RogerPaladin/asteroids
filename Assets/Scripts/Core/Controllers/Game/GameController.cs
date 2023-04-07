@@ -130,7 +130,9 @@ namespace Controllers.Game
 			RemoveLevelEventListeners();
 
 			var model = new RestartWindowModel(_currentLevel.Score.Value);
-			var window = _windowsSystem.ShowWindow<RestartWindow>(model);
+			var view = _viewInstantiator.Instantiate(model);
+			view.BindModel(model);
+			var window = _windowsSystem.ShowWindow<RestartWindow>(model, view);
 			window.SetData(() =>
 			{
 				window.Close();

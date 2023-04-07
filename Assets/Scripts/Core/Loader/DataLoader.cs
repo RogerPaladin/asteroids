@@ -4,6 +4,7 @@ using Model.Input;
 using Model.Windows;
 using Static;
 using Utils.Events;
+using Views;
 
 namespace Core.Loader
 {
@@ -12,6 +13,7 @@ namespace Core.Loader
 		private readonly WindowsSystem _windowsSystem;
 		private readonly InputModel _inputModel;
 		private readonly UpdateSystem _updateSystem;
+		private readonly ViewInstantiator _viewInstantiator;
 		private readonly StaticData _staticData;
 		
 		private PreloaderWindow _preloaderWindow;
@@ -28,11 +30,12 @@ namespace Core.Loader
 			}
 		}
 		
-		public DataLoader(WindowsSystem windowsSystem, InputModel inputModel, UpdateSystem updateSystem, StaticData staticData)
+		public DataLoader(WindowsSystem windowsSystem, InputModel inputModel, UpdateSystem updateSystem, ViewInstantiator viewInstantiator, StaticData staticData)
 		{
 			_windowsSystem = windowsSystem;
 			_inputModel = inputModel;
 			_updateSystem = updateSystem;
+			_viewInstantiator = viewInstantiator;
 			_staticData = staticData;
 		}
 
@@ -49,7 +52,9 @@ namespace Core.Loader
 		private void ShowPreloader()
 		{
 			var model = new PreloaderWindowModel();
-			_preloaderWindow = _windowsSystem.ShowWindow<PreloaderWindow>(model);
+			var view = _viewInstantiator.Instantiate(model);
+			view.BindModel(model);
+			_preloaderWindow = _windowsSystem.ShowWindow<PreloaderWindow>(model, view);
 			_preloaderWindow.SetData(_inputModel, _updateSystem);
 			Progress = 0;
 		}

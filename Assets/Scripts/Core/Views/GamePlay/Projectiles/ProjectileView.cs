@@ -6,7 +6,7 @@ using Utils.Collisions;
 
 namespace Views.GamePlay.Projectiles
 {
-	public abstract class ProjectileView: AbstractViewWithMovementObserver, IProjectileView, IActivateDeactivate
+	public abstract class ProjectileView: AbstractViewWithMovementObserver<ProjectileModel>, IProjectileView, IActivateDeactivate
 	{
 		[SerializeField] private Collider2D _collider;
 		
@@ -14,8 +14,6 @@ namespace Views.GamePlay.Projectiles
 		private AbstractProjectileController _controller;
 		
 		public Collider2D Collider => _collider;
-
-		public ProjectileModel Model => base.Model as ProjectileModel;
 
 		protected override void AfterAwake()
 		{

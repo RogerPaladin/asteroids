@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Views
 {
-	public abstract class AbstractView : MonoBehaviour, IView
+	public abstract class AbstractView<T> : MonoBehaviour, IView where T : IModel
 	{
-		public IModel Model { get; protected set; }
+		protected T Model { get; private set; }
 
 		private void Awake()
 		{
 			AfterAwake();
 		}
 
-		public void BindModel(IModel model)
+		public void BindModel(T model)
 		{
 			RemoveListeners();
 			
@@ -20,7 +20,7 @@ namespace Views
 		
 			AddListeners();
 
-			OnBindComplete();
+			SyncModel();
 		}
 		
 		public void SetParent(Transform parent, bool worldPositionStays = true)
@@ -49,12 +49,7 @@ namespace Views
 		{
 			RemoveListeners();
 			
-			Model = null;
-		}
-		
-		protected virtual void OnBindComplete()
-		{
-			SyncModel();
+			Model = default;
 		}
 		
 		protected abstract void AddChildListeners();

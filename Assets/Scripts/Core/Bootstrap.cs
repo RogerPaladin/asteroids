@@ -41,6 +41,7 @@ namespace Core
 		private UpdateSystem _updateSystem;
 		private WindowsSystem _windowsSystem;
 		private InputController _inputController;
+		private ViewInstantiator _viewInstantiator;
 
 		private void Awake()
 		{
@@ -66,7 +67,7 @@ namespace Core
 			
 			
 			_staticData = new StaticData();
-			var viewInstantiator = new ViewInstantiator(_basePrefabs, _hudView);
+			_viewInstantiator = new ViewInstantiator(_basePrefabs, _hudView);
 
 			var viewPortModel = new ViewPortModel();
 			var viewPortController = new ViewPortController(viewPortModel);
@@ -75,29 +76,29 @@ namespace Core
 
 			var projectilesFactory = new ProjectilesFactory(_updateSystem, viewPortController);
 			var enemyFactory = new EnemyFactory(_updateSystem, _camera);
-			var projectilesSpawner = new ProjectilesSpawner(projectilesFactory, gameContainer, viewInstantiator);
+			var projectilesSpawner = new ProjectilesSpawner(projectilesFactory, gameContainer, _viewInstantiator);
 			var weaponsFactory = new WeaponsFactory(_staticData, projectilesSpawner, timerSystem);
 			var playerShipFactory = new PlayerShipFactory(_staticData, _inputController.Model, weaponsFactory, _updateSystem, viewPortController);
-			var enemiesSpawner = new EnemiesSpawner(_staticData, enemyFactory, viewPortController, timerSystem, gameContainer, viewInstantiator);
+			var enemiesSpawner = new EnemiesSpawner(_staticData, enemyFactory, viewPortController, timerSystem, gameContainer, _viewInstantiator);
 			var levelFactory = new LevelFactory();
 			var effectsFactory = new EffectsFactory(_updateSystem);
-			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, viewInstantiator);
+			var effectsSpawner = new EffectsSpawner(_staticData, effectsFactory, _effectsContainer, _viewInstantiator);
 
-			_windowsSystem = new WindowsSystem(_windowsContainer, viewInstantiator);
+			_windowsSystem = new WindowsSystem(_windowsContainer, _viewInstantiator);
 
 			var scoreController = new ScoreController(new ScoreModel());
-			var view = viewInstantiator.Instantiate(scoreController.Model);
+			var view = _viewInstantiator.Instantiate(scoreController.Model);
 			view.BindModel(scoreController.Model);
 
 			var playerInfoController = new PlayerInfoController(new PlayerInfoModel(), viewPortController);
 			var weaponInfoController = new WeaponInfoController();
 
-			_gameController = new GameController(levelFactory, playerShipFactory, _windowsSystem, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, viewInstantiator, _camera, viewPortModel);
+			_gameController = new GameController(levelFactory, playerShipFactory, _windowsSystem, enemiesSpawner, effectsSpawner, scoreController, playerInfoController,  weaponInfoController, gameContainer, _updateSystem, _viewInstantiator, _camera, viewPortModel);
 		}
 		
 		private void StartLoad()
 		{
-			var dataLoader = new DataLoader(_windowsSystem, _inputController.Model, _updateSystem, _staticData);
+			var dataLoader = new DataLoader(_windowsSystem, _inputController.Model, _updateSystem, _viewInstantiator, _staticData);
 			dataLoader.StartLoad(OnCompleteLoad);
 		}
 

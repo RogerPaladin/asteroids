@@ -106,7 +106,7 @@ namespace Factories.Enemies
 			if (enemy == null)
 			{
 				enemy = _enemyFactory.Create(config, _playerShipModel, _viewPortController);
-				var view = (IEnemyView)_viewInstantiator.Instantiate(enemy.Model);
+				var view = _viewInstantiator.Instantiate(enemy.Model);
 				view.BindModel(enemy.Model);
 				view.SetParent(_gameContainer);
 				view.OnCollisionEvent += enemy.OnCollision;
