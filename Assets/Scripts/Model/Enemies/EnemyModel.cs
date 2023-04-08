@@ -18,7 +18,7 @@ namespace Model.Enemies
 		
 		public Vector2 PlayerPosition => _playerShipModel.Position.Value;
 		
-		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
+		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
 		public EnemyModel(EnemyConfig config, PlayerShipModel playerShipModel)
 		{

@@ -22,7 +22,7 @@ namespace Model.Player
 
 		public Vector2 ProjectileSpawnPosition => Position.Value + (Vector2)(Rotation.Value * _projectileLocalSpawnPoint);
 		
-		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
+		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
 		public PlayerShipModel(PlayerConfig config)
 		{

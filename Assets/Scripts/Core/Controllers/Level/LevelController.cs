@@ -3,11 +3,9 @@ using Controllers.Enemies;
 using Controllers.Player;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
-using Factories.Effects.Score;
 using Factories.Enemies;
 using Model.Enemies;
 using Model.WeaponInfo;
-using UnityEngine;
 using Utils.Reactivity;
 using Views;
 
@@ -21,9 +19,8 @@ namespace Controllers.Level
 		private readonly PlayerInfoController _playerInfoController;
 		private readonly WeaponInfoController _weaponInfoController;
 		private readonly ViewInstantiator _viewInstantiator;
-		private readonly Camera _camera;
 
-		public Observable<int> Score { get; private set; } = new Observable<int>(0);
+		public Observable<int> Score { get; } = new Observable<int>(0);
 
 		public event Action OnLoseEvent;
 		public event Action<EnemyModel> OnEnemyDestroyEvent;
@@ -33,8 +30,7 @@ namespace Controllers.Level
 							   ScoreController scoreController, 
 							   PlayerInfoController playerInfoController,
 							   WeaponInfoController weaponInfoController,
-							   ViewInstantiator viewInstantiator,
-							   Camera camera)
+							   ViewInstantiator viewInstantiator)
 		{
 			_playerShipController = playerShipController;
 			_enemiesSpawner = enemiesSpawner;
@@ -42,7 +38,6 @@ namespace Controllers.Level
 			_playerInfoController = playerInfoController;
 			_weaponInfoController = weaponInfoController;
 			_viewInstantiator = viewInstantiator;
-			_camera = camera;
 
 			_enemiesSpawner.SetPlayerShipModel(_playerShipController.Model);
 		}

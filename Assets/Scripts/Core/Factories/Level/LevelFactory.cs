@@ -3,7 +3,6 @@ using Controllers.Player;
 using Controllers.UI.Hud.PlayerInfo;
 using Controllers.UI.Hud.Score;
 using Factories.Enemies;
-using UnityEngine;
 using Views;
 
 namespace Factories.Level
@@ -15,12 +14,11 @@ namespace Factories.Level
 									  ScoreController scoreController,
 									  PlayerInfoController playerInfoController,
 									  WeaponInfoController weaponInfoController,
-									  ViewInstantiator viewInstantiator,
-									  Camera camera)
+									  ViewInstantiator viewInstantiator)
 
 		{
 			return new LevelController(playerShipController, enemiesSpawner, scoreController,
-									   playerInfoController, weaponInfoController, viewInstantiator, camera);
+									   playerInfoController, weaponInfoController, viewInstantiator);
 		}
 	}
 }

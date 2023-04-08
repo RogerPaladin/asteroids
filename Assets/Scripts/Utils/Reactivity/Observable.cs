@@ -8,14 +8,10 @@ namespace Utils.Reactivity
 		
 		public T Value
 		{
-			get
-			{
-				return _value;
-			}
+			get => _value;
 			set
 			{
 				_value = value;
-				
 				Changed?.Invoke(_value);
 			}
 		}
@@ -25,11 +21,6 @@ namespace Utils.Reactivity
 		public Observable(T obj)
 		{
 			_value = obj;
-		}
-
-		public void Notify()
-		{
-			Changed?.Invoke(_value);
 		}
 	}
 }

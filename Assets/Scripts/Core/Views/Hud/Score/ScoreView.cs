@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Views.Hud.Score
 {
-	public class ScoreView: AbstractView<ScoreModel>, IScoreView
+	public class ScoreView: AbstractView<ScoreModel>
 	{
 		[SerializeField] private TextMeshProUGUI _scoreCount;
 

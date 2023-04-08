@@ -9,7 +9,7 @@ namespace Controllers.Effects
 	public abstract class AbstractEffectController: IUpdateListener, IActivateDeactivate
 	{
 		private readonly UpdateSystem _updateSystem;
-		public EffectModel Model { get; private set; }
+		public EffectModel Model { get; }
 
 		public event Action<AbstractEffectController> OnDestroyEvent;
 

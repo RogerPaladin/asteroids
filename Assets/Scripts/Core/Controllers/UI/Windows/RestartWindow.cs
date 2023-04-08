@@ -15,5 +15,10 @@ namespace Controllers.UI.Windows
 		{
 			Model.SetOnRestartBtnCallback(action);
 		}
+
+		protected override void OnClose()
+		{
+			Model.SetOnRestartBtnCallback(null);
+		}
 	}
 }

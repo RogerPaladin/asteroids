@@ -5,7 +5,6 @@ using Core.Controllers.ViewPort;
 using Model.Enemies;
 using Model.Player;
 using Static.Enemies;
-using UnityEngine;
 using Utils.Events;
 
 namespace Factories.Enemies
@@ -13,12 +12,10 @@ namespace Factories.Enemies
 	public class EnemyFactory
 	{
 		private readonly UpdateSystem _updateSystem;
-		private readonly Camera _camera;
 
-		public EnemyFactory(UpdateSystem updateSystem, Camera camera)
+		public EnemyFactory(UpdateSystem updateSystem)
 		{
 			_updateSystem = updateSystem;
-			_camera = camera;
 		}
 
 		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel, ViewPortController viewPortController)

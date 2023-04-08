@@ -10,7 +10,7 @@ namespace Model.WeaponInfo
 
 		public Observable<int> AmmoCount => _model.AmmoCount;
 		public Observable<float> CurrentRefreshTimeLeft => _model.CurrentRefreshTimeLeft;
-		public Observable<bool> NeedShowHideTimerPanel { get; private set; } = new Observable<bool>(false);
+		public Observable<bool> NeedShowHideTimerPanel { get; } = new Observable<bool>(false);
 
 		public WeaponInfoModel(WeaponModel model)
 		{

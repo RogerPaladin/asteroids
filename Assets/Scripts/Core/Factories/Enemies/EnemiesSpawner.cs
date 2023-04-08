@@ -9,7 +9,6 @@ using UnityEngine;
 using Utils.Events;
 using Utils.Spawner;
 using Views;
-using Views.GamePlay.Enemies;
 
 namespace Factories.Enemies
 {
@@ -21,11 +20,10 @@ namespace Factories.Enemies
 		private readonly TimerSystem _timerSystem;
 		private readonly Transform _gameContainer;
 		private readonly ViewInstantiator _viewInstantiator;
+		private readonly EnemySpawnTimerList _enemySpawnTimerList;
+		private readonly ViewPortController _viewPortController;
 
 		private PlayerShipModel _playerShipModel;
-
-		private readonly EnemySpawnTimerList _enemySpawnTimerList;
-		private ViewPortController _viewPortController;
 
 		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, ViewPortController viewPortController, TimerSystem timerSystem, Transform gameContainer, ViewInstantiator viewInstantiator)
 		{
@@ -68,8 +66,8 @@ namespace Factories.Enemies
 		{
 			_timerSystem.RemoveListener(this);
 		}
-		
-		public void InitialSpawn()
+
+		private void InitialSpawn()
 		{
 			_enemySpawnTimerList.SetEnemiesData(_staticData.EnemiesData);
 

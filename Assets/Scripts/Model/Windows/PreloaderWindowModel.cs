@@ -11,7 +11,7 @@ namespace Model.Windows
 		
 		public void SetProgress(int progress)
 		{
-			Progress = Progress;
+			Progress.Value = progress;
 		}
 
 		public void OnCompleteLoad()

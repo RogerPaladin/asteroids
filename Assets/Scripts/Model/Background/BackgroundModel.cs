@@ -9,7 +9,7 @@ namespace Model.Background
 		private Vector2 _lastScreenSize = Vector2.zero;
 		private float _lastOrthographicSize = 0f;
 		
-		public Observable<Vector2> BackgroundSize { get; private set; } = new Observable<Vector2>(Vector2.zero);
+		public Observable<Vector2> BackgroundSize { get; } = new Observable<Vector2>(Vector2.zero);
 
 		public bool WasScreenChange(Vector2 newScreenSize, float newOrthographicSize)
 		{

@@ -6,7 +6,7 @@ namespace Model.Projectiles.Laser
 {
 	public class ProjectileLaserModel: ProjectileModel
 	{
-		public Observable<Vector2> GrowSize { get; private set; } = new Observable<Vector2>(Vector2.zero);
+		public Observable<Vector2> GrowSize { get; } = new Observable<Vector2>(Vector2.zero);
 		public float GrowTime { get; private set; }
 
 		public bool NeedGrow => GrowTime > 0;

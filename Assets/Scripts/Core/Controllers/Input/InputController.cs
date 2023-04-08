@@ -4,7 +4,7 @@ namespace Core.Controllers.Input
 {
 	public class InputController
 	{
-		public InputModel Model { get; private set; }
+		public InputModel Model { get; }
 
 		public InputController(InputModel model)
 		{

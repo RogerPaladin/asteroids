@@ -12,7 +12,7 @@ namespace Model.Effects
 		
 		public float LifeTime { get; private set; }
 		
-		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
+		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 		
 		public string ModelId => Config.ModelId;
 		public float Time => Config.Time;

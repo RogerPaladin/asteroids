@@ -15,7 +15,7 @@ namespace Controllers.Player
 		private readonly InputModel _inputModel;
 		private readonly UpdateSystem _updateSystem;
 		private readonly ViewPortController _viewPortController;
-		public PlayerShipModel Model { get; private set; }
+		public PlayerShipModel Model { get; }
 
 		public AbstractWeaponController WeaponFirst { get; private set; }
 		public AbstractWeaponController WeaponSecond { get; private set; }
@@ -149,11 +149,6 @@ namespace Controllers.Player
 		private void OnDestroy()
 		{
 			OnDestroyEvent?.Invoke();
-		}
-
-		public void RemoveListeners()
-		{
-			
 		}
 
 		public void SetProjectileSpawnPoint(Vector3 position)

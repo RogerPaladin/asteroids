@@ -19,7 +19,7 @@ namespace Model.Projectiles
 		public bool IsHaveCollision { get; private set; }
 		public ICollisionDetector CurrentCollision { get; private set; }
 		
-		public Observable<bool> IsActive { get; private set; } = new Observable<bool>(false);
+		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
 		public ProjectileModel(WeaponConfig config)
 		{

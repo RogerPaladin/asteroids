@@ -9,7 +9,7 @@ namespace Controllers.Weapons
 {
 	public abstract class AbstractWeaponController : ITimerListener, IDisposable, IActivateDeactivate
 	{
-		public WeaponModel Model { get; private set; }
+		public WeaponModel Model { get; }
 		private readonly PlayerShipModel _playerShipModel;
 		private readonly ProjectilesSpawner _projectilesSpawner;
 		

@@ -8,38 +8,38 @@ namespace Controllers.Background
 {
 	public class BackgroundController : IUpdateListener, IActivateDeactivate
 	{
-		public readonly BackgroundModel Model;
+		private readonly BackgroundModel _model;
 		
 		private readonly UpdateSystem _updateSystem;
 		private readonly ViewPortModel _viewPortModel;
 
 		public BackgroundController(BackgroundModel model, UpdateSystem updateSystem, ViewPortModel viewPortModel)
 		{
-			Model = model;
+			_model = model;
 			_updateSystem = updateSystem;
 			_viewPortModel = viewPortModel;
 		}
 
 		public void Update(float deltaTime)
 		{
-			if (!Model.WasScreenChange(new Vector2(_viewPortModel.ScreenWidth, _viewPortModel.ScreenHeight), _viewPortModel.OrthographicSize))
+			if (!_model.WasScreenChange(new Vector2(_viewPortModel.ScreenWidth, _viewPortModel.ScreenHeight), _viewPortModel.OrthographicSize))
 				return;
 			
 			float cameraHeight = _viewPortModel.OrthographicSize * 2;
 			float cameraWidth = cameraHeight * _viewPortModel.ScreenWidth / _viewPortModel.ScreenHeight;
 
-			Model.SetBackgroundSize(new Vector2(cameraWidth, cameraHeight));
+			_model.SetBackgroundSize(new Vector2(cameraWidth, cameraHeight));
 		}
 
 		public void Activate()
 		{
-			Model.Activate();
+			_model.Activate();
 			_updateSystem.AddListener(this);
 		}
 
 		public void Deactivate()
 		{
-			Model.Deactivate();
+			_model.Deactivate();
 			_updateSystem.RemoveListener(this);
 		}
 	}

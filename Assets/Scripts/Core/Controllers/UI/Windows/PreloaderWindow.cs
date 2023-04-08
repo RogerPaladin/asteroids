@@ -41,8 +41,6 @@ namespace Controllers.UI.Windows
 
 		protected override void OnClose()
 		{
-			base.OnClose();
-			
 			_updateSystem.RemoveListener(this);
 		}
 	}

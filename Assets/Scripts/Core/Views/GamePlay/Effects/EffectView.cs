@@ -4,7 +4,7 @@ using Utils;
 
 namespace Views.GamePlay.Effects
 {
-	public abstract class EffectView: AbstractViewWithMovementObserver<EffectModel>, IEffectView, IActivateDeactivate
+	public abstract class EffectView: AbstractViewWithMovementObserver<EffectModel>, IActivateDeactivate
 	{
 		protected override void SyncModel()
 		{

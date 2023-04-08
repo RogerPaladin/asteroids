@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Views.Hud.PlayerInfo
 {
-	public class PlayerInfoView: AbstractView<PlayerInfoModel>, IPlayerInfoView
+	public class PlayerInfoView: AbstractView<PlayerInfoModel>
 	{
 		[SerializeField] private TextMeshProUGUI _coords;
 		[SerializeField] private TextMeshProUGUI _angle;

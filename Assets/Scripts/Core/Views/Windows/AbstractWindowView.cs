@@ -4,15 +4,12 @@ using UnityEngine;
 namespace Views.Windows
 {
 	[RequireComponent(typeof(CanvasGroup))]
-	public abstract class AbstractWindowView: AbstractView<AbstractWindowModel>, IWindowView
+	public abstract class AbstractWindowView: AbstractView<AbstractWindowModel>
 	{
-		protected Animator AnimatorController;
 		protected CanvasGroup CanvasGroup;
-		protected RectTransform Content;
 
 		protected override void AfterAwake()
 		{
-			AnimatorController = GetComponent<Animator>();
 			CanvasGroup = GetComponent<CanvasGroup>();
 		}
 

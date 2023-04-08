@@ -29,6 +29,7 @@ namespace Views
 		}
 
 		protected virtual void AfterAwake() {}
+		
 		protected virtual void AddListeners()
 		{
 			if (Model == null)

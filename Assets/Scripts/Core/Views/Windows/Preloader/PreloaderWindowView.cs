@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Views.Windows.Preloader
 {
-	public class PreloaderWindowView: AbstractWindowView, IPreloaderWindowView
+	public class PreloaderWindowView: AbstractWindowView
 	{
 		[SerializeField] private TextMeshProUGUI _progressText;
 		[SerializeField] private TextMeshProUGUI _pressAnyKeyText;
