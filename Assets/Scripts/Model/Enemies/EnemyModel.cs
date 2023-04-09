@@ -1,5 +1,5 @@
 using Model.Player;
-using Static.Enemies;
+using Static.Catalogs;
 using Utils.MovementObserver;
 using UnityEngine;
 using Utils;
@@ -9,20 +9,20 @@ namespace Model.Enemies
 {
 	public class EnemyModel : ModelMovementObservable, IModel, IActivateDeactivate
 	{
-		private readonly EnemyConfig _config;
+		public readonly EnemyDataCatalog EnemyDataCatalog;
 		private readonly PlayerShipModel _playerShipModel;
 
-		public float Speed => _config.Speed;
-		public int Score => _config.Score;
-		public string ModelId => _config.ModelId;
+		public float Speed => EnemyDataCatalog.Speed;
+		public int Score => EnemyDataCatalog.Score;
+		public string ModelId => EnemyDataCatalog.Type.ToString();
 		
 		public Vector2 PlayerPosition => _playerShipModel.Position.Value;
 		
 		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
-		public EnemyModel(EnemyConfig config, PlayerShipModel playerShipModel)
+		public EnemyModel(EnemyDataCatalog enemyDataCatalog, PlayerShipModel playerShipModel)
 		{
-			_config = config;
+			EnemyDataCatalog = enemyDataCatalog;
 			_playerShipModel = playerShipModel;
 		}
 		

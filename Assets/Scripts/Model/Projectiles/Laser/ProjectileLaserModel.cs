@@ -1,4 +1,4 @@
-using Static.Weapons;
+using Static.Catalogs;
 using UnityEngine;
 using Utils.Reactivity;
 
@@ -10,9 +10,9 @@ namespace Model.Projectiles.Laser
 		public float GrowTime { get; private set; }
 
 		public bool NeedGrow => GrowTime > 0;
-		public float GrowSpeed => Config.ProjectileGrowSpeed;
+		public float GrowSpeed => WeaponDataCatalog.ProjectileGrowSpeed;
 
-		public ProjectileLaserModel(WeaponConfig config) : base(config)
+		public ProjectileLaserModel(WeaponDataCatalog weaponDataCatalog) : base(weaponDataCatalog)
 		{
 		}
 
@@ -21,7 +21,7 @@ namespace Model.Projectiles.Laser
 			base.Activate();
 			
 			GrowSize.Value = Vector2.zero;
-			GrowTime = Config.ProjectileGrowTime;
+			GrowTime = WeaponDataCatalog.ProjectileGrowTime;
 		}
 
 		public void SetGrowSize(Vector2 growSize)

@@ -1,4 +1,4 @@
-using Static.Effects;
+using Static.Catalogs;
 using Utils.Reactivity;
 
 namespace Model.Effects.Score
@@ -7,7 +7,7 @@ namespace Model.Effects.Score
 	{
 		public Observable<int> Score { get; } = new Observable<int>(0);
 		
-		public EffectScoreModel(EffectConfig effectConfig) : base(effectConfig)
+		public EffectScoreModel(EffectDataCatalog effectDataCatalog) : base(effectDataCatalog)
 		{
 		}
 

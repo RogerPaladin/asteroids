@@ -3,36 +3,36 @@ using Controllers.Enemies.Asteroids;
 using Core.Controllers.ViewPort;
 using Core.GamePlay.Enemies;
 using Model.Player;
-using Static;
-using Static.Enemies;
+using Static.Catalogs;
 using UnityEngine;
 using Utils.Events;
 using Utils.Spawner;
 using Views;
+using Views.Catalogs;
+using EnemyType = Static.Catalogs.EnemyType;
 
 namespace Factories.Enemies
 {
-	public class EnemiesSpawner : AbstractSpawner<AbstractEnemyController, EnemyConfig>, ITimerListener
+	public class EnemiesSpawner : AbstractSpawner<AbstractEnemyController, EnemyDataCatalog>, ITimerListener
 	{
-		private readonly StaticData _staticData;
+		private readonly EnemiesDataCatalog _enemiesDataCatalog;
 		private readonly EnemyFactory _enemyFactory;
-		private readonly Camera _camera;
 		private readonly TimerSystem _timerSystem;
 		private readonly Transform _gameContainer;
-		private readonly ViewInstantiator _viewInstantiator;
+		private readonly EnemiesViewCatalog _enemiesViewCatalog;
 		private readonly EnemySpawnTimerList _enemySpawnTimerList;
 		private readonly ViewPortController _viewPortController;
 
 		private PlayerShipModel _playerShipModel;
 
-		public EnemiesSpawner(StaticData staticData, EnemyFactory enemyFactory, ViewPortController viewPortController, TimerSystem timerSystem, Transform gameContainer, ViewInstantiator viewInstantiator)
+		public EnemiesSpawner(EnemiesDataCatalog enemiesDataCatalog, EnemyFactory enemyFactory, ViewPortController viewPortController, TimerSystem timerSystem, Transform gameContainer, EnemiesViewCatalog enemiesViewCatalog)
 		{
-			_staticData = staticData;
+			_enemiesDataCatalog = enemiesDataCatalog;
 			_enemyFactory = enemyFactory;
 			_viewPortController = viewPortController;
 			_timerSystem = timerSystem;
 			_gameContainer = gameContainer;
-			_viewInstantiator = viewInstantiator;
+			_enemiesViewCatalog = enemiesViewCatalog;
 
 			_enemySpawnTimerList = new EnemySpawnTimerList(_active);
 		}
@@ -69,14 +69,14 @@ namespace Factories.Enemies
 
 		private void InitialSpawn()
 		{
-			_enemySpawnTimerList.SetEnemiesData(_staticData.EnemiesData);
+			_enemySpawnTimerList.SetEnemiesData(_enemiesDataCatalog);
 
-			foreach (var enemyConfig in _staticData.EnemiesData.All.Values)
+			foreach (var enemyDataCatalog in _enemiesDataCatalog.Enemies)
 			{
-				for (int i = 0; i < enemyConfig.StartCount; i++)
+				for (int i = 0; i < enemyDataCatalog.StartCount; i++)
 				{
 					var randomPos = _viewPortController.GetRandomPosition(_playerShipModel.Position.Value);
-					Spawn(enemyConfig, randomPos, Quaternion.identity);
+					Spawn(enemyDataCatalog, randomPos, Quaternion.identity);
 				}
 			}
 		}
@@ -85,26 +85,27 @@ namespace Factories.Enemies
 		{
 			_enemySpawnTimerList.OnTimer();
 			
-			var enemyConfigs = _enemySpawnTimerList.TryGetAnyToSpawn();
+			var enemyDataCatalogs = _enemySpawnTimerList.TryGetAnyToSpawn();
 
-			foreach (var enemyConfig in enemyConfigs)
+			foreach (var enemyDataCatalog in enemyDataCatalogs)
 			{
 				var randomPos = _viewPortController.GetRandomPosition(_playerShipModel.Position.Value);
-				Spawn(enemyConfig, randomPos, Quaternion.identity);
+				Spawn(enemyDataCatalog, randomPos, Quaternion.identity);
 			}
 		}
 		
-		public override AbstractEnemyController Spawn(EnemyConfig config, Vector2 pos, Quaternion rotation)
+		public override AbstractEnemyController Spawn(EnemyDataCatalog enemyDataCatalog, Vector2 pos,
+													  Quaternion rotation)
 		{
-			var pool = GetPoolByKey(config.ModelId);
-			var activeList = GetActiveListByKey(config.ModelId);
+			var pool = GetPoolByKey(enemyDataCatalog.Type.ToString());
+			var activeList = GetActiveListByKey(enemyDataCatalog.Type.ToString());
 
 			var enemy = pool.Get();
 
 			if (enemy == null)
 			{
-				enemy = _enemyFactory.Create(config, _playerShipModel, _viewPortController);
-				var view = _viewInstantiator.Instantiate(enemy.Model);
+				enemy = _enemyFactory.Create(enemyDataCatalog, _playerShipModel, _viewPortController);
+				var view = _enemiesViewCatalog.Create(enemy.Model);
 				view.BindModel(enemy.Model);
 				view.SetParent(_gameContainer);
 				view.OnCollisionEvent += enemy.OnCollision;
@@ -132,13 +133,13 @@ namespace Factories.Enemies
 
 		private void OnBigAsteroidDestroy(AbstractEnemyController enemy)
 		{
-			var enemyConfig = _staticData.EnemiesData.GetByType(EnemyType.SMALL_ASTEROID);
+			var enemyDataCatalog = _enemiesDataCatalog.GetByType(EnemyType.SmallAsteroid);
 			
 			for (int i = 0; i < 4; i++)
 			{
 				var angle = 45 + (90 * i);
 				var rotation = Quaternion.Euler(Vector3.forward * angle);
-				Spawn(enemyConfig, enemy.Model.Position.Value, rotation);
+				Spawn(enemyDataCatalog, enemy.Model.Position.Value, rotation);
 			}
 		}
 	}

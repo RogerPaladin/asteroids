@@ -1,9 +1,10 @@
 using System;
+using Static.Windows;
 using Utils.Reactivity;
 
 namespace Model.Windows
 {
-	public class AbstractWindowModel: IModel
+	public abstract class AbstractWindowModel: IModel
 	{
 		public Observable<bool> IsMinimized { get; } = new Observable<bool>(false);
 		public Observable<bool> InteractiveState { get; } = new Observable<bool>(false);
@@ -12,6 +13,8 @@ namespace Model.Windows
 
 		public event Action OnHideStart;
 		public event Action OnHideEnd;
+		
+		public abstract WindowType Type { get; }
 
 		public void Close()
 		{

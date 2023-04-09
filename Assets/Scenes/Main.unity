@@ -444,7 +444,8 @@ MonoBehaviour:
   _hudView: {fileID: 1585712945}
   _windowsContainer: {fileID: 1319089073}
   _effectsContainer: {fileID: 1708895159}
-  _basePrefabs: {fileID: 1409667790}
+  _staticDataCatalog: {fileID: 11400000, guid: 2e153bbfcb9624c4491fe2fbb6d08d66, type: 2}
+  _viewsCatalog: {fileID: 11400000, guid: ffbc23c4e44d95a4f8aca60508f34ca4, type: 2}
 --- !u!114 &1409667790
 MonoBehaviour:
   m_ObjectHideFlags: 0

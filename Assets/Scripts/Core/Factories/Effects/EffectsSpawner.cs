@@ -1,41 +1,42 @@
 using Controllers.Effects;
 using Controllers.Effects.Score;
 using Model.Enemies;
-using Static;
-using Static.Effects;
+using Static.Catalogs;
 using Utils.Spawner;
 using UnityEngine;
-using Views;
+using Views.Catalogs;
+using EffectType = Static.Catalogs.EffectType;
 
 namespace Factories.Effects.Score
 {
-	public class EffectsSpawner : AbstractSpawner<AbstractEffectController, EffectConfig>
+	public class EffectsSpawner : AbstractSpawner<AbstractEffectController, EffectDataCatalog>
 	{
-		private readonly StaticData _staticData;
+		private readonly EffectsDataCatalog _effectsDataCatalog;
 		private readonly EffectsFactory _effectsFactory;
-		private readonly ViewInstantiator _viewInstantiator;
+		private readonly EffectsViewCatalog _effectsViewCatalog;
 		private readonly Transform _effectsContainer;
 
-		public EffectsSpawner(StaticData staticData, EffectsFactory effectsFactory, Transform effectsContainer, ViewInstantiator viewInstantiator)
+		public EffectsSpawner(EffectsDataCatalog effectsDataCatalog, EffectsFactory effectsFactory, Transform effectsContainer, EffectsViewCatalog effectsViewCatalog)
 		{
-			_staticData = staticData;
+			_effectsDataCatalog = effectsDataCatalog;
 			_effectsFactory = effectsFactory;
 			_effectsContainer = effectsContainer;
-			_viewInstantiator = viewInstantiator;
+			_effectsViewCatalog = effectsViewCatalog;
 		}
 		
-		public override AbstractEffectController Spawn(EffectConfig config, Vector2 pos, Quaternion rotation)
+		public override AbstractEffectController Spawn(EffectDataCatalog effectDataCatalog, Vector2 pos,
+													   Quaternion rotation)
 		{
-			var pool = GetPoolByKey(config.ModelId);
-			var activeList = GetActiveListByKey(config.ModelId);
+			var pool = GetPoolByKey(effectDataCatalog.Type.ToString());
+			var activeList = GetActiveListByKey(effectDataCatalog.Type.ToString());
 			
 			var effect = pool.Get();
 
 			if (effect == null)
 			{
-				effect = _effectsFactory.Create(config);
+				effect = _effectsFactory.Create(effectDataCatalog);
 				
-				var view = _viewInstantiator.Instantiate(effect.Model);
+				var view = _effectsViewCatalog.Create(effect.Model);
 				view.BindModel(effect.Model);
 				
 				view.SetParent(_effectsContainer, false);
@@ -54,9 +55,9 @@ namespace Factories.Effects.Score
 
 		public void OnEnemyDestroy(EnemyModel enemyModel)
 		{
-			var config = _staticData.EffectsData.GetByType(EffectType.SCORE);
+			var effectDataCatalog = _effectsDataCatalog.GetByType(EffectType.Score);
 
-			var effect = Spawn(config, enemyModel.Position.Value, Quaternion.identity) as EffectScoreController;
+			var effect = Spawn(effectDataCatalog, enemyModel.Position.Value, Quaternion.identity) as EffectScoreController;
 			effect.SetScore(enemyModel.Score);
 		}
 

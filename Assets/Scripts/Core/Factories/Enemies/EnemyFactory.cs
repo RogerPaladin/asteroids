@@ -4,7 +4,7 @@ using Controllers.Enemies.Ufos;
 using Core.Controllers.ViewPort;
 using Model.Enemies;
 using Model.Player;
-using Static.Enemies;
+using Static.Catalogs;
 using Utils.Events;
 
 namespace Factories.Enemies
@@ -18,17 +18,17 @@ namespace Factories.Enemies
 			_updateSystem = updateSystem;
 		}
 
-		public AbstractEnemyController Create(EnemyConfig config, PlayerShipModel playerShipModel, ViewPortController viewPortController)
+		public AbstractEnemyController Create(EnemyDataCatalog enemyDataCatalog, PlayerShipModel playerShipModel, ViewPortController viewPortController)
 		{
-			var model = new EnemyModel(config, playerShipModel);
+			var model = new EnemyModel(enemyDataCatalog, playerShipModel);
 
-			switch (config.ModelId)
+			switch (enemyDataCatalog.Type)
 			{
-				case EnemyType.BIG_ASTEROID:
+				case EnemyType.BigAsteroid:
 					return new BigAsteroidController(model, _updateSystem, viewPortController);
-				case EnemyType.SMALL_ASTEROID:
+				case EnemyType.SmallAsteroid:
 					return new SmallAsteroidController(model, _updateSystem, viewPortController);
-				case EnemyType.UFO:
+				case EnemyType.Ufo:
 					return new UfoController(model, _updateSystem, viewPortController);
 			}
 

@@ -8,6 +8,8 @@ using Model.Enemies;
 using Model.WeaponInfo;
 using Utils.Reactivity;
 using Views;
+using Views.Hud.PlayerInfo;
+using Views.Hud.WeaponInfo;
 
 namespace Controllers.Level
 {
@@ -18,7 +20,8 @@ namespace Controllers.Level
 		private readonly ScoreController _scoreController;
 		private readonly PlayerInfoController _playerInfoController;
 		private readonly WeaponInfoController _weaponInfoController;
-		private readonly ViewInstantiator _viewInstantiator;
+		private readonly PlayerInfoView _playerInfoView;
+		private readonly WeaponInfoView _weaponInfoView;
 
 		public Observable<int> Score { get; } = new Observable<int>(0);
 
@@ -30,14 +33,16 @@ namespace Controllers.Level
 							   ScoreController scoreController, 
 							   PlayerInfoController playerInfoController,
 							   WeaponInfoController weaponInfoController,
-							   ViewInstantiator viewInstantiator)
+							   PlayerInfoView playerInfoView,
+							   WeaponInfoView weaponInfoView)
 		{
 			_playerShipController = playerShipController;
 			_enemiesSpawner = enemiesSpawner;
 			_scoreController = scoreController;
 			_playerInfoController = playerInfoController;
 			_weaponInfoController = weaponInfoController;
-			_viewInstantiator = viewInstantiator;
+			_playerInfoView = playerInfoView;
+			_weaponInfoView = weaponInfoView;
 
 			_enemiesSpawner.SetPlayerShipModel(_playerShipController.Model);
 		}
@@ -58,16 +63,14 @@ namespace Controllers.Level
 		private void CreatePlayerInfo()
 		{
 			_playerInfoController.SetPlayerShipModel(_playerShipController.Model);
-			var view = _viewInstantiator.Instantiate(_playerInfoController.Model);
-			view.BindModel(_playerInfoController.Model);
+			_playerInfoView.BindModel(_playerInfoController.Model);
 		}
 
 		private void CreateWeaponInfo()
 		{
 			var weaponInfoModel = new WeaponInfoModel(_playerShipController.WeaponSecond.Model);
 			_weaponInfoController.SetModel(weaponInfoModel);
-			var view = _viewInstantiator.Instantiate(weaponInfoModel);
-			view.BindModel(weaponInfoModel);
+			_weaponInfoView.BindModel(weaponInfoModel);
 			_weaponInfoController.Activate();
 		}
 

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using Controllers.Enemies;
-using Static.Enemies;
+using Static.Catalogs;
 
 namespace Core.GamePlay.Enemies
 {
 	public class EnemySpawnTimerList
 	{
-		private Dictionary<string, float> _timers = new Dictionary<string, float>();
+		private Dictionary<EnemyType, float> _timers = new Dictionary<EnemyType, float>();
 		private readonly Dictionary<string, HashSet<AbstractEnemyController>> _active;
-		private EnemiesData _enemiesData;
+		private EnemiesDataCatalog _enemiesDataCatalog;
 
 		public EnemySpawnTimerList(Dictionary<string, HashSet<AbstractEnemyController>> active)
 		{
@@ -20,59 +20,59 @@ namespace Core.GamePlay.Enemies
 			_timers.Clear();
 		}
 		
-		public void SetEnemiesData(EnemiesData enemiesData)
+		public void SetEnemiesData(EnemiesDataCatalog enemiesDataCatalog)
 		{
-			_enemiesData = enemiesData;
+			_enemiesDataCatalog = enemiesDataCatalog;
 
-			foreach (var enemyConfig in _enemiesData.All.Values)
+			foreach (var enemyDataCatalog in _enemiesDataCatalog.Enemies)
 			{
-				if (enemyConfig.Respawn == 0)
+				if (enemyDataCatalog.Respawn == 0)
 					continue;
 				
-				_timers[enemyConfig.ModelId] = 0;
+				_timers[enemyDataCatalog.Type] = 0;
 			}
 		}
 
 		public void OnTimer()
 		{
-			foreach (var enemyConfig in _enemiesData.All.Values)
+			foreach (var enemyDataCatalog in _enemiesDataCatalog.Enemies)
 			{
-				if (enemyConfig.Respawn == 0)
+				if (enemyDataCatalog.Respawn == 0)
 					continue;
 
-				if (!_active.ContainsKey(enemyConfig.ModelId))
+				if (!_active.ContainsKey(enemyDataCatalog.Type.ToString()))
 					continue;
 				
-				var activeList = _active[enemyConfig.ModelId];
+				var activeList = _active[enemyDataCatalog.Type.ToString()];
 				
-				if (activeList.Count < enemyConfig.StartCount)
+				if (activeList.Count < enemyDataCatalog.StartCount)
 				{
-					if (_timers[enemyConfig.ModelId] == 0)
-						_timers[enemyConfig.ModelId] = enemyConfig.Respawn;
+					if (_timers[enemyDataCatalog.Type] == 0)
+						_timers[enemyDataCatalog.Type] = enemyDataCatalog.Respawn;
 					else
-						_timers[enemyConfig.ModelId]--;
+						_timers[enemyDataCatalog.Type]--;
 				}
 			}
 		}
 
-		public HashSet<EnemyConfig> TryGetAnyToSpawn()
+		public HashSet<EnemyDataCatalog> TryGetAnyToSpawn()
 		{
-			var result = new HashSet<EnemyConfig>();
+			var result = new HashSet<EnemyDataCatalog>();
 			
 			foreach (var kv in _timers)
 			{
-				var enemyConfig = _enemiesData.GetByType(kv.Key);
+				var enemyDataCatalog = _enemiesDataCatalog.GetByType(kv.Key);
 				
-				if (!_active.ContainsKey(enemyConfig.ModelId))
+				if (!_active.ContainsKey(enemyDataCatalog.Type.ToString()))
 					continue;
 				
-				var activeList = _active[enemyConfig.ModelId];
+				var activeList = _active[enemyDataCatalog.Type.ToString()];
 				
-				if (activeList.Count >= enemyConfig.StartCount)
+				if (activeList.Count >= enemyDataCatalog.StartCount)
 					continue;
 				
 				if (kv.Value == 0)
-					result.Add(enemyConfig);
+					result.Add(enemyDataCatalog);
 			}
 
 			return result;

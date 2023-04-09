@@ -1,3 +1,4 @@
+using Static.Windows;
 using Utils.Reactivity;
 
 namespace Model.Windows
@@ -8,6 +9,8 @@ namespace Model.Windows
 		
 		public Observable<bool> NeedShowProgressBar { get; private set; } = new Observable<bool>(true);
 		public Observable<bool> NeedShowAnyKeyText { get; private set; } = new Observable<bool>(false);
+
+		public override WindowType Type => WindowType.Preloader;
 		
 		public void SetProgress(int progress)
 		{
@@ -19,5 +22,7 @@ namespace Model.Windows
 			NeedShowProgressBar.Value = false;
 			NeedShowAnyKeyText.Value = true;
 		}
+
+
 	}
 }
