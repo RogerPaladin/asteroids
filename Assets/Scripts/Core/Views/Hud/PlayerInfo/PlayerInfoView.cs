@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Views.Hud.PlayerInfo
 {
+	//todo!!!! одно из преимуществ представлений в MVC - показывать одну и ту же модель по-разному (обычно в пример ставят таблицу и график по данным из таблицы).
+	//todo!!!! Можно подвязаться к данным PlayerShipModel. Подучится одна модель отображается в двух местах (корабль на игровом поле и графический интерфейс в HUD)
+	//todo!!!! Таким образом, PlayerInfoModel и PlayerInfoController можно упразднить, сохранив идею MVC
 	public class PlayerInfoView: AbstractView<PlayerInfoModel>
 	{
 		[SerializeField] private TextMeshProUGUI _coords;

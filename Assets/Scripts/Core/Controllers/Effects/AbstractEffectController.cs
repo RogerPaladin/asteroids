@@ -11,6 +11,7 @@ namespace Controllers.Effects
 		private readonly UpdateSystem _updateSystem;
 		public EffectModel Model { get; }
 
+		//todo!!!! Все ивенты идут в модели. Уменьшаем связность контроллеров
 		public event Action<AbstractEffectController> OnDestroyEvent;
 
 		public AbstractEffectController(EffectModel model, UpdateSystem updateSystem)

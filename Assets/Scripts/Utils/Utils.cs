@@ -4,6 +4,7 @@ namespace Utils
 {
 	public static class Utils
 	{
+		//todo!!!! Утилиты можно схлопнуть, а метод GetNumericTime упростить. + если появятся часы-минуты, лучше писать новые методы, а не делать универсальный. Этот выглядит жутко
 		public static string GetNumericTime(this float time, bool needHours = true, bool needSeconds = true)
 		{
 			var hours = (int) Math.Floor(time / 3600f);
