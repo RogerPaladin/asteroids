@@ -1,8 +1,7 @@
 using Controllers.Effects;
 using Controllers.Effects.Score;
 using Model.Effects.Score;
-using Static.Effects;
-
+using Static.Catalogs;
 using Utils.Events;
 
 namespace Factories.Effects
@@ -16,12 +15,12 @@ namespace Factories.Effects
 			_updateSystem = updateSystem;
 		}
 
-		public AbstractEffectController Create(EffectConfig config)
+		public AbstractEffectController Create(EffectDataCatalog effectDataCatalog)
 		{
-			switch (config.ModelId)
+			switch (effectDataCatalog.Type)
 			{
-				case EffectType.SCORE:
-					var model = new EffectScoreModel(config);
+				case EffectType.Score:
+					var model = new EffectScoreModel(effectDataCatalog);
 					return new EffectScoreController(model, _updateSystem);
 			}
 

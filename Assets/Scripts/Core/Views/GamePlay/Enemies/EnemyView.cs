@@ -1,11 +1,11 @@
 using System;
 using Model.Enemies;
-using UnityEngine;
 using Utils;
+using Utils.Collisions;
 
 namespace Views.GamePlay.Enemies
 {
-	public class EnemyView: AbstractViewWithMovementObserver<EnemyModel>, IActivateDeactivate
+	public class EnemyView: AbstractViewWithMovementObserver<EnemyModel>, IActivateDeactivate, ICollisionDetector
 	{
 		public event Action OnCollisionEvent;
 

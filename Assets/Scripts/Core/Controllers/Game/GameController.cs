@@ -14,8 +14,8 @@ using Model.ViewPort;
 using Model.Windows;
 using UnityEngine;
 using Utils.Events;
-using Views;
-using Views.GamePlay.Player;
+using Views.Catalogs;
+using Views.Hud;
 
 namespace Controllers.Game
 {
@@ -37,7 +37,8 @@ namespace Controllers.Game
 		private LevelController _currentLevel = null;
 		
 		private PlayerShipController _playerShipController;
-		private readonly ViewInstantiator _viewInstantiator;
+		private readonly ViewsCatalog _viewsCatalog;
+		private readonly HudView _hudView;
 
 
 		public GameController(LevelFactory levelFactory,
@@ -50,8 +51,9 @@ namespace Controllers.Game
 							  WeaponInfoController weaponInfoController,
 							  Transform gameContainer,
 							  UpdateSystem updateSystem,
-							  ViewInstantiator viewInstantiator,
-							  ViewPortModel viewPortModel)
+							  ViewPortModel viewPortModel,
+							  ViewsCatalog viewsCatalog,
+							  HudView hudView)
 		{
 			_levelFactory = levelFactory;
 			_playerShipFactory = playerShipFactory;
@@ -63,7 +65,8 @@ namespace Controllers.Game
 			_weaponInfoController = weaponInfoController;
 			_gameContainer = gameContainer;
 			_updateSystem = updateSystem;
-			_viewInstantiator = viewInstantiator;
+			_viewsCatalog = viewsCatalog;
+			_hudView = hudView;
 			_viewPortModel = viewPortModel;
 
 			SetBackground();
@@ -77,7 +80,7 @@ namespace Controllers.Game
 		
 		private void StartLevel()
 		{
-			_currentLevel = _levelFactory.Create(_playerShipController, _enemiesSpawner, _scoreController, _playerInfoController, _weaponInfoController, _viewInstantiator);
+			_currentLevel = _levelFactory.Create(_playerShipController, _enemiesSpawner, _scoreController, _playerInfoController, _weaponInfoController, _hudView.PlayerInfoView, _hudView.WeaponInfoView);
 
 			AddLevelEventListeners();
 			
@@ -88,7 +91,7 @@ namespace Controllers.Game
 		{
 			var backgroundModel = new BackgroundModel();
 			var backgroundController = new BackgroundController(backgroundModel, _updateSystem, _viewPortModel);
-			var view = _viewInstantiator.Instantiate(backgroundModel);
+			var view = _viewsCatalog.BackgroundViewCatalog.Create(backgroundModel);
 			view.BindModel(backgroundModel);
 			view.SetParent(_gameContainer);
 			backgroundController.Activate();
@@ -97,7 +100,7 @@ namespace Controllers.Game
 		private void CreatePlayer()
 		{
 			_playerShipController = _playerShipFactory.Create();
-			var view = _viewInstantiator.Instantiate(_playerShipController.Model);
+			var view = _viewsCatalog.PlayerViewCatalog.Create(_playerShipController.Model);
 			view.SetData(_playerShipController.Model, _playerShipController);
 			view.SetParent(_gameContainer);
 			_playerShipController.SetProjectileSpawnPoint(view.ProjectileSpawnPoint.position);
@@ -128,7 +131,7 @@ namespace Controllers.Game
 			RemoveLevelEventListeners();
 
 			var model = new RestartWindowModel(_currentLevel.Score.Value);
-			var view = _viewInstantiator.Instantiate(model);
+			var view = _viewsCatalog.WindowsViewCatalog.Create(model);
 			view.BindModel(model);
 			var window = _windowsSystem.ShowWindow<RestartWindow>(model, view);
 			window.SetData(() =>

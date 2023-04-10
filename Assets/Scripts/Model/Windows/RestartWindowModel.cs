@@ -1,4 +1,5 @@
 using System;
+using Static.Windows;
 using Utils.Reactivity;
 
 namespace Model.Windows
@@ -7,6 +8,8 @@ namespace Model.Windows
 	{
 		public Observable<int> Score { get; } = new Observable<int>(0);
 		public Observable<Action> OnRestartBtnCallback { get; } = new Observable<Action>(null);
+		
+		public override WindowType Type => WindowType.Restart;
 		
 		public RestartWindowModel(int scoreValue)
 		{

@@ -1,4 +1,4 @@
-using Static.Weapons;
+using Static.Catalogs;
 using Utils;
 using Utils.Events;
 using Utils.Reactivity;
@@ -7,7 +7,7 @@ namespace Model.Weapons
 {
 	public class WeaponModel : IActivateDeactivate
 	{
-		public WeaponConfig Config { get; }
+		public WeaponDataCatalog WeaponDataCatalog { get; }
 		public TimerSystem TimerSystem { get; }
 
 		public Observable<int> AmmoCount { get; } = new Observable<int>(0);
@@ -15,19 +15,19 @@ namespace Model.Weapons
 		
 		public bool CanShoot => HaveUnlimitedAmmo || AmmoCount.Value > 0;
 
-		public bool HaveUnlimitedAmmo => Config.AmmoStartCount < 0;
-		public int AmmoMaxCount => Config.AmmoMaxCount;
-		public float AmmoRefreshTime => Config.AmmoRefresh;
+		public bool HaveUnlimitedAmmo => WeaponDataCatalog.AmmoStartCount < 0;
+		public int AmmoMaxCount => WeaponDataCatalog.AmmoMaxCount;
+		public float AmmoRefreshTime => WeaponDataCatalog.AmmoRefreshTime;
 
-		public WeaponModel(WeaponConfig config, TimerSystem timerSystem)
+		public WeaponModel(WeaponDataCatalog weaponDataCatalog, TimerSystem timerSystem)
 		{
-			Config = config;
+			WeaponDataCatalog = weaponDataCatalog;
 			TimerSystem = timerSystem;
 		}
 
 		public void Activate()
 		{
-			SetAmmo(Config.AmmoStartCount);
+			SetAmmo(WeaponDataCatalog.AmmoStartCount);
 			SetRefreshTime(0);
 		}
 		

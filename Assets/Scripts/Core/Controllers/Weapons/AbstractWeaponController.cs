@@ -68,7 +68,7 @@ namespace Controllers.Weapons
 			if (!Model.CanShoot)
 				return;
 			
-			_projectilesSpawner.Spawn(Model.Config, _playerShipModel.ProjectileSpawnPosition, _playerShipModel.Rotation.Value);
+			_projectilesSpawner.Spawn(Model.WeaponDataCatalog, _playerShipModel.ProjectileSpawnPosition, _playerShipModel.Rotation.Value);
 			
 			if (Model.HaveUnlimitedAmmo)
 				return;

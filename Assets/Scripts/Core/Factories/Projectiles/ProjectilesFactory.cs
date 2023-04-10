@@ -4,7 +4,7 @@ using Controllers.Projectiles.Laser;
 using Core.Controllers.ViewPort;
 using Model.Projectiles;
 using Model.Projectiles.Laser;
-using Static.Weapons;
+using Static.Catalogs;
 using Utils.Events;
 
 namespace Factories.Projectiles
@@ -20,15 +20,15 @@ namespace Factories.Projectiles
 			_viewPortController = viewPortController;
 		}
 
-		public AbstractProjectileController Create(WeaponConfig config)
+		public AbstractProjectileController Create(WeaponDataCatalog weaponDataCatalog)
 		{
-			switch (config.ModelId)
+			switch (weaponDataCatalog.Type)
 			{
-				case WeaponType.BULLET:
-					var bulletModel = new ProjectileModel(config);
+				case WeaponType.Bullet:
+					var bulletModel = new ProjectileModel(weaponDataCatalog);
 					return new ProjectileBulletController(bulletModel, _viewPortController, _updateSystem);
-				case WeaponType.LASER:
-					var projectileLaserModel = new ProjectileLaserModel(config);
+				case WeaponType.Laser:
+					var projectileLaserModel = new ProjectileLaserModel(weaponDataCatalog);
 					return new ProjectileLaserController(projectileLaserModel, _viewPortController, _updateSystem);
 			}
 

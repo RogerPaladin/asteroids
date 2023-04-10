@@ -1,5 +1,4 @@
-using Static.Effects;
-using UnityEngine;
+using Static.Catalogs;
 using Utils;
 using Utils.MovementObserver;
 using Utils.Reactivity;
@@ -8,18 +7,18 @@ namespace Model.Effects
 {
 	public class EffectModel : ModelMovementObservable, IModel, IActivateDeactivate
 	{
-		protected readonly EffectConfig Config;
+		public readonly EffectDataCatalog EffectDataCatalog;
 		
 		public float LifeTime { get; private set; }
 		
 		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 		
-		public string ModelId => Config.ModelId;
-		public float Time => Config.Time;
+		public string ModelId => EffectDataCatalog.Type.ToString();
+		public float Time => EffectDataCatalog.Time;
 
-		public EffectModel(EffectConfig effectConfig)
+		public EffectModel(EffectDataCatalog effectDataCatalog)
 		{
-			Config = effectConfig;
+			EffectDataCatalog = effectDataCatalog;
 		}
 		
 		public virtual void Activate()

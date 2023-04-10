@@ -1,4 +1,4 @@
-using Static.Weapons;
+using Static.Catalogs;
 using Utils;
 using Utils.Collisions;
 using Utils.MovementObserver;
@@ -8,27 +8,27 @@ namespace Model.Projectiles
 {
 	public class ProjectileModel: ModelMovementObservable, IModel, IActivateDeactivate
 	{
-		protected readonly WeaponConfig Config;
+		public readonly WeaponDataCatalog WeaponDataCatalog;
 
 		public float LifeTime { get; private set; }
 		
-		public float Speed => Config.ProjectileSpeed;
-		public string ModelId => Config.ModelId;
-		public bool NeedDestroyOnCollision => Config.ProjectileDestroyOnCollision;
+		public float Speed => WeaponDataCatalog.ProjectileSpeed;
+		public string ModelId => WeaponDataCatalog.Type.ToString();
+		public bool NeedDestroyOnCollision => WeaponDataCatalog.ProjectileNeedDestroyOnCollision;
 		
 		public bool IsHaveCollision { get; private set; }
 		public ICollisionDetector CurrentCollision { get; private set; }
 		
 		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
-		public ProjectileModel(WeaponConfig config)
+		public ProjectileModel(WeaponDataCatalog weaponDataCatalog)
 		{
-			Config = config;
+			WeaponDataCatalog = weaponDataCatalog;
 		}
 
 		public virtual void Activate()
 		{
-			LifeTime = Config.ProjectileLifeTime;
+			LifeTime = WeaponDataCatalog.ProjectileLifeTime;
 
 			IsActive.Value = true;
 		}

@@ -1,4 +1,4 @@
-using Static.Player;
+using Static.Catalogs;
 using UnityEngine;
 using Utils;
 using Utils.Collisions;
@@ -9,13 +9,13 @@ namespace Model.Player
 {
 	public class PlayerShipModel : ModelMovementObservable, IModel, IActivateDeactivate
 	{
-		private readonly PlayerConfig _config;
+		private readonly PlayerDataCatalog _playerDataCatalog;
 		private Vector2 _projectileLocalSpawnPoint;
 
-		public float Acceleration => _config.Acceleration;
-		public float DeAcceleration => _config.DeAcceleration;
-		public float MaxSpeed => _config.MaxSpeed;
-		public float MaxRotationSpeed => _config.MaxRotationSpeed;
+		public float Acceleration => _playerDataCatalog.Acceleration;
+		public float DeAcceleration => _playerDataCatalog.DeAcceleration;
+		public float MaxSpeed => _playerDataCatalog.MaxSpeed;
+		public float MaxRotationSpeed => _playerDataCatalog.MaxRotationSpeed;
 
 		public bool IsHaveCollision { get; private set; }
 		public ICollisionDetector CurrentCollision { get; private set; }
@@ -24,9 +24,9 @@ namespace Model.Player
 		
 		public Observable<bool> IsActive { get; } = new Observable<bool>(false);
 
-		public PlayerShipModel(PlayerConfig config)
+		public PlayerShipModel(PlayerDataCatalog playerDataCatalog)
 		{
-			_config = config;
+			_playerDataCatalog = playerDataCatalog;
 		}
 
 		public void SetProjectileSpawnPoint(Vector2 projectileLocalSpawnPoint)

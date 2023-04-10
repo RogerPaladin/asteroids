@@ -6,30 +6,6 @@ namespace Utils
 {
 	public static class Utils
 	{
-		public static string GetResourcesStaticPath(string filename) => "Static/" + filename;
-		
-		public static T LoadJsonFromResources<T>(string fileName)
-		{
-			var fileInResources = Resources.Load<TextAsset>(GetResourcesStaticPath(fileName));
-			if (!fileInResources)
-				return default;
-
-			if (!string.IsNullOrEmpty(fileInResources.text))
-			{
-				try
-				{
-					return JsonConvert.DeserializeObject<T>(fileInResources.text);
-				}
-				catch (Exception e)
-				{
-					Debug.LogError($"Bad file {GetResourcesStaticPath(fileName)}\n{e.Message}");
-					return default;
-				}
-			}
-
-			return default;
-		}
-		
 		public static string GetNumericTime(this float time, bool needHours = true, bool needSeconds = true)
 		{
 			var hours = (int) Math.Floor(time / 3600f);

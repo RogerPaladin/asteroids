@@ -3,8 +3,9 @@ using Factories.Projectiles;
 using Model.Player;
 using Model.Weapons;
 using Static;
-using Static.Weapons;
+using Static.Catalogs;
 using Utils.Events;
+using WeaponType = Static.Catalogs.WeaponType;
 
 namespace Factories.Weapons
 {
@@ -13,25 +14,25 @@ namespace Factories.Weapons
 		private readonly ProjectilesSpawner _projectilesSpawner;
 		private readonly TimerSystem _timerSystem;
 		
-		private readonly StaticData _staticData;
+		private readonly WeaponsDataCatalog _weaponsDataCatalog;
 
-		public WeaponsFactory(StaticData staticData, ProjectilesSpawner projectilesSpawner, TimerSystem timerSystem)
+		public WeaponsFactory(WeaponsDataCatalog weaponsDataCatalog, ProjectilesSpawner projectilesSpawner, TimerSystem timerSystem)
 		{
-			_staticData = staticData;
+			_weaponsDataCatalog = weaponsDataCatalog;
 			_projectilesSpawner = projectilesSpawner;
 			_timerSystem = timerSystem;
 		}
 
-		public AbstractWeaponController Create(string weaponType, PlayerShipModel playerShipModel)
+		public AbstractWeaponController Create(WeaponType weaponType, PlayerShipModel playerShipModel)
 		{
-			WeaponConfig config = _staticData.WeaponsData.GetByType(weaponType);
-			WeaponModel model = new WeaponModel(config, _timerSystem);
+			WeaponDataCatalog weaponDataCatalog = _weaponsDataCatalog.GetByType(weaponType);
+			WeaponModel model = new WeaponModel(weaponDataCatalog, _timerSystem);
 			
 			switch (weaponType)
 			{
-				case WeaponType.BULLET:
+				case WeaponType.Bullet:
 					return new WeaponBulletController(model, playerShipModel, _projectilesSpawner);
-				case WeaponType.LASER:
+				case WeaponType.Laser:
 					return new WeaponLaserController(model, playerShipModel, _projectilesSpawner);
 			}
 

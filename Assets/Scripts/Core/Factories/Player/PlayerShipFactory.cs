@@ -3,23 +3,22 @@ using Core.Controllers.ViewPort;
 using Factories.Weapons;
 using Model.Input;
 using Model.Player;
-using Static;
-using Static.Weapons;
+using Static.Catalogs;
 using Utils.Events;
 
 namespace Factories.Player
 {
 	public class PlayerShipFactory
 	{
-		private readonly StaticData _staticData;
+		private readonly PlayerDataCatalog _playerDataCatalog;
 		private readonly InputModel _inputModel;
 		private readonly WeaponsFactory _weaponsFactory;
 		private readonly UpdateSystem _updateSystem;
 		private readonly ViewPortController _viewPortController;
 
-		public PlayerShipFactory(StaticData staticData, InputModel inputModel, WeaponsFactory weaponsFactory, UpdateSystem updateSystem, ViewPortController viewPortController)
+		public PlayerShipFactory(PlayerDataCatalog playerDataCatalog, InputModel inputModel, WeaponsFactory weaponsFactory, UpdateSystem updateSystem, ViewPortController viewPortController)
 		{
-			_staticData = staticData;
+			_playerDataCatalog = playerDataCatalog;
 			_inputModel = inputModel;
 			_weaponsFactory = weaponsFactory;
 			_updateSystem = updateSystem;
@@ -28,9 +27,9 @@ namespace Factories.Player
 
 		public PlayerShipController Create()
 		{
-			var model = new PlayerShipModel(_staticData.PlayerConfig);
-			var bulletWeapon = _weaponsFactory.Create(WeaponType.BULLET, model);
-			var laserWeapon = _weaponsFactory.Create(WeaponType.LASER, model);
+			var model = new PlayerShipModel(_playerDataCatalog);
+			var bulletWeapon = _weaponsFactory.Create(WeaponType.Bullet, model);
+			var laserWeapon = _weaponsFactory.Create(WeaponType.Laser, model);
 
 			var result = new PlayerShipController(model, _inputModel, _updateSystem, _viewPortController);
 			
