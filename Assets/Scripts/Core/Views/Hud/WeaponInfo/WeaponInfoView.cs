@@ -5,6 +5,7 @@ using Utils;
 
 namespace Views.Hud.WeaponInfo
 {
+	//todo!!!! тоже самое, что и в PlayerInfoView
 	public class WeaponInfoView: AbstractView<WeaponInfoModel>
 	{
 		[SerializeField] private TextMeshProUGUI _ammoCount;

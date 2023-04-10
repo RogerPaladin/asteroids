@@ -14,6 +14,7 @@ namespace Views.Catalogs
 
 		public WindowViewCatalog GetByType(WindowType type)
 		{
+			//todo!!!! Windows.First(...) также генерирует Exception. Но лучше подумать как в таких справочниках от массива перейти к dictionary. [SerializeField] Dictionary не работает
 			return Windows.FirstOrDefault(e => e.Type == type);
 		}
 		

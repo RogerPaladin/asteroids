@@ -7,6 +7,7 @@ using Views.Catalogs;
 
 namespace Core.Loader
 {
+	//todo класс уже не делает то, чего от него требуют. 
 	public class DataLoader
 	{
 		private readonly WindowsSystem _windowsSystem;

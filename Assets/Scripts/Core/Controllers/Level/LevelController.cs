@@ -23,8 +23,10 @@ namespace Controllers.Level
 		private readonly PlayerInfoView _playerInfoView;
 		private readonly WeaponInfoView _weaponInfoView;
 
+		//todo!!!! в контроллере не должны находиться данные с поведением модели. Вообще в контроллере из публичного только методы получается.
 		public Observable<int> Score { get; } = new Observable<int>(0);
 
+		//todo!!!! также в модель
 		public event Action OnLoseEvent;
 		public event Action<EnemyModel> OnEnemyDestroyEvent;
 
@@ -76,7 +78,6 @@ namespace Controllers.Level
 
 		private void AddListeners()
 		{
-			
 			_playerShipController.OnDestroyEvent += OnPlayerShipDestroy;
 			_enemiesSpawner.OnObjDestroyEvent += OnEnemyDestroy;
 		}
